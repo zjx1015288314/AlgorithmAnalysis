@@ -1,4 +1,4 @@
-package com.zjx.DataStructure.Charpter4;
+package com.zjx.DataStructure.Chapter3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * LeetCode链接:https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/submissions/
  */
-public class sortedListToBST {
+public class SortedListToBST {
     /**
      * 链表节点和树节点
      */
@@ -23,8 +23,47 @@ public class sortedListToBST {
         TreeNode(int x) { val = x; }
     }
 
+
+
     /**
-     * 官方解法,利用findMiddleElement()找到中间节点,并经链表分为左右两段,分为递归地构造左右子树
+     * 方法一:自己思路与官方的思路大致一样,但是在细节的处理方面不够好,看起来代码很乱
+     * @param head
+     * @return
+     */
+    public TreeNode sortedListToBST1(ListNode head) {
+        if(head == null) return null;
+        ListNode mid,end,prev;
+        mid = end = head;
+        prev = null;
+
+        int n = 2;
+        while(end.next != null){
+            n--;
+            end = end.next;
+            if(n == 0){
+                prev = mid;
+                mid = mid.next;
+                n = 2;
+            }
+        }
+        //the root of tree which will be returned
+        TreeNode root = new TreeNode(mid.val);
+
+        //处理只有一个节点的情况
+        if(mid == end) return root;
+        //处理只有两个节点的情况,这里之所以与官网情况不一样是因为该解法的end节点指向最后一个非null节点,导致prev,mid必须要单独考虑两个节点时的情况
+        //否则会造成死循环(一直在处理两个节点);可以像官方解法一样,end节点指向最后的null节点
+        if(mid == head && mid.next == end){
+            root.right = new TreeNode(end.val);
+            return root;
+        }
+        if (prev != null) prev.next = null;
+        root.left = sortedListToBST1(head);
+        root.right = sortedListToBST1(mid.next);
+        return root;
+    }
+    /**
+     * 方法二:官方解法,利用findMiddleElement()找到中间节点,并将链表分为左右两段,分为递归地构造左右子树
      * @param head
      * @return
      */
@@ -73,47 +112,8 @@ public class sortedListToBST {
         node.right = this.sortedListToBST2(mid.next);
         return node;
     }
-
     /**
-     * 自己思路与官方的思路大致一样,但是在细节的处理方面不够好,看起来代码很乱
-     * @param head
-     * @return
-     */
-    public TreeNode sortedListToBST1(ListNode head) {
-        if(head == null) return null;
-        ListNode mid,end,prev;
-        mid = end = head;
-        prev = null;
-
-        int n = 2;
-        while(end.next != null){
-            n--;
-            end = end.next;
-            if(n == 0){
-                prev = mid;
-                mid = mid.next;
-                n = 2;
-            }
-        }
-        //the root of tree which will be returned
-        TreeNode root = new TreeNode(mid.val);
-
-        //处理只有一个节点的情况
-        if(mid == end) return root;
-        //处理只有两个节点的情况,这里之所以与官网情况不一样是因为该解法的end节点指向最后一个非null节点,导致prev,mid必须要单独考虑两个节点时的情况
-        //否则会造成死循环(一直在处理两个节点);可以像官方解法一样,end节点指向最后的null节点
-        if(mid == head && mid.next == end){
-            root.right = new TreeNode(end.val);
-            return root;
-        }
-        if (prev != null) prev.next = null;
-        root.left = sortedListToBST1(head);
-        root.right = sortedListToBST1(mid.next);
-        return root;
-    }
-
-    /**
-     * 官方中序遍历解法,最需要注意的是head如何一步步在递归中前进到合适的位置(将head设置为类的属性是必须的,
+     * 方法三:官方中序遍历解法,最需要注意的是head如何一步步在递归中前进到合适的位置(将head设置为类的属性是必须的,
      * 为了使某一层head的变化影响到上一层),以及为什么不像数组中那样,有if(left == right)这种直接返回的语句?
      * 这样做使得即使只有一个元素,也要进行一次递归,并将head后移
      */

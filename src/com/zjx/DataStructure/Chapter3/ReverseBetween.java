@@ -1,4 +1,4 @@
-package com.zjx.DataStructure.Charpter4;
+package com.zjx.DataStructure.Chapter3;
 
 /**
  * LeetCode链接:https://leetcode-cn.com/problems/reverse-linked-list-ii/solution/fan-zhuan-lian-biao-ii-by-leetcode/
@@ -12,7 +12,7 @@ package com.zjx.DataStructure.Charpter4;
  * 思路:该题有递归与迭代两种方法,迭代方法需要dummy,con,(prev,curr,succ,这三个节点是为了反转链表,只靠前两个则迭代无法继续)
  * 需要注意的是,被反转的子链表的头部就是con.next,为了就是迭代结束时的curr
  */
-public class ReverBetween {
+public class ReverseBetween {
 
     /**
      * 迭代

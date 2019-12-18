@@ -149,7 +149,7 @@ public class AvlTree<T extends Comparable<? super T>> {
         else if (t.left == null)
             return t;
         else
-            return findMin(t.left);
+               return findMin(t.left);
     }
 
 }

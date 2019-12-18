@@ -12,7 +12,7 @@ import java.util.Objects;
  * 相反为false时实现retainAll)
  */
 
-public class removeAllImpl<E>{
+public class RemoveAllImpl<E>{
     //O(M×N)
     public void addAll(Iterable<? extends E> items) {
         MyArrayList myArrayList = new MyArrayList<>();
