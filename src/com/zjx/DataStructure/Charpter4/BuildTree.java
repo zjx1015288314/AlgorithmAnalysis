@@ -1,7 +1,6 @@
 package com.zjx.DataStructure.Charpter4;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 根据一棵树的前序遍历与中序遍历构造二叉树。
@@ -161,13 +160,63 @@ public class BuildTree {
     }
 
     /**
-     * 方法四：耗时最长，最容易想到的方法  但时间复杂度为O(NlogN)  空间复杂度为O(N)
-     *
+     * 方法四：上面的递归方法聚焦于inorder数组，执行分支思想；如果我们聚焦于preorder数组，则可通过迭代来完成。
+     * 具体为：preorder开始的连续m个元素是树的左侧链节点，将其依次入栈，第m+1个元素(存在的话)必然是某个节点的右孩子节点，但具体是
+     * 哪个节点暂且不知道，我们可以从inorder数组中找出来，inorder数组的第一个元素是树的最左边的节点，第二个节点是第一个节点的
+     * 父节点，但第三个节点可能是父节点的父节点(即第三个节点是preorder数组的第m-1个元素),也可能是父节点的右孩子节点(即第三个节点
+     * 是preorder数组的第m+1个元素)。如果是第一种情况则从将栈顶元素弹出，并进入下一次迭代；否则就第三个节点为右孩子构建右子树再入栈、迭代
      * @param preorder
      * @param inorder
      * @return
      */
     public TreeNode buildTree4(int[] preorder, int[] inorder) {
+        if (preorder.length == 0) {
+            return null;
+        }
+        Stack<TreeNode> roots = new Stack<TreeNode>();
+        int pre = 0;
+        int in = 0;
+        //先序遍历第一个值作为根节点
+        TreeNode curRoot = new TreeNode(preorder[pre]);
+        TreeNode root = curRoot;  //这是树的根节点，需要保留并返回
+        roots.push(curRoot);
+        pre++;
+        //遍历前序遍历的数组
+        while (pre < preorder.length) {
+            //出现了当前节点的值和中序遍历数组的值相等，寻找是谁的右子树
+            if (curRoot.val == inorder[in]) {
+                //每次进行出栈，实现倒着遍历
+                while (!roots.isEmpty() && roots.peek().val == inorder[in]) {
+                    curRoot = roots.peek();
+                    roots.pop();
+                    in++;
+                }
+                //设为当前的右孩子
+                curRoot.right = new TreeNode(preorder[pre]);
+                //更新 curRoot
+                curRoot = curRoot.right;
+                roots.push(curRoot);
+                pre++;
+            } else {
+                //否则的话就一直作为左子树
+                curRoot.left = new TreeNode(preorder[pre]);
+                curRoot = curRoot.left;
+                roots.push(curRoot);
+                pre++;
+            }
+        }
+        return root;
+    }
+
+
+    /**
+     * 方法五：耗时最长，最容易想到的方法  但时间复杂度为O(NlogN)  空间复杂度为O(N)
+     *
+     * @param preorder
+     * @param inorder
+     * @return
+     */
+    public TreeNode buildTree5(int[] preorder, int[] inorder) {
         if (preorder.length > 0 && inorder.length > 0) {
             TreeNode root = new TreeNode(preorder[0]);
             //root.val=preorder[0];
@@ -190,5 +239,6 @@ public class BuildTree {
         } else {
             return null;
         }
+
     }
 }
