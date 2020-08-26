@@ -12,16 +12,17 @@ public class Student extends Person {
 //        System.out.println("invoke method(List<Person> list)");
 //        return;
 //    }
-    public static int method(List<Integer> list){
+    public static int method(List<Integer> list) {
         System.out.println("invoke method(List<Student> list)");
         return 1;
     }
-    static class DeadLoopClass{
 
-        static{
+    static class DeadLoopClass {
+
+        static {
             boolean flag = true;
             System.out.println(Thread.currentThread() + "init DeadLoopClass");
-            while(flag){
+            while (flag) {
 
             }
         }
@@ -41,9 +42,9 @@ public class Student extends Person {
         System.out.println(c == d);   //true
         System.out.println(e == f);   //fasle
         System.out.println(c == (a + b));   //true
-        System.out.println(c.equals(a+b));  //true
+        System.out.println(c.equals(a + b));  //true
         System.out.println(g == (a + b));   //true
-        System.out.println(g.equals(a+b));  //fasle
+        System.out.println(g.equals(a + b));  //fasle
 
     }
 

@@ -54,15 +54,14 @@ public class CycleListTest {
      * 现在考虑一个环形链表,把慢指针和快指针想象成两个在环形赛道上跑步的运动员(分别称之为慢跑者与快跑者).而快跑者最
      * 终一定会追上慢跑者.这是为什么呢?考虑下面这种情况(记作情况 A) - 假如快跑者只落后慢跑者一步,在下一次迭代中,它们就会分别跑了一步或两步并相遇
      * 其他情况又会怎样呢?例如,我们没有考虑快跑者在慢跑者之后两步或三步的情况.但其实不难想到,因为在下一次或者下下次迭代后,又会变成上面提到的情况 A
-     *
      */
     public boolean hasCycle2(ListNode head) {
-        ListNode fastNode,slowNode;
+        ListNode fastNode, slowNode;
         fastNode = slowNode = head;
-        while(fastNode != null && fastNode.next != null){
+        while (fastNode != null && fastNode.next != null) {
             fastNode = fastNode.next.next;
             slowNode = slowNode.next;
-            if(fastNode == slowNode) return true;
+            if (fastNode == slowNode) return true;
         }
         return false;
     }

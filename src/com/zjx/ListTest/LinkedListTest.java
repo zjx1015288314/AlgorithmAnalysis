@@ -25,11 +25,11 @@ public class LinkedListTest {
         LinkedList llist = new LinkedList();
         //添加操作,依次添加1,2,3
         llist.add(1);    //LinkedList为泛型类,在声明时如果不指定泛型而使用原生类,则泛型使用泛型的上限(这里是Object)代替
-                         //所以这里看到的是add(Object e),而不是add(E e)
+        //所以这里看到的是add(Object e),而不是add(E e)
         llist.add(2);
         llist.add(3);
         //将“4”添加到第一个位置
-        llist.add(1,4);
+        llist.add(1, 4);
 
         //二）第一次测试开始
         System.out.println("\nTest \" addFirst(), removeFirst(), getFirst() \" ");
@@ -77,12 +77,12 @@ public class LinkedListTest {
 
 
         //以下是不建议的操作
-        llist.set(2,300);
+        llist.set(2, 300);
         System.out.println("\nget(3): " + llist.get(3));
 
         //toArray(T[] a)
         Integer[] arr = (Integer[]) llist.toArray(new Integer[0]);
-        for (int item : arr){
+        for (int item : arr) {
             System.out.println("item: " + item);
         }
 

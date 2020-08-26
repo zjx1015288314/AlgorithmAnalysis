@@ -65,6 +65,7 @@ public class ReentrantLockTestQueuedThread {
 
         private static final long serialVersionUID = 1773716895097002072L;
 
+
         public ReentrantLock2() {
             super();
         }

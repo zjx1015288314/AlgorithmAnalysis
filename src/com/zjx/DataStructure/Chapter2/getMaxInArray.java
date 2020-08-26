@@ -10,15 +10,13 @@ package com.zjx.DataStructure.Chapter2;
 public class getMaxInArray {
 
 
-
-
     //max(a[j]+a[i]的最大值,其中j>=i)
-    public static int f1(int[] a){
+    public static int f1(int[] a) {
         int len = a.length;
         if (len < 2)
             throw new ArrayStoreException("the number of items must be more than 2");
         int max = 0;
-        int maxItem= a[0];
+        int maxItem = a[0];
         for (int i = 0; i < len; i++) {
 
             if (max < a[i] + maxItem)
@@ -27,11 +25,12 @@ public class getMaxInArray {
                 maxItem = a[i];
         }
 
-        System.out.println("max(a[j]+a[i])="+max);
+        System.out.println("max(a[j]+a[i])=" + max);
         return max;
     }
+
     //max(a[j]-a[i]的最大值,其中j>=i)
-    public static int f2(int[] a){
+    public static int f2(int[] a) {
         int len = a.length;
         if (len < 2)
             throw new ArrayStoreException("the number of items must be more than 2");
@@ -48,17 +47,17 @@ public class getMaxInArray {
 
         }
 
-        System.out.println("max(a[j]-a[i])="+max);
+        System.out.println("max(a[j]-a[i])=" + max);
         return max;
     }
 
     //max(a[j]*a[i]的最大值,其中j>=i)
-    public static int f3(int[] a){
+    public static int f3(int[] a) {
         int len = a.length;
         if (len < 2)
             throw new ArrayStoreException("the number of items must be more than 2");
         int max = 0;
-        int maxItem= a[0];
+        int maxItem = a[0];
         for (int i = 0; i < len; i++) {
 
             if (max < a[i] * maxItem)
@@ -67,13 +66,13 @@ public class getMaxInArray {
                 maxItem = a[i];
         }
 
-        System.out.println("max(a[j]*a[i])="+max);
+        System.out.println("max(a[j]*a[i])=" + max);
         return max;
     }
 
 
     //max(a[j]/a[i]的最大值,其中j>=i)
-    public static float f4(int[] a){
+    public static float f4(int[] a) {
         int len = a.length;
         if (len < 2)
             throw new ArrayStoreException("the number of items must be more than 2");
@@ -81,19 +80,19 @@ public class getMaxInArray {
         int low = a[0];
         for (int i = 0; i < len; i++) {
 
-            if (max < (float)a[i] / low)    //必须要加float强制转型,否则两个整数相除的结果只能是整数
-                max = (float)a[i] / low;
+            if (max < (float) a[i] / low)    //必须要加float强制转型,否则两个整数相除的结果只能是整数
+                max = (float) a[i] / low;
             if (a[i] < low)
                 low = a[i];
         }
 
-        System.out.println("max(a[j]/a[i])="+max);
+        System.out.println("max(a[j]/a[i])=" + max);
         return max;
     }
 
 
     public static void main(String[] args) {
-        f4(new int[]{5,4,3,2,1});
+        f4(new int[]{5, 4, 3, 2, 1});
     }
 
 }

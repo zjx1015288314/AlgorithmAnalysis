@@ -131,12 +131,12 @@ public class MyArrayList<T> implements Iterable<T> {
                 throw new NoSuchElementException();
             backwords = true;
             return theItems[--current];   //这里“--current”的意思是返回游标之前的元素,符合previous,因为current始终比
-                                          //对于的元素索引大1
+            //对于的元素索引大1
         }
 
         @Override
         public int nextIndex() {
-           throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException();
         }
 
         @Override
@@ -149,7 +149,7 @@ public class MyArrayList<T> implements Iterable<T> {
             checkForComodification();
             if (backwords)
                 MyArrayList.this.remove(current--);  //当外部类与内部类有重名的方法时,想要在内部类中使用外部类方法,
-                                                    //就要用XXX.this.XXX()
+                //就要用XXX.this.XXX()
             else
                 MyArrayList.this.remove(--current);   //正向移除
             expectedModCount = modCount;
@@ -158,13 +158,13 @@ public class MyArrayList<T> implements Iterable<T> {
         @Override
         public void set(T newVal) {
             checkForComodification();
-            MyArrayList.this.set(current,newVal);
+            MyArrayList.this.set(current, newVal);
         }
 
         @Override
         public void add(T t) {
             checkForComodification();
-            MyArrayList.this.add(current++,t);   //在当前位置添加元素,游标后移(不管当前是正向还是反向)
+            MyArrayList.this.add(current++, t);   //在当前位置添加元素,游标后移(不管当前是正向还是反向)
             expectedModCount = modCount;
         }
 
@@ -178,9 +178,11 @@ public class MyArrayList<T> implements Iterable<T> {
         }
     }
 
-    private Iterator<T> reverseIterator(){ return new ArrayListReverseIterator();}
+    private Iterator<T> reverseIterator() {
+        return new ArrayListReverseIterator();
+    }
 
-    private class ArrayListReverseIterator implements Iterator<T>{
+    private class ArrayListReverseIterator implements Iterator<T> {
 
         private int current = size() - 1;
 

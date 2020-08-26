@@ -14,11 +14,11 @@ public class ArrayListTest {
         arrayList.add(0);
         System.out.println(getArrayListCapacity(arrayList));
 
-        for(int i = 0; i < 10; ++i)
+        for (int i = 0; i < 10; ++i)
             arrayList.add(0);
         System.out.println(getArrayListCapacity(arrayList));
 
-        for(int i = 0; i < 5; ++i)
+        for (int i = 0; i < 5; ++i)
             arrayList.add(0);
         System.out.println(getArrayListCapacity(arrayList));
 
@@ -30,7 +30,7 @@ public class ArrayListTest {
         try {
             Field field = arrayListClass.getDeclaredField("elementData");
             field.setAccessible(true);
-            Object[] objects = (Object[])field.get(arrayList);
+            Object[] objects = (Object[]) field.get(arrayList);
             return objects.length;
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

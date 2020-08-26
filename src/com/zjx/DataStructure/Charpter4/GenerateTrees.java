@@ -6,9 +6,9 @@ import java.util.List;
 
 /**
  * 给定一个整数 n，生成所有由 1 ... n 为节点所组成的二叉搜索树。
- *
+ * <p>
  * 示例:
- *
+ * <p>
  * 输入: 3
  * 输出:
  * [
@@ -20,13 +20,13 @@ import java.util.List;
  * ]
  * 解释:
  * 以上的输出对应以下 5 种不同结构的二叉搜索树：
- *
- *    1         3     3      2      1
- *     \       /     /      / \      \
- *      3     2     1      1   3      2
- *     /     /       \                 \
- *    2     1         2                 3
- *
+ * <p>
+ * 1         3     3      2      1
+ * \       /     /      / \      \
+ * 3     2     1      1   3      2
+ * /     /       \                 \
+ * 2     1         2                 3
+ * <p>
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/unique-binary-search-trees-ii
  */
@@ -41,9 +41,10 @@ public class GenerateTrees {
      * 可以看出，满足此题的二叉搜索树的个数记为卡特兰数，
      * 那么如何构建这棵树?我们对i从1~n进行迭代，每次迭代都将i作为根节点，比i小的作为i的左子树，比i大的作为右子树，其中左右子树的求解
      * 分别使用递归完成，每次迭代都通过for循环嵌套将左右子树的组合添加到根节点上，并记录此次结果
-     *
+     * <p>
      * 时间复杂度：nGn，Gn为卡特兰数，Gn以4^n/n^(3/2)速度增长,因此，总的时间复杂度为O(4^n/n^(1/2))
      * 空间复杂度 :Gn棵树，每个有 n 个元素，共计 nGn，也就是O(4^n/n^(1/2))
+     *
      * @param n
      * @return
      */
@@ -53,6 +54,7 @@ public class GenerateTrees {
         }
         return generate_trees(1, n);
     }
+
     public LinkedList<TreeNode> generate_trees(int start, int end) {
         LinkedList<TreeNode> all_trees = new LinkedList<TreeNode>();
         if (start > end) {
@@ -87,7 +89,6 @@ public class GenerateTrees {
      * 第二步就是沿着现有子树的右侧尝试不断插入。 如果插入以后，n还有子树，那么这些子树都是n的左子树，但第二部实现起来比较
      * 麻烦，因为n的插入方式与右侧链的长度有关
      */
-
 
 
 }

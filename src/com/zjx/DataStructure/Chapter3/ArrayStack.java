@@ -13,31 +13,33 @@ public class ArrayStack<T> {
     private Object[] elementData;
     private int top;  //光标初始化-1
     private int elementCount;
-    public ArrayStack(){
+
+    public ArrayStack() {
         this(10);
     }
-    public ArrayStack(int capacity){
+
+    public ArrayStack(int capacity) {
         elementData = new Object[capacity];
 //        top = -1;
     }
 
     //入栈
-    public void push(T item){
+    public void push(T item) {
         if (!isFull()) {
             elementData[elementCount++] = item;
-        }else{
+        } else {
             elementData = grow();
             elementData[++elementCount] = item;
         }
     }
 
-    public Object[] grow(){
+    public Object[] grow() {
         //这里为了简便先不考虑扩容时候的数组越界问题
-        return elementData = Arrays.copyOf(elementData,elementCount*2);
+        return elementData = Arrays.copyOf(elementData, elementCount * 2);
     }
 
     //出栈
-    public T pop(){
+    public T pop() {
         if (isEmpty())
             throw new EmptyStackException();
         T item = peek();
@@ -47,18 +49,18 @@ public class ArrayStack<T> {
     }
 
     //获取战队元素,但不移除
-    public T peek(){
+    public T peek() {
         if (isEmpty())
             throw new EmptyStackException();
-        return (T) elementData[elementCount-1];
+        return (T) elementData[elementCount - 1];
     }
 
 
-    public boolean isFull(){
+    public boolean isFull() {
         return top == elementData.length;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return top == -1;
     }
 

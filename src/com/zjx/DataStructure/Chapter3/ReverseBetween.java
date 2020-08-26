@@ -8,7 +8,7 @@ package com.zjx.DataStructure.Chapter3;
  * 示例:
  * 输入: 1->2->3->4->5->NULL, m = 2, n = 4
  * 输出: 1->4->3->2->5->NULL
- *
+ * <p>
  * 思路:该题有递归与迭代两种方法,迭代方法需要dummy,con,(prev,curr,succ,这三个节点是为了反转链表,只靠前两个则迭代无法继续)
  * 需要注意的是,被反转的子链表的头部就是con.next,为了就是迭代结束时的curr
  */
@@ -16,14 +16,15 @@ public class ReverseBetween {
 
     /**
      * 迭代
+     *
      * @param head
      * @param m
      * @param n
      * @return
      */
     public static ListNode reverseBetween1(ListNode head, int m, int n) {
-        if(head == null) return head;
-        ListNode dummy,con,succ;
+        if (head == null) return head;
+        ListNode dummy, con, succ;
         dummy = new ListNode(0);
         dummy.next = head;
         con = dummy;
@@ -37,13 +38,13 @@ public class ReverseBetween {
             n--;
         }
 
-        for(int i = m; i < n; i++){
+        for (int i = m; i < n; i++) {
             succ = curr.next;
             curr.next = prev;
             prev = curr;
             curr = succ;
         }
-        if(m < n){
+        if (m < n) {
             con.next.next = curr.next;
             curr.next = prev;
             con.next = curr;
@@ -57,16 +58,16 @@ public class ReverseBetween {
      * 一旦有了这两个指针,我们就可以不断地交换这两个指针指向结点的数据,并将两个指针相向移动,就像字符串的情况那样,然而,
      * 链表中没有向后指针,也没有下标.因此,我们需要使用递归来模拟向后指针.递归中的回溯可以帮助我们模拟一个指针从第 n 个结点向中心移动的移动过程
      * 算法:
-     *      1.我们定义一个递归函数用于反转给定链表的一部分
-     *      2.将函数记为 recurse.该函数使用三个参数: m 为反转的起点, n 为反转的终点, 以及从第 n 个结点开始，随着递归回溯过程向后移动的指针 right
-     *      3.此外，我们还有一个指针 left，它从第 m 个结点开始向前移动.我们需要一个全局变量，值随着递归的进行而改变.在其他函数调用造
-     *      成的变化可以持续的编程语言中，可以考虑将该指针加为函数recurse()的一个变量
-     *      4.在递归调用中，给定 m,n,和 right, 首先判断 n = 1.若判断为真, 则结束
-     *      5.于是,当 n 的值达到 1 时,我们便回溯.这时,right 指针在我们要反转的子链表结尾,left 到达了字列表的开头.于是,我们置换数据,
-     *      并将 left 指针前移:left = left.next.我们需要此变化在回溯过程中保持.
-     *      6.自此，每当我们回溯时,right 指针向后移一位.这就是前文所说的模拟.通过回溯模拟向后移动.
-     *      当 right == left 或者 right.next == left 时停止交换。当子链表的长度为奇数时，情况为前者;当子链表长度为偶数时为后者
-     *      我们使用一个全局 boolean 变量 flag 来停止交换
+     * 1.我们定义一个递归函数用于反转给定链表的一部分
+     * 2.将函数记为 recurse.该函数使用三个参数: m 为反转的起点, n 为反转的终点, 以及从第 n 个结点开始，随着递归回溯过程向后移动的指针 right
+     * 3.此外，我们还有一个指针 left，它从第 m 个结点开始向前移动.我们需要一个全局变量，值随着递归的进行而改变.在其他函数调用造
+     * 成的变化可以持续的编程语言中，可以考虑将该指针加为函数recurse()的一个变量
+     * 4.在递归调用中，给定 m,n,和 right, 首先判断 n = 1.若判断为真, 则结束
+     * 5.于是,当 n 的值达到 1 时,我们便回溯.这时,right 指针在我们要反转的子链表结尾,left 到达了字列表的开头.于是,我们置换数据,
+     * 并将 left 指针前移:left = left.next.我们需要此变化在回溯过程中保持.
+     * 6.自此，每当我们回溯时,right 指针向后移一位.这就是前文所说的模拟.通过回溯模拟向后移动.
+     * 当 right == left 或者 right.next == left 时停止交换。当子链表的长度为奇数时，情况为前者;当子链表长度为偶数时为后者
+     * 我们使用一个全局 boolean 变量 flag 来停止交换
      *
      * @param head
      * @param m
@@ -82,7 +83,7 @@ public class ReverseBetween {
 
     private static boolean stop;
     private static ListNode left;   //这里left与right的处理不一样,两指针向中间靠拢的时候,left是正向移动,right无法反向移动
-                                    //需要通过回溯回到上一层的right指针位置,
+    //需要通过回溯回到上一层的right指针位置,
 
     public static void recurseAndReverse(ListNode right, int m, int n) {
 
@@ -124,9 +125,12 @@ public class ReverseBetween {
 
 
     static class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) { val = x; }
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 
     public static void main(String[] args) {
@@ -136,6 +140,6 @@ public class ReverseBetween {
             test = test.next;
         }
         test.next = null;
-        reverseBetween1(test,2,4);
+        reverseBetween1(test, 2, 4);
     }
 }

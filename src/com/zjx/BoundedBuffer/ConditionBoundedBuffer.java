@@ -12,7 +12,7 @@ public class ConditionBoundedBuffer<T> {
     //条件谓词：notEmpty(Count > 0)
     private final Condition notEmpty = lock.newCondition();
     private final T[] items = (T[]) new Object[BUFFER_SIZE];
-    private int head,tail,count;
+    private int head, tail, count;
 
 
     //阻塞直到notFull
@@ -26,7 +26,7 @@ public class ConditionBoundedBuffer<T> {
                 tail = 0;
             count++;
             notEmpty.signal();  //signal比signalAll更高效,它极大地减少在每次缓存操作中发生的上下文切换，以及锁清秋的次数
-        }finally {
+        } finally {
             lock.unlock();
         }
 
@@ -38,13 +38,13 @@ public class ConditionBoundedBuffer<T> {
         try {
             while (count == 0)
                 notEmpty.await();
-            T t = items[head++  ];
+            T t = items[head++];
             if (head == items.length)
                 head = 0;
             count--;
             notFull.signal();
             return t;
-        }finally {
+        } finally {
             lock.unlock();
         }
 

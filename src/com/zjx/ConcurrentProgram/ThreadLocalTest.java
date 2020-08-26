@@ -17,8 +17,8 @@ public class ThreadLocalTest {
                 }
             } finally {
                 threadLocal.remove();   //ThreadLocalMap中Entry的键是弱引用,即使不使用remove显式移除,
-                                        //ThreadLocal对象也会被JVM回收,而会通过set(ThreadLocal<?> key, Object value),
-                                        //replaceStaleEntry(key, value, i),expungeStaleEntries()将键为null的Entry赋为null
+                //ThreadLocal对象也会被JVM回收,而会通过set(ThreadLocal<?> key, Object value),
+                //replaceStaleEntry(key, value, i),expungeStaleEntries()将键为null的Entry赋为null
             }
         }, "threadLocal1").start();
         new Thread(() -> {

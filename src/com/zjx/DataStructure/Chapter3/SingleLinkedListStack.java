@@ -12,31 +12,34 @@ public class SingleLinkedListStack<T> {
      */
     private Node<T> top;
 
-    public SingleLinkedListStack(){
+    public SingleLinkedListStack() {
         top = null;
     }
 
-    private class Node<T>{
+    private class Node<T> {
         private T data;
         private Node<T> next;
 
-        Node(){
-            this(null,null);
+        Node() {
+            this(null, null);
         }
-        Node(T data){
-            this(data,null);
+
+        Node(T data) {
+            this(data, null);
         }
-        Node(T data,Node<T> next){
+
+        Node(T data, Node<T> next) {
             this.data = data;
             this.next = next;
         }
     }
 
     //入栈
-    public void push(T item){
-        Node<T> node = new Node<>(item,top);
+    public void push(T item) {
+        Node<T> node = new Node<>(item, top);
         top = node;
     }
+
     //出栈
     public T pop() throws Exception {
         if (top == null)
@@ -50,9 +53,9 @@ public class SingleLinkedListStack<T> {
     }
 
     //遍历打印栈
-    public void printStack(){
+    public void printStack() {
         Node<T> node = top;
-        while(node != null){
+        while (node != null) {
             System.out.println(node.data);
             node = node.next;
         }

@@ -47,11 +47,11 @@ public final class TheThirdLab {
         cell1.setItem(4);
         Object cell = cell1;
         Person<String> cell2 = (Person<String>) cell;   //这里不会产生错误，因为cell1-cell-cell2是一个
-                                                        // 由Person-Object-Person的过程(泛型在编译期已经擦除,instanceof类型检测只对原始类进行)，符合类型转换，
-                                                        // 只有在取元素时才会检测a[0]的数据类型
+        // 由Person-Object-Person的过程(泛型在编译期已经擦除,instanceof类型检测只对原始类进行)，符合类型转换，
+        // 只有在取元素时才会检测a[0]的数据类型
 //        String s = cell2.getItem();      //产生运行时错误
 
-        BigInteger  a = new BigInteger("10"),b= new BigInteger("3");
+        BigInteger a = new BigInteger("10"), b = new BigInteger("3");
         BigInteger d = a.mod(b);
         System.out.println(d);
     }

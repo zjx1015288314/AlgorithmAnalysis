@@ -40,6 +40,7 @@ public class ReentrantLockTest {
 
     private static class Job implements Runnable {
         private Lock lock;
+
         public Job(Lock lock) {
             this.lock = lock;
         }

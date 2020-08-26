@@ -18,6 +18,7 @@ public class SplitListToParts {
     public class ListNode {
         int val;
         ListNode next;
+
         ListNode(int x) {
             val = x;
         }
@@ -25,6 +26,7 @@ public class SplitListToParts {
 
     /**
      * 这道题思路是先利用length/k,length%k判断每组有多少个节点，以及有多少剩余节点
+     *
      * @param root
      * @param k
      * @return
@@ -34,7 +36,7 @@ public class SplitListToParts {
         //先统计链表长度
         int length = 0;
         ListNode curr = root;
-        while(curr != null){
+        while (curr != null) {
             length++;
             curr = curr.next;
         }
@@ -42,7 +44,7 @@ public class SplitListToParts {
         int remainder = length % k;
         int quotient = length / k;
         curr = root;
-        for(int i = 0; i < k; i++){
+        for (int i = 0; i < k; i++) {
             //处理分到0个节点的情况;官方题解在这里不一样，创建了一个哑结点，则此处不需要if判断，而是放在for循环里：
             //for (int i = 0; i < k; ++i) {
             //     ListNode head = cur;
@@ -56,15 +58,15 @@ public class SplitListToParts {
             //     }
             //     ans[i] = head;
             //}
-            if(curr == null){
+            if (curr == null) {
                 result[i] = null;
                 continue;
             }
             //根据余数在分组分为两种情况：前面的分组每组会多获得一个节点；后面的分组获得正常的节点数
-            for(int j = 0; j < (i < remainder? quotient : quotient -1); j++)
+            for (int j = 0; j < (i < remainder ? quotient : quotient - 1); j++)
                 curr = curr.next;
             //这里没有if判断也可以,但处理速度会下降
-            if(curr != null){
+            if (curr != null) {
                 ListNode tmp = curr.next;
                 curr.next = null;
                 result[i] = root;

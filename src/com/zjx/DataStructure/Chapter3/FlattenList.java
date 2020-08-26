@@ -6,15 +6,15 @@ package com.zjx.DataStructure.Chapter3;
  * 扁平化列表，使所有结点出现在单级双链表中。您将获得列表第一级的头部。
  * 示例:
  * 输入:
- *  1---2---3---4---5---6--NULL
- *          |
- *          7---8---9---10--NULL
- *              |
- *              11--12--NULL
- *
+ * 1---2---3---4---5---6--NULL
+ * |
+ * 7---8---9---10--NULL
+ * |
+ * 11--12--NULL
+ * <p>
  * 输出:
  * 1-2-3-7-8-11-12-9-10-4-5-6-NULL
- *
+ * <p>
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/flatten-a-multilevel-doubly-linked-list
  */
@@ -26,9 +26,10 @@ public class FlattenList {
         public Node next;
         public Node child;
 
-        public Node() {}
+        public Node() {
+        }
 
-        public Node(int _val,Node _prev,Node _next,Node _child) {
+        public Node(int _val, Node _prev, Node _next, Node _child) {
             val = _val;
             prev = _prev;
             next = _next;
@@ -41,30 +42,32 @@ public class FlattenList {
      * process()处理后返回作为输入的head头节点，并将类变量end指向此次处理的链表的尾结点以方便对接
      * 本题难点在于：递归与迭代的结合，对于左孩子的处理是通过递归进入的，对于右孩子的处理则是迭代(while循环)完成,
      * 其中对于end节点的两次赋值需要注意：第一次赋值是在进入递归前赋值为父亲节点，在递归处理完城后赋值为左子树(child节点连)的尾结点
+     *
      * @param head
      * @return
      */
     Node end;
+
     public Node flatten1(Node head) {
         process(head);
         return head;
     }
 
-    public Node process(Node head){
-        if(head == null) return null;
+    public Node process(Node head) {
+        if (head == null) return null;
         Node start = head;
-        while(head != null){
+        while (head != null) {
             end = head;     //此处需注意，缺少这步无法完成
             Node succ = head.next;
             Node tmp = process(head.child);
             head.child = null;  //处理完左子树后将child置为null
             //如果存在左孩子，则进行链接
-            if(tmp != null){
+            if (tmp != null) {
                 head.next = tmp;
                 tmp.prev = head;
                 end.next = succ;
                 //如果存在右孩子，则进行链接并更新end节点
-                if(succ != null){
+                if (succ != null) {
                     succ.prev = end;
                     end = succ;
                 }
@@ -74,9 +77,9 @@ public class FlattenList {
         return start;
     }
 
-    /**方法二：由方法一中的迭代+递归改为分别递归左右子树，递归方法返回尾结点。结构更加清晰。
+    /**
+     * 方法二：由方法一中的迭代+递归改为分别递归左右子树，递归方法返回尾结点。结构更加清晰。
      * 本方法最经典的是对尾结点返回时的三种情况的处理。值得学习
-     *
      */
     Node flatten2(Node head) {
         flattenTail(head);

@@ -12,45 +12,46 @@ public class CollectionTest<E> {
     private int capacity;
     private int size;
 
-    public CollectionTest(Object[] objects){
+    public CollectionTest(Object[] objects) {
         this.objects = objects;
 
     }
-    public CollectionTest(){
+
+    public CollectionTest() {
         objects = EMPTY_ELEMENTDATA;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size > 0;
     }
 
-    public void makeEmpty(){
+    public void makeEmpty() {
         for (int i = 0; i < size; i++)
             objects[i] = null;
         size = 0;
     }
 
-    public boolean insert(E obj){
+    public boolean insert(E obj) {
 
         try {
-            checkArea(size+1);
+            checkArea(size + 1);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            objects[size++] = obj ;
+        } finally {
+            objects[size++] = obj;
             return true;
         }
     }
 
     public void checkArea(int minCapacity) throws Exception {
-        if (minCapacity < 0){
+        if (minCapacity < 0) {
             throw new Exception("array overflow");
         }
-        if(objects ==EMPTY_ELEMENTDATA){
-            minCapacity=Math.max(minCapacity,DEFAULT_CAPACITY);
+        if (objects == EMPTY_ELEMENTDATA) {
+            minCapacity = Math.max(minCapacity, DEFAULT_CAPACITY);
         }
 
-        if(minCapacity-size<0){
+        if (minCapacity - size < 0) {
             //如果最小需要大于数组现有大小，调用数组扩容
             grow(minCapacity);
 
@@ -112,7 +113,7 @@ public class CollectionTest<E> {
     private void fastRemove(int index) {
         int numMoved = size - index - 1;
         if (numMoved > 0)
-            System.arraycopy(objects, index+1, objects, index,
+            System.arraycopy(objects, index + 1, objects, index,
                     numMoved);     //很巧妙
         objects[--size] = null; // clear to let GC do its work
     }

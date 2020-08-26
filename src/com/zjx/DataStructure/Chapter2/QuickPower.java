@@ -7,22 +7,22 @@ public class QuickPower {
      * @param n
      * @return
      */
-    public static long pow(long x, int n){
-        if(0 == n)
+    public static long pow(long x, int n) {
+        if (0 == n)
             return 1;
-        if(1 == n)
+        if (1 == n)
             return x;
-        if(n % 2 == 0)
-            return pow(x*x, n/2);
+        if (n % 2 == 0)
+            return pow(x * x, n / 2);
         else
-            return pow(x*x,n/2)*x;
-        }
+            return pow(x * x, n / 2) * x;
+    }
 
     /*
-    *非递归实现, 幂次n用二进制表示,数组存放X,X^2,X^4,X^(2^logN)
-    *
-    */
-    public static long pow1(long x, int n){
+     *非递归实现, 幂次n用二进制表示,数组存放X,X^2,X^4,X^(2^logN)
+     *
+     */
+    public static long pow1(long x, int n) {
         long result = 1;
         if (n == 0)
             return 1;
@@ -31,13 +31,13 @@ public class QuickPower {
         if (x == 0)
             return 0;
         long[] power = new long[log2Of(n)];
-        System.out.println((int)Math.log(n));
+        System.out.println((int) Math.log(n));
         power[0] = x;
         for (int i = 1; i < power.length; i++) {
-            power[i] = power[i-1] * power[i-1];
+            power[i] = power[i - 1] * power[i - 1];
             System.out.println(power[i]);
         }
-        while(n > 0){
+        while (n > 0) {
             int i = 0;
             if (n % 2 == 1)
                 result *= power[i];
@@ -46,13 +46,14 @@ public class QuickPower {
         }
         return result;
     }
-    static int log2Of(long n){
+
+    static int log2Of(long n) {
         //返回n的二进制位数
-        return 1  ;
+        return 1;
     }
 
     public static void main(String[] args) {
-        System.out.println("the pow(12,5) is " + pow(12,5));
-        System.out.println("the pow1(12,5) is " + pow1(12,4));
+        System.out.println("the pow(12,5) is " + pow(12, 5));
+        System.out.println("the pow1(12,5) is " + pow1(12, 4));
     }
 }

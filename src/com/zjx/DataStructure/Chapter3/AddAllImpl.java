@@ -10,10 +10,10 @@ import java.util.LinkedList;
  * 3.9 对比Collection.addAll的LinkedList和ArrayList实现,写出给定的addAll(Iterable<? extends E> items)的实现
  */
 public class AddAllImpl<E> {
-    public void addAll(Iterable<? extends E> item){
+    public void addAll(Iterable<? extends E> item) {
         MyArrayList myArrayList = new MyArrayList<>();
         Iterator<? extends E> iterator = item.iterator();
-        while(iterator.hasNext())
+        while (iterator.hasNext())
             myArrayList.add(iterator.next());
     }
 

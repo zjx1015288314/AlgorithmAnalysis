@@ -13,34 +13,40 @@ public class SortedListToBST {
     public class ListNode {
         int val;
         ListNode next;
-        ListNode(int x) { val = x; }
+
+        ListNode(int x) {
+            val = x;
+        }
     }
 
     public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
-        TreeNode(int x) { val = x; }
-    }
 
+        TreeNode(int x) {
+            val = x;
+        }
+    }
 
 
     /**
      * 方法一:自己思路与官方的思路大致一样,但是在细节的处理方面不够好,看起来代码很乱
+     *
      * @param head
      * @return
      */
     public TreeNode sortedListToBST1(ListNode head) {
-        if(head == null) return null;
-        ListNode mid,end,prev;
+        if (head == null) return null;
+        ListNode mid, end, prev;
         mid = end = head;
         prev = null;
 
         int n = 2;
-        while(end.next != null){
+        while (end.next != null) {
             n--;
             end = end.next;
-            if(n == 0){
+            if (n == 0) {
                 prev = mid;
                 mid = mid.next;
                 n = 2;
@@ -50,10 +56,10 @@ public class SortedListToBST {
         TreeNode root = new TreeNode(mid.val);
 
         //处理只有一个节点的情况
-        if(mid == end) return root;
+        if (mid == end) return root;
         //处理只有两个节点的情况,这里之所以与官网情况不一样是因为该解法的end节点指向最后一个非null节点,导致prev,mid必须要单独考虑两个节点时的情况
         //否则会造成死循环(一直在处理两个节点);可以像官方解法一样,end节点指向最后的null节点
-        if(mid == head && mid.next == end){
+        if (mid == head && mid.next == end) {
             root.right = new TreeNode(end.val);
             return root;
         }
@@ -62,8 +68,10 @@ public class SortedListToBST {
         root.right = sortedListToBST1(mid.next);
         return root;
     }
+
     /**
      * 方法二:官方解法,利用findMiddleElement()找到中间节点,并将链表分为左右两段,分为递归地构造左右子树
+     *
      * @param head
      * @return
      */
@@ -112,6 +120,7 @@ public class SortedListToBST {
         node.right = this.sortedListToBST2(mid.next);
         return node;
     }
+
     /**
      * 方法三:官方中序遍历解法,最需要注意的是head如何一步步在递归中前进到合适的位置(将head设置为类的属性是必须的,
      * 为了使某一层head的变化影响到上一层),以及为什么不像数组中那样,有if(left == right)这种直接返回的语句?
@@ -168,11 +177,10 @@ public class SortedListToBST {
      * 这个方法是空间换时间的经典案例.在这个方法中,我们将给定的链表转成数组并利用数组来构建二叉搜索树
      * 数组找中间元素只需要 O(1) 的时间,所以会降低整个算法的时间复杂度开销
      * 算法:
-     *  1.将给定链表转成数组,将数组的头和尾记成 left 和 right
-     *  2.找到中间元素 (left + right) / 2,记为 mid.这需要 O(1) 时间开销,也是与上面算法主要改进的地方
-     *  3.将中间元素作为二叉搜索树的根
-     *  4.递归构造二叉搜索树的左右两棵子树,两个子数组分别是 (left, mid - 1) 和 (mid + 1, right)
-     *
+     * 1.将给定链表转成数组,将数组的头和尾记成 left 和 right
+     * 2.找到中间元素 (left + right) / 2,记为 mid.这需要 O(1) 时间开销,也是与上面算法主要改进的地方
+     * 3.将中间元素作为二叉搜索树的根
+     * 4.递归构造二叉搜索树的左右两棵子树,两个子数组分别是 (left, mid - 1) 和 (mid + 1, right)
      */
     private List<Integer> values;
 

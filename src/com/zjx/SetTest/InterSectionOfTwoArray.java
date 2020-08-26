@@ -27,7 +27,7 @@ public class InterSectionOfTwoArray {
             }
         }
         int[] arr = new int[result.size()];
-        for(int i = 0;i < arr.length;i++){
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = result.get(i);
         }
         return arr;
@@ -37,13 +37,14 @@ public class InterSectionOfTwoArray {
     //经典解法,时间复杂度：O(m+n)O(m+n)，其中 n 和 m 是数组的长度。O(n) 的时间用于转换 nums1 在集合中，O(m) 的时间用于转换 nums2 到集合中，并且平均情况下，集合的操作为 O(1)O(1)。
     //空间复杂度：O(m+n)O(m+n)，最坏的情况是数组中的所有元素都不同
     public int[] set_intersection(HashSet<Integer> set1, HashSet<Integer> set2) {
-        int [] output = new int[set1.size()];
+        int[] output = new int[set1.size()];
         int idx = 0;
         for (Integer s : set1)
             if (set2.contains(s)) output[idx++] = s;
 
         return Arrays.copyOf(output, idx);   //缩小空间
     }
+
     public int[] intersection1(int[] nums1, int[] nums2) {
         HashSet<Integer> set1 = new HashSet<Integer>();
         for (Integer n : nums1) set1.add(n);
@@ -68,7 +69,7 @@ public class InterSectionOfTwoArray {
 
             set1.retainAll(set2);
 
-            int [] output = new int[set1.size()];
+            int[] output = new int[set1.size()];
             int idx = 0;
             for (int s : set1) output[idx++] = s;
             return output;

@@ -4,24 +4,24 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 /**
- *给定一个二叉树，判断其是否是一个有效的二叉搜索树。
- *
+ * 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+ * <p>
  * 假设一个二叉搜索树具有如下特征：
- *
+ * <p>
  * 节点的左子树只包含小于当前节点的数。
  * 节点的右子树只包含大于当前节点的数。
  * 所有左子树和右子树自身必须也是二叉搜索树。
  * 示例 1:
  * 输入:
- *     2
- *    / \
- *   1   3
+ * 2
+ * / \
+ * 1   3
  * 输出: true
  * 示例 2:
  * 输入:
- *     5
- *    / \
- *   1   4
+ * 5
+ * / \
+ * 1   4
  *      / \
  *     3   6
  * 输出: false
@@ -42,20 +42,20 @@ public class IsValidBST {
      * 空间复杂度 : 最坏情况下为O(N)，用于存储 stack。
      */
     public boolean isValidBST1(TreeNode root) {
-        if(root == null) return true;
+        if (root == null) return true;
         Stack<TreeNode> stack = new Stack<>();
         long small = Long.MIN_VALUE;
         //当root.right为null但stack非空时也要循环
-        while(root != null || !stack.isEmpty()){
+        while (root != null || !stack.isEmpty()) {
             //关注树的左侧链，每当一个新节点入栈时，新节点的左侧链会一并入栈
-            while(root != null){
+            while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
             //每个节点出栈后，其右孩子入栈
             root = stack.pop();
             //比中序遍历多了一步，判断是否单调递增
-            if(root.val <= small) return false;
+            if (root.val <= small) return false;
             small = root.val;
             root = root.right;
         }
@@ -70,6 +70,7 @@ public class IsValidBST {
      * 空间复杂度：O(N)?
      */
     TreeNode prev = null;
+
     public boolean isValidBST2(TreeNode root) {
         if (root == null) return true;
         if (!isValidBST2(root.left)) return false;
@@ -83,12 +84,14 @@ public class IsValidBST {
      * root节点无上下界，从root节点开始递归
      * 时间复杂度 : O(N) 每个结点访问一次
      * 空间复杂度 : 树高，最坏情况是O(N)，当BST为BBST时，树高是O(logN)
+     *
      * @param root
      * @return
      */
     public boolean isValidBST3(TreeNode root) {
         return helper(root, null, null);
     }
+
     public boolean helper(TreeNode node, Integer lower, Integer upper) {
         if (node == null) return true;
         int val = node.val;
@@ -97,8 +100,8 @@ public class IsValidBST {
         if (lower != null && val <= lower) return false;
         if (upper != null && val >= upper) return false;
 
-        if (!helper(node.left,lower,val)) return false;
-        if (!helper(node.right,val,upper)) return false;
+        if (!helper(node.left, lower, val)) return false;
+        if (!helper(node.right, val, upper)) return false;
         return true;
     }
 
@@ -107,14 +110,15 @@ public class IsValidBST {
      * 迭代新增了while循环，判断条件为栈不为空，每个节点出栈后将其左右孩子入栈(为了保证不是null节点,入栈前要判非null)
      * 时间复杂度 : O(N)。每个结点访问一次。
      * 空间复杂度 : 树高，最坏情况是O(N)，当BST为BBST时，树高是O(logN)
+     *
      * @param root
      * @return
      */
     public boolean isValidBST4(TreeNode root) {
         if (root == null) return true;
         Stack<MyNode> stack = new Stack<>();
-        stack.push(new MyNode(root,null,null));
-        while(!stack.isEmpty()){
+        stack.push(new MyNode(root, null, null));
+        while (!stack.isEmpty()) {
             MyNode myNode = stack.pop();
             TreeNode rNode = myNode.node;
             Integer lower = myNode.lower;
@@ -123,16 +127,18 @@ public class IsValidBST {
             //先判断子树根节点，再判断左子树，最后判断右子树
             if (lower != null && val <= lower) return false;
             if (upper != null && val >= upper) return false;
-            if (rNode.right != null) stack.push(new MyNode(rNode.right,val,upper));
-            if (rNode.left != null) stack.push(new MyNode(rNode.left,lower,val));
+            if (rNode.right != null) stack.push(new MyNode(rNode.right, val, upper));
+            if (rNode.left != null) stack.push(new MyNode(rNode.left, lower, val));
         }
         return true;
     }
-    class MyNode{
+
+    class MyNode {
         TreeNode node;
         Integer lower;
         Integer upper;
-        MyNode(TreeNode node, Integer lower, Integer upper){
+
+        MyNode(TreeNode node, Integer lower, Integer upper) {
             this.node = node;
             this.lower = lower;
             this.upper = upper;
@@ -178,29 +184,31 @@ public class IsValidBST {
      * 其中while循环内else判断因题而异，其余是固定模板.
      */
     TreeNode prev1 = null;
+
     public boolean isValidBST(TreeNode root) {
-        if(root == null) return true;
+        if (root == null) return true;
         Stack<ColorNode> stack = new Stack<>();
-        stack.push(new ColorNode(root,"white"));
-        while(!stack.empty()){
+        stack.push(new ColorNode(root, "white"));
+        while (!stack.empty()) {
             ColorNode cn = stack.pop();
-            if(cn.color.equals("white")){
-                if(cn.node.right != null) stack.push(new ColorNode(cn.node.right,"white"));
-                stack.push(new ColorNode(cn.node,"gray"));
-                if(cn.node.left != null) stack.push(new ColorNode(cn.node.left,"white"));
-            }else if(prev1 != null && prev1.val >= cn.node.val){
+            if (cn.color.equals("white")) {
+                if (cn.node.right != null) stack.push(new ColorNode(cn.node.right, "white"));
+                stack.push(new ColorNode(cn.node, "gray"));
+                if (cn.node.left != null) stack.push(new ColorNode(cn.node.left, "white"));
+            } else if (prev1 != null && prev1.val >= cn.node.val) {
                 return false;
-            }else{
-                prev1 =  cn.node;
+            } else {
+                prev1 = cn.node;
             }
         }
         return true;
     }
 
-    class ColorNode{
+    class ColorNode {
         TreeNode node;
         String color;
-        ColorNode(TreeNode node,String color){
+
+        ColorNode(TreeNode node, String color) {
             this.node = node;
             this.color = color;
         }

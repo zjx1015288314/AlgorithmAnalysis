@@ -4,29 +4,31 @@ public class SingleLinkedListQueue<T> {
     /**
      * 3.32 使用单链表来实现队列
      */
-    private Node<T> front,rear;
+    private Node<T> front, rear;
 
-    SingleLinkedListQueue(){
+    SingleLinkedListQueue() {
         front = rear = null;
     }
 
-    private class Node<T>{
+    private class Node<T> {
         private T data;
         private Node<T> next;
 
-        Node(){
-            this(null,null);
+        Node() {
+            this(null, null);
         }
-        Node(T data){
-            this(data,null);
+
+        Node(T data) {
+            this(data, null);
         }
-        Node(T data,Node<T> next){
+
+        Node(T data, Node<T> next) {
             this.data = data;
             this.next = next;
         }
     }
 
-    public void enqueue(T item){
+    public void enqueue(T item) {
         Node<T> node = new Node<>(item);
         //这个判断很经典,if分支既将尾结点的next链接node,也移动rear指向node;else分支就是链表为空时,头尾节点指向同一node节点
         if (rear != null)

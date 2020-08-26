@@ -15,7 +15,7 @@ public class ClassLoaderTest {
                         return super.loadClass(name);
                     byte[] b = new byte[is.available()];  //InputStream的此方法永远返回0
                     is.read(b);   //将输入流中的数据读入byte数组,read()返回int类型数据(值为0-255),如果结束则返回-1
-                    return defineClass(name,b,0,b.length);
+                    return defineClass(name, b, 0, b.length);
                 } catch (IOException e) {
                     throw new ClassNotFoundException(name);
                 }

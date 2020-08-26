@@ -96,7 +96,7 @@ public class BuildTree {
         // recursion
         pre_idx++;
         // build left subtree
-        root.left = helper2(in_left, index); 
+        root.left = helper2(in_left, index);
         // build right subtree
         root.right = helper2(index + 1, in_right);
         return root;
@@ -165,6 +165,7 @@ public class BuildTree {
      * 哪个节点暂且不知道，我们可以从inorder数组中找出来，inorder数组的第一个元素是树的最左边的节点，第二个节点是第一个节点的
      * 父节点，但第三个节点可能是父节点的父节点(即第三个节点是preorder数组的第m-1个元素),也可能是父节点的右孩子节点(即第三个节点
      * 是preorder数组的第m+1个元素)。如果是第一种情况则从将栈顶元素弹出，并进入下一次迭代；否则就第三个节点为右孩子构建右子树再入栈、迭代
+     *
      * @param preorder
      * @param inorder
      * @return

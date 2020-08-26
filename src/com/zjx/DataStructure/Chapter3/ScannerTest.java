@@ -8,6 +8,7 @@ public class ScannerTest {
      * 它判断读取结束的标示是  空白符；比如空格，回车，tab 等等
      * next()方法读取到空白符就结束；
      * nextLine()读取到回车结束也就是“\r”；
+     *
      * @param args
      */
     public static void main(String[] args) {

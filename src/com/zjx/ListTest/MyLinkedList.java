@@ -12,74 +12,79 @@ public class MyLinkedList<T> implements Iterable<T> {
     private Node<T> beginMarker;
     private Node<T> endMarker;
 
-    private static class Node<T>{
+    private static class Node<T> {
         /*3.25*/
         public T data;
         public Node<T> prev;
         public Node<T> next;
-        public Node(T d,Node<T> p,Node<T> n){
+
+        public Node(T d, Node<T> p, Node<T> n) {
             data = d;
             prev = p;
             next = n;
         }
     }
-    public MyLinkedList(){
+
+    public MyLinkedList() {
         doClear();
     }
 
     public void doClear() {
         /*3.26*/
-        beginMarker = new Node<>(null,null,null);
-        beginMarker = new Node<>(null,beginMarker,null);
+        beginMarker = new Node<>(null, null, null);
+        beginMarker = new Node<>(null, beginMarker, null);
         beginMarker.next = endMarker;
 
         theSize = 0;
         modCount++;
     }
 
-    public int size(){
+    public int size() {
         return theSize;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size() == 0;
     }
-    public boolean add(T x){
-        add(size(),x);
+
+    public boolean add(T x) {
+        add(size(), x);
         return true;
     }
 
     public void add(int idx, T x) {
-        addBefore(getNode(idx,0,size()),x);
+        addBefore(getNode(idx, 0, size()), x);
     }
 
-    public T get(int idx){
+    public T get(int idx) {
         return getNode(idx).data;
     }
 
-    public T set(Node<T> p,T newVal){
+    public T set(Node<T> p, T newVal) {
         T oldVal = p.data;
         p.data = newVal;
         return oldVal;
     }
-    public T set(int idx,T newVal){
+
+    public T set(int idx, T newVal) {
         Node<T> p = getNode(idx);
-        return set(p,newVal);
+        return set(p, newVal);
     }
 
-    public T remove(int idx){
+    public T remove(int idx) {
         return remove(getNode(idx));
     }
 
-    private void addBefore(Node<T> p,T t){
+    private void addBefore(Node<T> p, T t) {
         /*3.28*/
-        Node<T>  newNode = new Node<>(t,p.prev,p);
+        Node<T> newNode = new Node<>(t, p.prev, p);
         newNode.prev.next = newNode;
         p.prev = newNode;
         theSize++;
         modCount++;
     }
-    private T remove(Node<T> p){
+
+    private T remove(Node<T> p) {
         /*3.30*/
         p.next.prev = p.prev;
         p.prev.next = p.next;
@@ -89,24 +94,24 @@ public class MyLinkedList<T> implements Iterable<T> {
         return p.data;
     }
 
-    private Node<T> getNode(int idx){
+    private Node<T> getNode(int idx) {
         /*3.31*/
-        return getNode(idx,0,size()-1);
+        return getNode(idx, 0, size() - 1);
     }
 
-    private Node<T> getNode(int idx,int lower,int upper){
+    private Node<T> getNode(int idx, int lower, int upper) {
         /*3.31*/
         Node<T> p;
         if (idx < lower || idx > upper)
             throw new IndexOutOfBoundsException();
-        if (idx < size()/2) {
+        if (idx < size() / 2) {
             p = beginMarker.next;
             for (int i = 0; i < idx; i++) {
                 p = p.next;
             }
-        }else{
+        } else {
             p = endMarker;
-            for (int i = size(); i > idx ; i--) {
+            for (int i = size(); i > idx; i--) {
                 p = p.prev;
             }
         }
@@ -118,15 +123,16 @@ public class MyLinkedList<T> implements Iterable<T> {
         return new LinkedListIterator();
     }
 
-    public ListIterator<T> listIterator(){
+    public ListIterator<T> listIterator() {
         return new LinkedListIterator();
     }
 
-    private class LinkedListIterator implements ListIterator<T>{
+    private class LinkedListIterator implements ListIterator<T> {
         /*3/32*/
         private Node<T> current = beginMarker.next;
         private int expectedModCount = modCount;
         private boolean okToRemove = false;
+
         @Override
         public boolean hasNext() {
             return current != endMarker;  //inkedList用nextIndex当做游标,而在这里则用当前节点当做标志
@@ -147,7 +153,7 @@ public class MyLinkedList<T> implements Iterable<T> {
 
         @Override
         public boolean hasPrevious() {
-            return current.prev != beginMarker ;
+            return current.prev != beginMarker;
         }
 
         @Override
@@ -187,36 +193,41 @@ public class MyLinkedList<T> implements Iterable<T> {
         public void set(T newVal) {
             if (modCount != expectedModCount)
                 throw new ConcurrentModificationException();
-            MyLinkedList.this.set(current.prev,newVal);
+            MyLinkedList.this.set(current.prev, newVal);
         }
 
         @Override
         public void add(T t) {
             if (modCount != expectedModCount)
                 throw new ConcurrentModificationException();
-            addBefore(current.next,t);      //这里不懂？？为什么不是current
-                                            //LinkedList中remove，add，set若一起调用则顺序是setremoveaddaddadd,
-                                            //具体的用法可以参考LinkedList
+            addBefore(current.next, t);      //这里不懂？？为什么不是current
+            //LinkedList中remove，add，set若一起调用则顺序是setremoveaddaddadd,
+            //具体的用法可以参考LinkedList
         }
 
     }
 
-    public void addFirst(T t){
-        addBefore(beginMarker.next,t);
+    public void addFirst(T t) {
+        addBefore(beginMarker.next, t);
     }
-    public void addLast(T t){
-        addBefore(endMarker,t);
+
+    public void addLast(T t) {
+        addBefore(endMarker, t);
     }
-    public void removeFirst(T t){
+
+    public void removeFirst(T t) {
         remove(beginMarker.next);
     }
-    public void removeLast(T t){
+
+    public void removeLast(T t) {
         remove(endMarker);
     }
-    public T getFirst(T t){
+
+    public T getFirst(T t) {
         return get(0);
     }
-    public T getLast(T t){
-        return get(size()-1);
+
+    public T getLast(T t) {
+        return get(size() - 1);
     }
 }

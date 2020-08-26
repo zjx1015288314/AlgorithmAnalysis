@@ -24,6 +24,7 @@ public class RemoveZeroSumSublists {
     public class ListNode {
         int val;
         ListNode next;
+
         ListNode(int x) {
             val = x;
         }
@@ -33,35 +34,36 @@ public class RemoveZeroSumSublists {
      * 这道题没有想出来的原因在于做题前一直想要控制时间复杂度在O(NlogN)之下,有些题目不得不考虑O(N^2)的做法，否则无法实现
      * 思路：选择某一节点为prev节点，如果其后cur节点到succ节点的值的和为0，则prev.next = succ.next,否则prev = prev.next
      * 这里使用flag变量来指明是否需要
+     *
      * @param head
      * @return
      */
     public ListNode removeZeroSumSublists1(ListNode head) {
-        if(head == null) return head;
+        if (head == null) return head;
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode prev = dummy;
         boolean flag;
         ListNode cur = null;
-        while(prev.next != null){
+        while (prev.next != null) {
             flag = true;
             cur = prev.next;
-            if(cur.val == 0){
+            if (cur.val == 0) {
                 prev.next = cur.next;
                 continue;
             }
             int sum = cur.val;
             ListNode succ = cur.next;
-            while(succ != null){
+            while (succ != null) {
                 sum += succ.val;
-                if(sum == 0){
+                if (sum == 0) {
                     prev.next = succ.next;
                     flag = false;
                     break;
                 }
                 succ = succ.next;
             }
-            if(flag) prev = prev.next;
+            if (flag) prev = prev.next;
         }
         return dummy.next;
     }
@@ -70,24 +72,25 @@ public class RemoveZeroSumSublists {
      * 上面的内容比较繁琐，而且prev指针与cur指针有一个固定关系:cur = prev.next 所以删除cur指针改用prev.next代替
      * 还有一点是succ从cur开始(即prev.next)而不是prev.next.next,所以删除flag及其相关判断,将某个节点值为0和一连串
      * 节点值的和为0两种情况一起处理,更加简单
+     *
      * @param head
      * @return
      */
     public ListNode removeZeroSumSublists2(ListNode head) {
-        if(head == null) return head;
+        if (head == null) return head;
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode prev = dummy;
-        while(prev.next != null){
+        while (prev.next != null) {
             ListNode cur = prev.next;
             int sum = 0;
-            while(cur != null){
+            while (cur != null) {
                 sum += cur.val;
-                if(sum == 0)
+                if (sum == 0)
                     break;
                 cur = cur.next;
             }
-            if(sum == 0){
+            if (sum == 0) {
                 prev.next = cur.next;
                 continue;
             }

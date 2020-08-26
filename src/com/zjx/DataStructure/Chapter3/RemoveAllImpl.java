@@ -12,16 +12,16 @@ import java.util.Objects;
  * 相反为false时实现retainAll)
  */
 
-public class RemoveAllImpl<E>{
+public class RemoveAllImpl<E> {
     //O(M×N)
     public void addAll(Iterable<? extends E> items) {
         MyArrayList myArrayList = new MyArrayList<>();
         Iterator<? extends E> iterator = items.iterator();
-        E item,element;
+        E item, element;
         while (iterator.hasNext()) {
             item = iterator.next();
             Iterator<? extends E> iterList = myArrayList.iterator();
-            while(iterList.hasNext()){
+            while (iterList.hasNext()) {
                 element = iterList.next();
                 if (element.equals(item))
                     iterList.remove();

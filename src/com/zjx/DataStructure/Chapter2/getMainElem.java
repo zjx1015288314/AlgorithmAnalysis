@@ -8,27 +8,28 @@ public class getMainElem {
 
     static int get(int A[], int n) {
         quickSort(A);
-        return A[n/2];
+        return A[n / 2];
     }
 
     /*
-    * 快排最重要的是partition方法,有两种方法,一种是从两边同时开始并同时交换;
-    * 一种是先从后边开始,遇到比轴点小的,先赋值给左边,再从左边开始
-    */
+     * 快排最重要的是partition方法,有两种方法,一种是从两边同时开始并同时交换;
+     * 一种是先从后边开始,遇到比轴点小的,先赋值给左边,再从左边开始
+     */
 
-    public static void quickSort(int[] array){
-        if(array != null){
-            quickSort(array, 0, array.length-1);
+    public static void quickSort(int[] array) {
+        if (array != null) {
+            quickSort(array, 0, array.length - 1);
         }
     }
 
-    private static void quickSort(int[] array,int beg,int end){
-        if(beg >= end || array == null)
+    private static void quickSort(int[] array, int beg, int end) {
+        if (beg >= end || array == null)
             return;
         int p = partition(array, beg, end);
-        quickSort(array, beg, p-1);
-        quickSort(array, p+1, end);
+        quickSort(array, beg, p - 1);
+        quickSort(array, p + 1, end);
     }
+
     private static int partition(int[] array, int start, int end) {
         int pivot = array[start];
         int i = start, j = end;
@@ -89,12 +90,12 @@ public class getMainElem {
     //因为其占50%以上，出现一次得＋＋，不同得－－，所以最后保留下来的一定是主元素
     static int get1(int A[], int n) {
         int result, cnt;
-        result = A[0]; cnt = 1;
-        for(int i=1; i<n; i++) {
-            if(A[i] == result) {
+        result = A[0];
+        cnt = 1;
+        for (int i = 1; i < n; i++) {
+            if (A[i] == result) {
                 cnt++;
-            }
-            else if(cnt == 1) {//相当于cnt--,因为cnt==0,result=A[i],cut=1
+            } else if (cnt == 1) {//相当于cnt--,因为cnt==0,result=A[i],cut=1
                 result = A[i];
 
             } else {
@@ -108,24 +109,24 @@ public class getMainElem {
     //在上个程序上进行加工，求出后判断其数量是否占总数50%，是就是主元素，否则无主元素
     static int get2(int A[], int n) {
         int result, cnt;
-        result = A[0]; cnt = 1;
-        for(int i=1; i<n; i++) {
-            if(A[i] == result) {
+        result = A[0];
+        cnt = 1;
+        for (int i = 1; i < n; i++) {
+            if (A[i] == result) {
                 cnt++;
-            }
-            else if(cnt == 1) {
+            } else if (cnt == 1) {
                 result = A[i];
                 cnt = 1;
             } else {
                 cnt--;
             }
         }
-        cnt=0;
-        for(int i=0;i<n;i++){
-            if(A[i]==result)
+        cnt = 0;
+        for (int i = 0; i < n; i++) {
+            if (A[i] == result)
                 cnt++;
         }
-        if(cnt>(n/2))
+        if (cnt > (n / 2))
             return result;
         else
             return -1;
@@ -133,9 +134,9 @@ public class getMainElem {
 
 
     public static void main(String[] args) {
-        System.out.println("The main Elemnet of get is " + get(new int[]{3,3,4,2,4,4,2,4,4},8));
-        System.out.println("The main Elemnet of get1 is " + get1(new int[]{3,3,4,2,4,4,2,4,4},8));
-        System.out.println("The main Elemnet of get2 is " + get2(new int[]{3,3,4,2,4,4,2,4},7));
+        System.out.println("The main Elemnet of get is " + get(new int[]{3, 3, 4, 2, 4, 4, 2, 4, 4}, 8));
+        System.out.println("The main Elemnet of get1 is " + get1(new int[]{3, 3, 4, 2, 4, 4, 2, 4, 4}, 8));
+        System.out.println("The main Elemnet of get2 is " + get2(new int[]{3, 3, 4, 2, 4, 4, 2, 4}, 7));
     }
 
 }

@@ -31,9 +31,9 @@ public class CountDownLatchTest {
         for (int i = 0; i < 5; i++) {
             final int tmp = i;
             Thread task = new Thread(() -> {
-                sb.append(String.format("task[%d] 准备就绪;\n",tmp));
+                sb.append(String.format("task[%d] 准备就绪;\n", tmp));
                 latch.countDown();
-                sb.append(String.format("task[%d] 结束;\n",tmp));
+                sb.append(String.format("task[%d] 结束;\n", tmp));
             });
             task.start();
         }
