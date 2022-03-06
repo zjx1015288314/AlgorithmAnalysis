@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+!/.idea/
+!/AlgorithmAnalysis.iml
+!/src/com/itzjx/mmall_test/
+!/src/com/zjx/各公司2021笔试代码题汇总.rar
+!/src/com/zjx/各公司2021笔试代码题汇总/程序员面试代码指南/Netty/

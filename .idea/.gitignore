@@ -1,2 +1,14 @@
 # Default ignored files
 /workspace.xml
+
+/.idea
+
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+.idea/
+target/

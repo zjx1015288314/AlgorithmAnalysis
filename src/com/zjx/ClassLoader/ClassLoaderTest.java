@@ -24,7 +24,5 @@ public class ClassLoaderTest {
         Object obj = myLoader.loadClass("com.zjx.ClassLoader.ClassLoaderTest").newInstance();
         System.out.println(obj.getClass());
         System.out.println(obj instanceof com.zjx.ClassLoader.ClassLoaderTest);
-
-
     }
 }
