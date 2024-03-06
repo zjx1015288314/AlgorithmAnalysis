@@ -20,7 +20,7 @@ import java.util.List;
  * 队列中节点的顺序与树中的顺序一致，poll/pollLast决定于fromLeftToRight
  */
 public class 之字型打印二叉树 {
-    public List<List<Integer> > Print(TreeNode pRoot) {
+    public List<List<Integer> > print(TreeNode pRoot) {
         List<List<Integer>> res= new ArrayList<>();
         if(pRoot == null) return res;
 

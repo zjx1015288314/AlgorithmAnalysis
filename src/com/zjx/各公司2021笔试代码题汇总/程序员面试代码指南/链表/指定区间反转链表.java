@@ -7,6 +7,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * 注意：
  * 给出的 满足以下条件：
  * 1≤m≤n≤链表长度
+ * 思路：先切割后反转
  */
 public class 指定区间反转链表 {
     public ListNode reverseBetween1(ListNode head, int m, int n) {
@@ -33,7 +34,7 @@ public class 指定区间反转链表 {
         return dummy.next;
     }
 
-    public void reverse(ListNode fPre, ListNode tPos) {
+    private void reverse(ListNode fPre, ListNode tPos) {
         ListNode pre = tPos;
         ListNode start = fPre.next;
         ListNode next = null;
@@ -52,8 +53,8 @@ public class 指定区间反转链表 {
     public ListNode reverseBetween2(ListNode head, int left, int right) {
         int len = 0;
         ListNode pre = null;
-        ListNode cur = head;
         ListNode post = null;
+        ListNode cur = head;
 
         while(cur != null) {
             len++;
@@ -67,7 +68,7 @@ public class 指定区间反转链表 {
         return reverse(head, pre, post);
     }
 
-    public ListNode reverse(ListNode head, ListNode fPre, ListNode tPos) {
+    private ListNode reverse(ListNode head, ListNode fPre, ListNode tPos) {
         ListNode cur = fPre == null ? head : fPre.next;
         ListNode pre = tPos;
 

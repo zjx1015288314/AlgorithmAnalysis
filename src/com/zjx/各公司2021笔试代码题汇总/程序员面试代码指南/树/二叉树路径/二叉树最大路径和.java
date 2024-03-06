@@ -1,6 +1,8 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.二叉树路径;
 
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 /**
  * 给定一个二叉树，请计算节点值之和最大的路径的节点值之和是多少。
  * 这个路径的开始节点和结束节点可以是二叉树中的任意节点
@@ -14,12 +16,6 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * 输出 1
  */
 public class 二叉树最大路径和 {
-    class TreeNode {
-        int val = 0;
-        TreeNode left = null;
-        TreeNode right = null;
-    }
-
     int maxSum = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {

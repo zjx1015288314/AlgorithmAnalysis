@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.中序遍历相关;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 import java.util.LinkedList;
 import java.util.Stack;
 
@@ -11,7 +13,7 @@ import java.util.Stack;
  * 节点的左子树只包含小于当前节点的数。
  * 节点的右子树只包含大于当前节点的数。
  * 所有左子树和右子树自身必须也是二叉搜索树。
- * 示例 1:
+ * 示例1:
  * 输入:
  * 2
  * / \
@@ -22,8 +24,8 @@ import java.util.Stack;
  * 5
  * / \
  * 1   4
- *      / \
- *     3   6
+ *     / \
+ *    3   6
  * 输出: false
  * 解释: 输入为: [5,1,4,null,null,3,6]。
  *      根节点的值为 5 ，但是其右子节点值为 4 。
@@ -31,15 +33,6 @@ import java.util.Stack;
  * 链接：https://leetcode-cn.com/problems/validate-binary-search-tree
  */
 public class 判断是否是二叉搜索树 {
-
-    class TreeNode{
-        int val;
-        TreeNode left;
-        TreeNode right;
-        public TreeNode(int val){
-            this.val = val;
-        }
-    }
 
     /**
      * 最容易想到的

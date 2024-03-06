@@ -59,7 +59,7 @@ public class 大小堆随时获得输入流中的中位数 {
                 return (maxHeap.peek() + minHeap.peek()) / 2.0; //这里注意2.0而不是2
             }else{
                 int value =  maxHeap.size() > minHeap.size() ? maxHeap.peek() : minHeap.peek();
-                return Double.valueOf(value);
+                return (double) value;
             }
         }
     }

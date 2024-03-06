@@ -44,9 +44,9 @@ public class 二叉树层序遍历 {
         return result;
     }
     //DFS
-    public void helper(TreeNode root,int level){
+    public void helper(TreeNode root, int level){
         if(root == null) return;
-        if(result.size() == level) result.add(new ArrayList<Integer>());
+        if(result.size() == level) result.add(new ArrayList<>());
         result.get(level).add(root.val);
         helper(root.left,level+1);
         helper(root.right,level+1);

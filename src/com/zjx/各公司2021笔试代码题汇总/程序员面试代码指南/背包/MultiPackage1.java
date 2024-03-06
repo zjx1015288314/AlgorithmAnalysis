@@ -38,7 +38,7 @@ public class MultiPackage1 {
         int[] w = new int[N + 1];
         int[] s = new int[N + 1];
 
-        // 接下来有 N 行，每行有两个整数:v[i],w[i]，用空格隔开，分别表示第i件物品的体积和价值
+        // 接下来有 N 行，每行有三个整数:v[i],w[i]，用空格隔开，分别表示第i件物品的体积和价值
         for (int i = 1; i <= N; i++) {
             v[i] = reader.nextInt();
             w[i] = reader.nextInt();

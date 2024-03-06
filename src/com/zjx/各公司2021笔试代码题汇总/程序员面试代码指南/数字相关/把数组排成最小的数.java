@@ -42,12 +42,12 @@ public class 把数组排成最小的数 {
      * @return
      */
     public String PrintMinNumber1(int [] numbers) {
-        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> arrayList = new ArrayList<>();
         for(int i : numbers){
             arrayList.add( i + "" );
         }
         //想让o1排在前面的话，就使得compareTo返回的结果排在前面
-        Collections.sort(arrayList, (o1, o2) -> (o1+o2).compareTo(o2+o1));
+        arrayList.sort((o1, o2) -> (o1 + o2).compareTo(o2 + o1));
 
         StringBuilder stringBuilder2 = new StringBuilder();
         for(String s : arrayList){

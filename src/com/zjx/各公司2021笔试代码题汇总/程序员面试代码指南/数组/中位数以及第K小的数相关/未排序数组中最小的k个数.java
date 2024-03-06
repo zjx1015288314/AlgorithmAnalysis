@@ -12,17 +12,26 @@ import java.util.Arrays;
  */
 public class 未排序数组中最小的k个数 {
 
+    public static void main(String[] args) {
+        int[] arr = {5,2,4 ,1, 3 ,6 ,0};
+        int k = 3;
+        int[] res = smallestK1(arr,k);
+        for (int re : res) {
+            System.out.print(re + " ");
+        }
+    }
+
     /**
      * 快速排序,因快排本来就是分区间排序，如果分区的结果正好符合k，直接返回
      */
-    public int[] smallestK1(int[] arr, int k) {
+    public static int[] smallestK1(int[] arr, int k) {
         if(arr == null || arr.length == 0 || k < 1 || k >  arr.length) return new int[]{};
         int left = 0;
         int right = arr.length - 1;
         int target = k - 1;
         while(left < right){
             int index = partition(arr,left,right);
-            if(index - 1 == target){
+            if(index - 1 == target){  //这里与求第k小的逻辑不同，因为是求最小的k个数，所以直接返回。如果求第k小的数，需要再次判断
                 break;
             }else if(index - 1 < target){
                 left = index;
@@ -30,10 +39,10 @@ public class 未排序数组中最小的k个数 {
                 right = index - 1; //注意right 不能写为index - 2，那样导致index-1位置的元素不参与排序
             }
         }
-        return Arrays.copyOfRange(arr,0,target);
+        return Arrays.copyOfRange(arr,0,target + 1);
     }
 
-    private int partition(int[] arr, int left, int right){
+    private static int partition(int[] arr, int left, int right){
         int pivot = arr[(left + right) / 2];
         while(left <= right){
             while(arr[left] < pivot) left++;
@@ -81,7 +90,7 @@ public class 未排序数组中最小的k个数 {
         }
     }
 
-    private void swap(int[] arr,int i, int j){
+    private static void swap(int[] arr,int i, int j){
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;

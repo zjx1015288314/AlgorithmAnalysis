@@ -71,8 +71,8 @@ public class 删除非排序单链表中的重复节点 {
     public static ListNode process1(ListNode head){
         if(head == null || head.next == null) return head;
         ListNode first = head;
-        ListNode pre = null;
-        ListNode second = null;
+        ListNode pre;
+        ListNode second;
         while (first != null){
             pre = first;
             second = first.next;

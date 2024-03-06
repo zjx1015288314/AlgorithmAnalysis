@@ -23,14 +23,14 @@ public class 判断是否是镜像二叉树 {
 
         queue.offer(pRoot);
         while(!queue.isEmpty()) {
-            TreeNode parent = queue.poll();
+            TreeNode cur = queue.poll();
 
-            if(parent.left != null) queue.offer(parent.left);
-            if(parent.right != null) queue.offer(parent.right);
+            if(cur.left != null) queue.offer(cur.left);
+            if(cur.right != null) queue.offer(cur.right);
 
-            TreeNode tmpRight = parent.right;
-            parent.right = parent.left;
-            parent.left = tmpRight;
+            TreeNode tmpRight = cur.right;
+            cur.right = cur.left;
+            cur.left = tmpRight;
         }
         return pRoot;
     }

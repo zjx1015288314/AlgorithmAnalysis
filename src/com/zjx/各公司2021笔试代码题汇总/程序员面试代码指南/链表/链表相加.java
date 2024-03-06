@@ -8,30 +8,23 @@ import java.io.InputStreamReader;
  *
  */
 public class 链表相加 {
-    static class Node {
-        public int val;
-        public Node next;
-        public Node(int val) {
-            this.val = val;
-        }
-    }
     public static void main(String[] args) throws IOException {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
         String[] str1 = input.readLine().split(" ");
         int n = Integer.valueOf(str1[0]);
         int m = Integer.valueOf(str1[1]);
-        Node node1 = createNode(input.readLine().split(" "), n);
-        Node node2 = createNode(input.readLine().split(" "), m);
-        printNode(sumList(reverseList(node1),reverseList(node2)));
-        reverseList(node1);  //不改变原有结构
-        reverseList(node2);
+        ListNode ListNode1 = createListNode(input.readLine().split(" "), n);
+        ListNode ListNode2 = createListNode(input.readLine().split(" "), m);
+        printListNode(sumList(reverseList(ListNode1),reverseList(ListNode2)));
+        reverseList(ListNode1);  //不改变原有结构
+        reverseList(ListNode2);
     }
 
     //链表求和
-    private static Node sumList(Node head1, Node head2) {
+    private static ListNode sumList(ListNode head1, ListNode head2) {
         int carry = 0;
-        Node pre = null;
-        Node curr = null;
+        ListNode pre = null;
+        ListNode curr = null;
         int x = 0;
         int y = 0;
         int sum = 0;
@@ -40,7 +33,7 @@ public class 链表相加 {
             y = head2 == null ? 0 : head2.val;
             sum = x + y + carry;
             carry = sum / 10;
-            curr = new Node(sum % 10);
+            curr = new ListNode(sum % 10);
             curr.next = pre;
             pre = curr;
             head1 = head1 != null ? head1.next : null;
@@ -50,13 +43,13 @@ public class 链表相加 {
     }
 
     //反转链表
-    private static Node reverseList(Node head) {
+    private static ListNode reverseList(ListNode head) {
         if(head == null || head.next == null){
             return head;
         }
-        Node curr = head;
-        Node prev = null;
-        Node next = null;
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode next = null;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
@@ -66,23 +59,23 @@ public class 链表相加 {
         return prev;
     }
 
-    public static Node createNode(String[] str, int n) {
+    public static ListNode createListNode(String[] str, int n) {
         if(str == null || str.length == 0){
             return null;
         }
-        Node head = new Node(Integer.parseInt(str[0]));
-        Node node = head;
+        ListNode head = new ListNode(Integer.parseInt(str[0]));
+        ListNode ListNode = head;
         for (int i = 1; i < n; i++) {
-            Node newNode = new Node(Integer.parseInt(str[i]));
-            node.next = newNode;
-            node = newNode;
+            ListNode newListNode = new ListNode(Integer.parseInt(str[i]));
+            ListNode.next = newListNode;
+            ListNode = newListNode;
         }
         return head;
     }
 
 
 
-    private static void printNode(Node head) {
+    private static void printListNode(ListNode head) {
         StringBuilder sb = new StringBuilder();
         while (head != null) {
             sb.append(head.val).append(' ');

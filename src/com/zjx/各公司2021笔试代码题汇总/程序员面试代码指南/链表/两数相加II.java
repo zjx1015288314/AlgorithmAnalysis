@@ -19,7 +19,8 @@ import java.util.Stack;
  * 链接：https://leetcode-cn.com/problems/add-two-numbers-ii
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
- * 思路：翻转链表相加/栈
+ * 思路：不管是链表还是字符串相加，思路都是从后往前相加。每次取出两个入参的最后一位，同时考虑进位，最后将结果翻转
+ * 本题考虑用栈来实现
  */
 public class 两数相加II {
 

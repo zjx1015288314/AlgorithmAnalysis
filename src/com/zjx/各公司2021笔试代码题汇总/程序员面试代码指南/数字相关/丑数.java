@@ -1,6 +1,5 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数字相关;
 
-import java.util.PriorityQueue;
 
 /**
  * 把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，
@@ -48,9 +47,9 @@ public class 丑数 {
      */
     public static int GetUglyNumber_Solution2(int index) {
         if(index == 0) return 0;
-        int dp[] = new int[index + 1];
+        int[] dp = new int[index + 1];
         dp[1] = 1;
-        int  p2 = 1, p3 = 1, p5 = 1;
+        int p2 = 1, p3 = 1, p5 = 1;
 
         for(int i = 2; i <= index; i++) {
             int num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
@@ -70,7 +69,6 @@ public class 丑数 {
     }
 
     public static boolean isUglyNumber(int num) {
-        PriorityQueue queue = new PriorityQueue();
         while((num % 2 == 0) || (num % 3 == 0) || (num % 5 == 0)) {
             if (num % 2 == 0) {
                 num /= 2;

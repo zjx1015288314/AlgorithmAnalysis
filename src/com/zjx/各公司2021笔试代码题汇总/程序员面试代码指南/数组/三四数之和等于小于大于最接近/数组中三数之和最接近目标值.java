@@ -3,8 +3,8 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 import java.util.Arrays;
 
 /**
- * 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，
- * 使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
+ * 给定一个包括n个整数的数组nums和一个目标值target。找出nums中的三个整数，使得它们的和与target最接近。
+ * 返回这三个数的和。假定每组输入只存在唯一答案。
  *
  * 输入：nums = [-1,2,1,-4], target = 1
  * 输出：2
@@ -34,13 +34,13 @@ public class 数组中三数之和最接近目标值 {
                 if(Math.abs(sum - target) < Math.abs(res - target)){
                     res = sum;
                 }
-
                 if(sum < target) {
                     j++;
-                    while(j < k && nums[j] == nums[j - 1]) j++;
+                    //这里写不写都可以，因为下面的while循环会跳过重复的元素。即使不写，下一次循环也会
+//                    while(j < k && nums[j] == nums[j - 1]) j++;
                 } else {
                     k--;
-                    while(j < k && nums[k] == nums[k + 1]) k--;
+//                    while(j < k && nums[k] == nums[k + 1]) k--;
                 }
             }
         }

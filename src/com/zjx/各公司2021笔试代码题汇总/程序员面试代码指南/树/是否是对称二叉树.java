@@ -15,7 +15,7 @@ public class 是否是对称二叉树 {
 
     public boolean judge(TreeNode node1, TreeNode node2) {
         if(node1 == null || node2 == null) {
-            return node1 == node2 ? true : false;
+            return node1 == node2;
         }
         if(node1.val != node2.val) {
             return false;

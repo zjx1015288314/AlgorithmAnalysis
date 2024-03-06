@@ -1,19 +1,28 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组.中位数以及第K小的数相关;
 
+/**
+ *
+ * https://leetcode.cn/problems/median-of-two-sorted-arrays/
+ * https://www.nowcoder.com/practice/b3b59248e61f499482eaba636305474b?tpId=196&tqId=40563&ru=/exam/oj
+ *
+ * 该题依赖于下面两个题型
+ *  @see 获取长度相等的两个有序数组的上中位数
+ *  @see 长度不相等的有序数组中的第k小的数
+ *
+ */
 public class 获取长度不等的两个有序数组的中位数 {
     public static void main(String[] args) {
-        int[] arr1 = {};
-        int[] arr2 = {1};
-        double res = findMedianSortedArrays(arr1, arr2);
+        int[] arr1 = {-35,-29,-15,-1,27,36,42,43};
+        int[] arr2 = {-39,-24,-24,-23,-14,-10,9,12,13,22,40};
+//        double res = findMedianSortedArrays(arr1, arr2);
         double res1 = findMedianSortedArrays2(arr1, arr2);
-        System.out.println(res);
+        System.out.println(res1);
     }
 
     /**
      * 方法一：
-     * @ref{com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.
-     * 数组.获取长度相等的两个有序数组的上(下)中位数.getLeftMedian2}
      * 时间复杂度为O(m + n) ,但未充分利用有序数组的特性
+     * @see 获取长度相等的两个有序数组的上中位数#getLeftMedian2(int[], int[])
      */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if ((nums1 == null || nums1.length == 0) && (nums2 == null || nums2.length == 0)) return 0;
@@ -58,7 +67,7 @@ public class 获取长度不等的两个有序数组的中位数 {
     }
 
     /**
-     * @ref{com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组.长度不相等的有序数组中的第k小的数}
+     * @see 长度不相等的有序数组中的第k小的数
      */
     public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
         if ((nums1 == null || nums1.length == 0) && (nums2 == null || nums2.length == 0)) return 0;
@@ -79,14 +88,17 @@ public class 获取长度不等的两个有序数组的中位数 {
         }
         //防止有数组为空造成空指针异常
         if (arr1.length == 0 || arr2.length == 0) {
-            return  arr1.length == 0 ? arr2[K - 1] : arr1[K - 1];
+            return arr1.length == 0 ? arr2[K - 1] : arr1[K - 1];
         }
 
         int[] longs = arr1.length >= arr2.length ? arr1 : arr2;
         int[] shorts = arr1.length < arr2.length ? arr1 : arr2;
         int l = longs.length;
         int s = shorts.length;
-
+        // 三种情况
+        // k <= s 可以直接求上中位数
+        // k > l 把长短数组拼起来(短 + 长 , 长 + 短) 看第k位数能不能通过剪枝直接确定，不行的话求上中位数
+        // s < k <= l 短 + 长 ，再看第k位数是不是可以剪枝, 不行的话求上中位数
         if (K <= s) {
             return getLeftMedian3(shorts, 0, K - 1, longs, 0, K - 1);
         } else if (K > l) {
@@ -96,11 +108,13 @@ public class 获取长度不等的两个有序数组的中位数 {
             if (longs[K - s - 1] >= shorts[s - 1]) {
                 return longs[K - s - 1];
             }
+            //  规律： 数组的两个位置的值比较后，如果要缩小空间，一定是较大值所在数组往左(或小)缩，较大值所在数组往右(或大)缩
             return getLeftMedian3(shorts, K - l, s - 1, longs, K - s, l - 1);
         } else {
-            if (longs[K - s - 1] >= shorts[s - 1]) {
+            if (longs[K - s - 1] >= shorts[s - 1])  {
                 return longs[K - s - 1];
             }
+            // longs[K - s - 1] < shorts[s - 1] 说明第K小的数在长数组的(K-s, k - 1)位和短数组的前s位之间
             return getLeftMedian3(shorts, 0, s - 1, longs, K - s, K - 1);
         }
     }
@@ -109,13 +123,10 @@ public class 获取长度不等的两个有序数组的中位数 {
      * 找到两数组的上中位数，利用数组的有序性，联想到二分法 O(logN)
      */
     private static int getLeftMedian3(int[] arr1, int s1, int e1, int[] arr2, int s2, int e2) {
-        int mid1 = 0;
-        int mid2 = 0;
-        int offset = 0;
         while (s1 < e1) {
-            mid1 = (s1 + e1) / 2;
-            mid2 = (s2 + e2) / 2;
-            offset = ((e1 - s1 + 1) & 1) ^ 1;   //个数为偶数时加1，奇数不变
+            int mid1 = (s1 + e1) / 2;
+            int mid2 = (s2 + e2) / 2;
+            int offset = ((e1 - s1 + 1) & 1) ^ 1;   //个数为偶数时加1，奇数不变
             if (arr1[mid1] > arr2[mid2]) {
                 e1 = mid1;
                 s2 = mid2 + offset;

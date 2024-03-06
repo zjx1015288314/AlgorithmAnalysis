@@ -15,7 +15,11 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * @link https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e?tpId=13&tags=&title=&difficulty=0&judgeStatus=0&rp=0
  */
 public class StrToNum {
-    public int StrToInt(String str) {
+    public static void main(String[] args) {
+        int res = strToInt("-2147483648");
+        System.out.println(res);
+    }
+    public static int strToInt(String str) {
         if(str == null || str.length() == 0) return 0;
 
         int i = 0;
@@ -41,8 +45,13 @@ public class StrToNum {
             //超过MAX_ALUE/MIN_VALUE的情况只返回边界值
             if(sum > bound || (sum == bound && str.charAt(j) > '7')){
                 sum = positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            } else {
+                sum = sum * 10 + (str.charAt(j) - '0');
             }
-            sum = sum * 10 + (str.charAt(j) - '0');
+        }
+        // 不加的话下面 如果sum是最小值 -1 * sum则会溢出导致结果正常
+        if (sum == Integer.MIN_VALUE || sum == Integer.MAX_VALUE) {
+            return sum;
         }
         return positive ? sum : -1 * sum;
     }

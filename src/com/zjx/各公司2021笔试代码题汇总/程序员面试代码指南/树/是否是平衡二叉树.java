@@ -1,18 +1,12 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树;
 
 public class 是否是平衡二叉树 {
-
-    class TreeNode{
-        int val;
-        TreeNode left;
-        TreeNode right;
-    }
     class ReturnData{
         int maxSize;
         boolean isBanlanced;
-        public ReturnData(int maxSize,boolean flag){
+        public ReturnData(int maxSize, boolean flag){
             this.maxSize = maxSize;
-            isBanlanced = flag;
+            this.isBanlanced = flag;
         }
     }
     public boolean IsBalanced_Solution(TreeNode root) {

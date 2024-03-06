@@ -23,7 +23,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 public class 最长回文子序列 {
 
     /**
-     * 要明确定义<i, j>的位置,i在前，j在后 j>=i
+     * 方法一 要明确定义<i, j>的位置,i在前，j在后 j>=i
      */
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
@@ -44,9 +44,31 @@ public class 最长回文子序列 {
     }
 
     /**
+     * 方法二  对方法一优化，使用更容易理解的n + 1表示dp长度
+     * @param s
+     * @return
+     */
+    public int longestPalindromeSubseq1(String s) {
+        int n = s.length();
+        int[][] dp = new int[n + 1][n + 1];
+
+        dp[n][n] = 1; // 数据初始化必须要做
+        for (int i = n - 1; i >= 1; i--) { // i 不能为0, 否则s.charAt(i - 1)会报异常
+            for (int j = i; j<= n; j++) {
+                if (s.charAt(i - 1) == s.charAt(j - 1)){
+                    dp[i][j] = dp[i + 1][j - 1] + (i == j ? 1 : 2); //这里也要注意，i==j时，长度+1
+                } else {
+                    dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[1][n];
+    }
+
+    /**
      * 可以求s与其反向序列rev(s)的最长公共序列，结果一样   dp[i][j]表示<0, i> <0, j>
      */
-    public int longestCommonSubsequence1(String text1, String text2) {
+    public int longestCommonSubsequence2(String text1, String text2) {
         if(text1 == null || text2 == null) {
             return 0;
         }

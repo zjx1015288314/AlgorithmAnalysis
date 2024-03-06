@@ -21,6 +21,13 @@ public class YFD二叉搜索树检验是否后序遍历 {
         System.out.println(check(arr,0,arr.length - 1));
     }
 
+    /**
+     * 递归检验是否是后序遍历,难点是递归的终止条件以及中间确认左右子树的区间！！！
+     * @param arr
+     * @param low
+     * @param high
+     * @return
+     */
     public static boolean check(int[] arr,int low, int high){
         //low = high + 1在区间为空的时候也认为true,此时根节点只有左子树或者右子树
         if (low == high || low == high + 1) return true;
@@ -32,7 +39,6 @@ public class YFD二叉搜索树检验是否后序遍历 {
         int rightL = idx;
         for (;idx < high; idx++){
             if (arr[idx] < arr[high]) return false;
-
         }
         int rightR = idx - 1;
         return check(arr,low,leftR) && check(arr,rightL,rightR);

@@ -11,21 +11,21 @@ public class 二叉树右视图 {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> res = new LinkedList<>();
         if(root == null) return res;
-        Stack<TreeNode> node_stack = new Stack<>();
-        Stack<Integer> depth_stack = new Stack<>();
-        node_stack.push(root);
-        depth_stack.push(0);
-        while(!node_stack.isEmpty()){
-            TreeNode node = node_stack.pop();
-            int depth = depth_stack.pop();
+        Stack<TreeNode> nodeStack = new Stack<>();
+        Stack<Integer> depthStack = new Stack<>();
+        nodeStack.push(root);
+        depthStack.push(0);
+        while(!nodeStack.isEmpty()){
+            TreeNode node = nodeStack.pop();
+            int depth = depthStack.pop();
             if(depth >= res.size()) res.add(node.val);  //根节点深度为1时，考虑depth > res.size()
             if(node.left != null){
-                node_stack.push(node.left);
-                depth_stack.push(depth+1);
+                nodeStack.push(node.left);
+                depthStack.push(depth+1);
             }
             if(node.right != null){
-                node_stack.push(node.right);
-                depth_stack.push(depth+1);
+                nodeStack.push(node.right);
+                depthStack.push(depth+1);
             }
         }
         return res;

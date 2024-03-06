@@ -1,4 +1,4 @@
-package com.itzjx.mmall_test;
+package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南;
 
 import java.util.Iterator;
 import java.util.LinkedList;

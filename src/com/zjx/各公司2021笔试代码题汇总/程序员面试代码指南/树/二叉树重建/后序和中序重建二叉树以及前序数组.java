@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.二叉树重建;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,16 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class 后序和中序重建二叉树以及前序数组 {
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int len1 = Integer.parseInt(br.readLine());

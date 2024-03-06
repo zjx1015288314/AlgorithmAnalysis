@@ -19,7 +19,7 @@ public class 数组中前K个高频元素 {
                 heap.poll();
             }
         }
-        int[] res = new int[k];
+        int[] res = new int[k < heap.size() ? k : heap.size()];
         for(int i = 0; i < res.length; i++){
             res[i] = heap.poll();
         }

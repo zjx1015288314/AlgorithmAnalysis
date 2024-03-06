@@ -17,6 +17,7 @@ import java.util.Stack;
  * 找逆序时，需要保留第一个逆序对中左边的数left和最后一个逆序对中右边的数right
  */
 public class 恢复二叉搜索树 {
+
     //1
     public void recoverTree1(TreeNode root) {
         if(root == null) return;

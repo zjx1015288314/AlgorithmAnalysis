@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.中序遍历相关;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,14 +22,6 @@ import java.util.Stack;
  * 链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal
  */
 public class 二叉树中序遍历 {
-    class TreeNode{
-        int val;
-        TreeNode left;
-        TreeNode right;
-        public TreeNode(int val){
-            this.val = val;
-        }
-    }
     /**
      * 方法一:自己的思路是：为了在遍历完左子树节点后能够向上寻找父节点、父节点的右子树，甚至祖父节点，所以使用了堆栈来存储一系列祖父节点
      * 如果节点的左子树不为空则将该节点压入堆栈并succ = succ.left,否则将节点值加入链表并succ = succ.right

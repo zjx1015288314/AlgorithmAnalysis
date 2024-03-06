@@ -37,19 +37,17 @@ public class 求根节点到叶节点数字之和 {
      */
     public int sumNumbers(TreeNode root) {
         if (root == null) return 0;
-        return sumNumbersHelper(root, 0);
+        return dfs(root, 0);
     }
 
-    private int sumNumbersHelper(TreeNode root, int sum) {
+    private int dfs(TreeNode root, int sum) {
         if (root == null) return 0;
         //已经累计的和
-        int cursum = sum * 10 + root.val;
+        int curSum = sum * 10 + root.val;
         if (root.left == null && root.right == null) {
-            return cursum;
+            return curSum;
+        } else {
+            return dfs(root.left, curSum) + dfs(root.right, curSum);
         }
-        int ans = 0; //表示从根节点经过该root节点的所有合法路径的值的总和
-        ans += sumNumbersHelper(root.left, cursum);
-        ans += sumNumbersHelper(root.right, cursum);
-        return ans;
     }
 }

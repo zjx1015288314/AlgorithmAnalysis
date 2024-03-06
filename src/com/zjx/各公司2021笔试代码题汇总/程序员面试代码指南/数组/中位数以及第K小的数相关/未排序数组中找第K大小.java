@@ -8,9 +8,7 @@ import java.io.InputStreamReader;
  * 在未排序的数组中找到第 k大的元素。
  * 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
  *
- * @author zhaojiexiong
- * @create 2020/7/15
- * @since 1.0.0
+ * https://leetcode.cn/problems/kth-largest-element-in-an-array/description/
  */
 public class 未排序数组中找第K大小 {
     public static void main(String[] args) throws IOException {
@@ -31,7 +29,7 @@ public class 未排序数组中找第K大小 {
     public static int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length) return 0;
         int len = nums.length;
-        int target = len - k;
+        int target = len - k;  //!!!第k大就是第 len -k + 1小，索引是len - k
         int left = 0;
         int right = len - 1;
         while (left < right) {

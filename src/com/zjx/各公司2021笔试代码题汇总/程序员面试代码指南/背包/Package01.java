@@ -62,7 +62,7 @@ public class Package01 {
                 dp[i][j] = dp[i - 1][j];   //第i件不考虑
 
                 if (j >= v[i]) {
-                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - v[i]] + w[i]);
+                    dp[i][j] = Math.max( dp[i][j], dp[i - 1][j - v[i]] + w[i]);
                 }
             }
         }

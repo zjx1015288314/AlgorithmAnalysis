@@ -1,4 +1,4 @@
-package com.itzjx.mmall_test;
+package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南;
 
 /**
  * 某一个大文件被拆成了 N 个小文件，每个小文件编号从 0 至 N-1，相应大小分别记为 S(i)。

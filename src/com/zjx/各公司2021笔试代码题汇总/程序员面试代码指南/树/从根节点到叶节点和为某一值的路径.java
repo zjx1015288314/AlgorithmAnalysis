@@ -8,14 +8,6 @@ import java.util.*;
  * @since 1.0.0
  */
 public class 从根节点到叶节点和为某一值的路径 {
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 
     List<List<Integer>> res = new LinkedList<>();
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
@@ -54,9 +46,8 @@ public class 从根节点到叶节点和为某一值的路径 {
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         TreeNode pre = new TreeNode(-1); //上一次栈中弹出的节点,这里将避免pre != cur.right 判断false，导致左孩子无法加入
-        TreeNode cur = null;  //栈顶
         while(!stack.isEmpty()){
-            cur = stack.peek();
+            TreeNode cur = stack.peek();
             if(cur.left != null && pre != cur.left && pre != cur.right){
                 stack.push(cur.left);
                 list.add(cur.left.val);
@@ -67,7 +58,7 @@ public class 从根节点到叶节点和为某一值的路径 {
                 target += cur.right.val;
             }else{
                 if(cur.left == null && cur.right == null && target == sum){
-                    res.add(new LinkedList(list));
+                    res.add(new LinkedList<>(list));
                 }
                 pre = stack.pop();
                 list.pollLast();

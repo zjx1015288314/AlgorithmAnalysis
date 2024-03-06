@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
  *   [2,2,1]
  * ]
  * 输出: 4
- * 解释: 最长递增路径是 [3, 4, 5, 6]。注意不允许在对角线方向上移动。
+ * 解释: 最长递增路径是[3, 4, 5, 6]。注意不允许在对角线方向上移动。
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix
  * 时间复杂度：O(mn)，其中m和n分别是矩阵的行数和列数。深度优先搜索的时间复杂度是 O(V+E)，

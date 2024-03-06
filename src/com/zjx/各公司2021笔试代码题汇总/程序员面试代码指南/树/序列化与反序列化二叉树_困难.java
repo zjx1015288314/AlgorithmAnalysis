@@ -1,9 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 二叉树的序列化(Serialize)是指：把一棵二叉树按照某种遍历方式的结果以某种格式保存为字符串，
@@ -42,12 +39,12 @@ public class  序列化与反序列化二叉树_困难 {
 
     //1.递归完成先序
     public static String serialPreByRecursive(TreeNode root){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if(root == null) {
             sb.append("#!");
             return sb.toString();
         }
-        sb.append(root.val+"!");
+        sb.append(root.val).append("!");
         String s1 = serialPreByRecursive(root.left);
         String s2 = serialPreByRecursive(root.right);
         sb.append(s1).append(s2);
@@ -55,7 +52,7 @@ public class  序列化与反序列化二叉树_困难 {
     }
 
     //2.莫里斯迭代完成先序  如果要反序列化则应该通过 ”队列+递归“ 或者 “栈+迭代” 方式完成
-    public static String serialPre(TreeNode root) {
+    public static String serialPre(TreeNode root)  {
         StringBuffer sb = new StringBuffer();
         if(root == null){
             sb.append("#!");
@@ -154,7 +151,7 @@ public class  序列化与反序列化二叉树_困难 {
 
     //栈+迭代 解先序
     private static TreeNode deserializePreOrderByStack(String data){
-        if(data == "" || "#!".equals(data)) return null;  //记得处理#!的情况
+        if(Objects.equals(data, "") || "#!".equals(data)) return null;  //记得处理#!的情况
 
         String[] arr = data.split("!");
         LinkedList<String> dataQueue = new LinkedList<>(Arrays.asList(arr));
@@ -191,30 +188,30 @@ public class  序列化与反序列化二叉树_困难 {
     //队列迭代的方式解层次序列化,将存储好的String类型数据去掉分割符号
     //将此时数据二叉树的先序遍历结果依次压入队列
     public TreeNode deserializeLevelTraversalByQueue(String data) {
-        if(data == "" || "#!".equals(data)) return null;  //记得处理#!的情况
+        if(Objects.equals(data, "") || "#!".equals(data)) return null;  //记得处理#!的情况
 
         String[] arr=data.split("!");
-        Queue<String> data_queue = new LinkedList<>(Arrays.asList(arr));
+        Queue<String> dataQueue = new LinkedList<>(Arrays.asList(arr));
 
         Queue<TreeNode> queue = new LinkedList<>();
-        TreeNode root = new TreeNode(Integer.parseInt(data_queue.remove()));
+        TreeNode root = new TreeNode(Integer.parseInt(dataQueue.remove()));
         queue.add(root);
 
         while(!queue.isEmpty()){
             TreeNode cur = queue.remove();
-            if("#".equals(data_queue.peek())){
-                data_queue.remove();
+            if("#".equals(dataQueue.peek())){
+                dataQueue.remove();
                 cur.left = null;
             }else{
-                cur.left = new TreeNode(Integer.parseInt(data_queue.remove()));
+                cur.left = new TreeNode(Integer.parseInt(dataQueue.remove()));
                 queue.add(cur.left);
             }
 
-            if("#".equals(data_queue.peek())){
-                data_queue.remove();
+            if("#".equals(dataQueue.peek())){
+                dataQueue.remove();
                 cur.right = null;
             }else{
-                cur.right = new TreeNode(Integer.parseInt(data_queue.remove()));
+                cur.right = new TreeNode(Integer.parseInt(dataQueue.remove()));
                 queue.add(cur.right);
             }
         }

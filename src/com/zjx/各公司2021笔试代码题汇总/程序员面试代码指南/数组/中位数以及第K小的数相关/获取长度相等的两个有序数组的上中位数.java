@@ -4,6 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * 给定两个递增数组arr1和arr2，已知两个数组的长度都为N，求两个数组中所有数的上中位数。
+ * 上中位数：假设递增序列长度为n，为第n/2个数
+ *
+ * 数据范围：
+ * 1≤n≤10^5，0≤arr1,arr2≤10^9
+ * 要求：时间复杂度O(n)，空间复杂度O(1)
+ * 进阶：时间复杂度为O(logN)，空间复杂度为O(1)
+ * https://www.nowcoder.com/practice/6fbe70f3a51d44fa9395cfc49694404f?tpId=196&tqId=37141&ru=/exam/oj
+ */
 public class 获取长度相等的两个有序数组的上中位数 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -25,7 +35,13 @@ public class 获取长度相等的两个有序数组的上中位数 {
         //思考：如果要找下中位数，三种方法又该怎么做？
     }
 
-    //利用数组的有序性，联想到二分法 O(logN)
+
+    /**
+     * 利用数组的有序性，联想到二分法 O(logN)
+     * @param arr1
+     * @param arr2
+     * @return
+     */
     public static int getLeftMedian3(int[] arr1, int[] arr2){
         if(arr1 == null || arr2 == null || arr1.length != arr2.length){
             throw new RuntimeException("Input arr is invalid!");
@@ -34,13 +50,10 @@ public class 获取长度相等的两个有序数组的上中位数 {
         int end1 = arr1.length - 1;
         int start2 = 0;
         int end2 = arr2.length - 1;
-        int mid1 = 0;
-        int mid2 = 0;
-        int offset = 0;
         while(start1 < end1){
-            mid1 = (start1 + end1) / 2;
-            mid2 = (start2 + end2) / 2;
-            offset = ((end1 - start1 + 1) & 1) ^ 1;
+            int mid1 = (start1 + end1) / 2;
+            int mid2 = (start2 + end2) / 2;
+            int offset = ((end1 - start1 + 1) & 1) ^ 1;
             if(arr1[mid1] > arr2[mid2]){
                 end1 = mid1;
                 start2 = mid2 + offset;
@@ -51,6 +64,7 @@ public class 获取长度相等的两个有序数组的上中位数 {
                 return arr1[mid1];
             }
         }
+        // 这里是关键，最后还是要比较以下
         return Math.min(arr1[start1],arr2[start2]);
     }
 
@@ -70,7 +84,7 @@ public class 获取长度相等的两个有序数组的上中位数 {
         while(i < len1 && j < len2){
             //先判断步数是否用完，用完直接返回，没用完减1
             target--;
-            if (target == 0) return arr1[i] <= arr2[j] ? arr1[i] : arr2[j];
+            if (target == 0) return Math.min(arr1[i], arr2[j]);
             if(arr1[i] <= arr2[j]){
                 i++;
             }else {
@@ -96,7 +110,6 @@ public class 获取长度相等的两个有序数组的上中位数 {
 
         int target = len1;   //代表从开始到找到目标需要走的步数
         int i = 0, j = 0;
-        int index = 0;
         //因为是上中位数，所以一定不会超过其中一个数组的长度，这里的循环判断条件也就是有效的
         while(i < len1 && j < len2){
             target--;

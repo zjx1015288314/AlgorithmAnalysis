@@ -6,7 +6,13 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /**
- * 数组num中找三个不重复的数之和为0
+ * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，
+ * 同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。
+ *
+ * https://leetcode.cn/problems/3sum/description/
+ * 注1: 这里要求 i!=j!=k，即同一个数不能选三次
+ * 注2：返回的结果中不能有重复的三元组，即nums[i], nums[j], nums[k] 不能重复出现
+ * 思路: 排序+三指针
  */
 public class 数组中三个数之和等于小于目标值以及四数之和 {
     public static void main(String[] args) throws IOException {
@@ -19,7 +25,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
         for (int i = 0; i < N; i++) {
             arr[i] = Integer.parseInt(str[i]);
         }
-        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> res;
         res = threeSum(arr);
         for (ArrayList<Integer> list : res) {
             for (Integer i : list) {
@@ -31,12 +37,12 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
     }
 
     /**
-     * 排序+双指针，排序防止重复组合
+     * 排序+三指针，排序防止重复组合
      * @param num
      * @return
      */
     public static ArrayList<ArrayList<Integer>> threeSum(int[] num) {
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
         Arrays.sort(num);
         for (int i = 0; i < num.length; i++) {
              if (i > 0 && num[i] == num[i - 1]) {
@@ -46,7 +52,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
             int k = num.length - 1;
             while (j < k) {
                 if (num[i] + num[j] + num[k] == 0) {
-                    ArrayList<Integer> list = new ArrayList<Integer>();
+                    ArrayList<Integer> list = new ArrayList< >();
                     list.add(num[i]);
                     list.add(num[j]);
                     list.add(num[k]);
@@ -94,7 +100,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
             while(j < k){
                 //当和小于target时：保持当前left不变，right指针从此处前移到left+1，所有的和都将小于target
                 //所以此时满足条件的情况的数目等于 right - (left + 1) + 1 = right - left
-                if(num[j] + num[k] < target - num[i]){
+                if(num[i] + num[j] + num[k] < target){
                     cnt += k - j - dump[k] + 1;
                     j++;
                     while (j < k && num[j] == num[j - 1]) j++;
@@ -112,7 +118,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
      * @param num
      * @return
      */
-    public static int[] getDumpArr(int[] num){
+    private static int[] getDumpArr(int[] num){
         if(num == null || num.length == 0)  return new int[]{};
         Map<Integer,Integer> map = new HashMap<>();
         int[] res = new int[num.length];

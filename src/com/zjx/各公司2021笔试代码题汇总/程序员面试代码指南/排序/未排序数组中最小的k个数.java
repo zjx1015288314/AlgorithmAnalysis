@@ -49,8 +49,8 @@ public class 未排序数组中最小的k个数 {
         buildHeap(arr,heapSize);
         //for(int i = arr.length - 1; i >= k; i--){
         while(heapSize > k){
-            swap(arr,0,--heapSize);
-            heapify(arr,0,heapSize);
+            swap(arr, 0, --heapSize);
+            heapify(arr,0, heapSize);
         }
         return Arrays.copyOfRange(arr,0,k);
     }

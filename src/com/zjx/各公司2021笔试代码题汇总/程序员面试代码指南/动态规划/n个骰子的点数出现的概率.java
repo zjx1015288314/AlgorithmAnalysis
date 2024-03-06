@@ -21,7 +21,7 @@ public class n个骰子的点数出现的概率 {
         int pointNum = n * faces;
         int[][] dp = new int[n + 1][pointNum + 1];
 
-        //初始情况记得处理,不然都是0
+        //初始情况记得处理,不然都是0  这里不能初始化dp[0][j], 因为dp[0][j]表示0个骰子，点数和为j的情况，这种情况是不存在的
         for(int j = 1; j <= faces; j++) {
             dp[1][j] = 1;
         }

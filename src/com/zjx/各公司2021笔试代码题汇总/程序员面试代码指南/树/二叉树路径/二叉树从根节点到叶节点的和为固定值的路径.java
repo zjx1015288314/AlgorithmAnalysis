@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.二叉树路径;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
  * 如果题目要求是从根节点到任意节点的路径和
  * root.left == null && root.right == null可以省略不要
  * 示例:
- * 给定如下二叉树，以及目标和 sum = 22，
+ * 给定如下二叉树，以及目标和sum = 22，
  * <p>
  * 5
  * / \
@@ -31,15 +33,6 @@ import java.util.List;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class 二叉树从根节点到叶节点的和为固定值的路径 {
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) {
-            val = x;
-        }
-    }
-
     List<List<Integer>> res = new LinkedList<>();
 
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
@@ -47,14 +40,14 @@ public class 二叉树从根节点到叶节点的和为固定值的路径 {
         return res;
     }
 
-    public void dfs(TreeNode root, int sum, int preSum, ArrayList<Integer> list) {
+    public void dfs(TreeNode root, int expectSum, int preSum, ArrayList<Integer> list) {
         if (root == null) return;
         list.add(root.val);
         preSum += root.val;
-        dfs(root.left, sum, preSum, list);
-        dfs(root.right, sum, preSum, list);
+        dfs(root.left, expectSum, preSum, list);
+        dfs(root.right, expectSum, preSum, list);
         //！！！！如果题目要求是从根节点到任意节点的路径和  这里的root.left == null && root.right == null可以省略不要
-        if (root.left == null && root.right == null && preSum == sum) {
+        if (root.left == null && root.right == null && preSum == expectSum) {
             res.add(new ArrayList<>(list));
         }
         list.remove(list.size() - 1);

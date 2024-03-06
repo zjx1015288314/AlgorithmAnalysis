@@ -74,4 +74,22 @@ public class 旋转数组的最小值 {
         System.out.println(array[i]);
         return array[i];
     }
+
+    public int compare (String version1, String version2) {
+        // write code here
+        String[] versionArr1 = version1.split("\\.");
+        String[] versionArr2 = version2.split(".");
+        int res = 0;
+        for (int i = 0, j = 0; i < versionArr1.length || j < versionArr2.length; i++, j++) {
+            String v1Str = i < versionArr1.length ? versionArr1[i] : "0";
+            String v2Str = j < versionArr2.length ? versionArr2[j] : "0";
+            int v1 = Integer.parseInt(v1Str);
+            int v2 = Integer.parseInt(v2Str);
+            if (v1 != v2) {
+                res = v1 > v2 ? 1 : -1;
+                break;
+            }
+        }
+        return res;
+    }
 }

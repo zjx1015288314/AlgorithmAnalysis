@@ -22,19 +22,19 @@ import java.util.List;
  */
 public class 不同的二叉搜索树II {
     public List<TreeNode> generateTrees(int n) {
-        if(n == 0) return new LinkedList<TreeNode>();
-        return generate_Trees(1,n);
+        if(n == 0) return new LinkedList<>();
+        return generateTrees(1,n);
     }
 
-    public List<TreeNode> generate_Trees(int start, int end){
+    public List<TreeNode> generateTrees(int start, int end){
         List<TreeNode> result = new LinkedList<>();
         if(start > end){
             result.add(null); //!!!!!!!!!!!!!!!!!
             return result;
         }
         for(int i = start; i <= end; i++){
-            List<TreeNode> leftTree = generate_Trees(start,i-1);
-            List<TreeNode> rightTree = generate_Trees(i+1,end);
+            List<TreeNode> leftTree = generateTrees(start,i-1);
+            List<TreeNode> rightTree = generateTrees(i+1,end);
             for(TreeNode l : leftTree){
                 for(TreeNode r : rightTree){
                     TreeNode root = new TreeNode(i);

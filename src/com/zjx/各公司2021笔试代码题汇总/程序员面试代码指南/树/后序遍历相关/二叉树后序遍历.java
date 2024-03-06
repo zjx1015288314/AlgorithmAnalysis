@@ -1,7 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.后序遍历相关;
 
 import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
-import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.从根节点到叶节点和为某一值的路径;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -85,6 +84,7 @@ public class 二叉树后序遍历 {
                 stack.push(cur.right);
             }else{
                 pre = stack.pop();
+                res.add(pre.val);
             }
         }
         return res;

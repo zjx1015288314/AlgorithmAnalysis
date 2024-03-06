@@ -42,7 +42,7 @@ public class Leetcode394字符串解码 {
     static int ptr;
 
     public static String decodeString(String s) {
-        LinkedList<String> stk = new LinkedList<String>();
+        LinkedList<String> stk = new LinkedList<>();
         ptr = 0;
         while (ptr < s.length()) {
             char cur = s.charAt(ptr);

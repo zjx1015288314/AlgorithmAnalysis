@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.二叉树重建;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,15 +9,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class 前序和中序重建二叉树以及后序数组 {
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) {
-            val = x;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -71,7 +64,7 @@ public class 前序和中序重建二叉树以及后序数组 {
         for (int i = 0; i < in.length; i++)
             indexForInOrders.put(in[i], i);
         //重建二叉树
-        TreeNode root =  reConstructBinaryTree(pre, 0, pre.length - 1, 0);
+        TreeNode root = reConstructBinaryTree(pre, 0, pre.length - 1, 0);
         //重建后序数组
         int[] post = new int[pre.length];
         reConstructPostOrderArr(pre, 0, pre.length - 1, 0, post, post.length - 1);
@@ -95,7 +88,7 @@ public class 前序和中序重建二叉树以及后序数组 {
     /**
      * 前序和中序重建后序数组
      */
-    public static int reConstructPostOrderArr(int[] pre, int preL, int preR, int inL, int[] post, int postIdx) {
+    private static int reConstructPostOrderArr(int[] pre, int preL, int preR, int inL, int[] post, int postIdx) {
         if (preL > preR) {
             return postIdx;
         }

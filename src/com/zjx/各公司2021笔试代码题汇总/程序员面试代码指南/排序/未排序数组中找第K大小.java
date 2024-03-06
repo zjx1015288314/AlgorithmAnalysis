@@ -34,15 +34,19 @@ public class 未排序数组中找第K大小 {
     public static int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length) return 0;
         int len = nums.length;
+        // 找第K大的数，即找第len-k小的数的后一位, 这里target正好是第K大的数的下标
         int target = len - k;
         int left = 0;
         int right = len - 1;
         while (left < right) {
             int index = partition(nums, left, right);
+            // 这里不用index - 1 == target 是确定了一个区间[left, index-1]，还需要对[left, index-1]进行排序才能得到第K大
+            // 所以推出条件是left == right
             if (index - 1 < target) {
                 //target -= index - left;  //注意target变化
                 left = index;
             } else {
+                // index - 1 >= target时 说明第K大的数在[left, index-1]区间内，所以right = index - 1 ！！！注意 right不是target
                 right = index - 1;
             }
         }

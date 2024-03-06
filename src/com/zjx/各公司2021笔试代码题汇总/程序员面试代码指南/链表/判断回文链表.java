@@ -8,25 +8,19 @@ import java.util.Scanner;
  * @since 1.0.0
  */
 public class 判断回文链表 {
-    static class Node{
-        int val;
-        Node next;
-        public Node(int val){
-            this.val = val;
-        }
-    }
-    static Node lEnd = null;
-    static Node rStart = null;
+    static ListNode lEnd = null;
+    static ListNode rStart = null;
+
     public static void main(String[] args){
         Scanner in = new Scanner(System.in);
         int len = in.nextInt();
-        Node head = new Node(-1);
-        Node cur = head;
+        ListNode head = new ListNode(-1);
+        ListNode cur = head;
         for (int i = 0; i < len; i++) {
-            cur = cur.next = new Node(Integer.valueOf(in.nextInt()));
+            cur = cur.next = new ListNode(in.nextInt());
         }
         if(head.next == null){
-            throw new RuntimeException("Node cannot be null");
+            throw new RuntimeException("ListNode cannot be null");
         }
         rStart = head.next;
         lEnd = head.next;
@@ -39,7 +33,7 @@ public class 判断回文链表 {
         System.out.print(flag);
 
     }
-    public static boolean isPalindrome(Node left){
+    public static boolean isPalindrome(ListNode left){
         boolean flag = true;
         if(left != lEnd){
             flag = isPalindrome(left.next);

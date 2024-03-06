@@ -8,13 +8,6 @@ import java.io.InputStreamReader;
  * 链表中奇数次序的节点放前面，偶数次序的放后面
  */
 public class 分割链表 {
-    static class ListNode{
-        int val;
-        ListNode next;
-        public ListNode(int val){
-            this.val = val;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

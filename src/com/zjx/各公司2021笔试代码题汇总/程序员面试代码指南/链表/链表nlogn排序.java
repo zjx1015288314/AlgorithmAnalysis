@@ -81,11 +81,11 @@ public class 链表nlogn排序 {
         }
 
         //切割logn次  每次切割的长度递增
-        for(int i = 1;i < length; i += i){
+        for(int i = 1; i < length; i += i){
             head = dummy.next;
             ListNode pre = dummy;
-            ListNode first = null;
-            ListNode second = null;
+            ListNode first;
+            ListNode second;
             while(head != null){
                 first = head;
                 second = head = cutFromHead(head,i);
@@ -127,6 +127,10 @@ public class 链表nlogn排序 {
 
     /**
      * 快排的写法，用了快排的思想，以及交换值
+     * 快排时间复杂度O(nlogn),最坏O(n^2):如果输入的链表已经是倒序的，但是要通过快排实现正序，且pivot选择第一个元素，则达到最坏情况
+     * 所以pivot的选择很重要，一般选择中间的元素
+     * 空间复杂度O(logn),主要是递归深度
+     * 不稳定，因为会涉及前后交换
      * @param head
      * @param tail
      */
@@ -140,6 +144,7 @@ public class 链表nlogn排序 {
     public static ListNode partition(ListNode head,ListNode tail){
         ListNode cur = head;
         ListNode post = head.next;
+        // tail 为null
         while (post != tail){
             if(post.val < head.val){
                 cur = cur.next;

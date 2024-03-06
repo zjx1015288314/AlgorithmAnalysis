@@ -16,20 +16,21 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 public class 买卖股票的最佳时机IIIK次交易 {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int max_k = 2;
-        int[][][] dp = new int[n][max_k + 1][2];
+        int maxK = 2;
+        int[][][] dp = new int[n][maxK + 1][2];
         for (int i = 0; i < n; i++) {
-            for (int k = max_k; k >= 1; k--) {
+            for (int k = maxK; k >= 1; k--) {
                 if (i == 0) {
                     /* 处理 base case */
                     dp[i][k][0] = 0;
                     dp[i][k][1] = -prices[i];
                     continue;
                 }
+                //注意 买入时已经算完成一笔交易，所以买入时交易次数减1。卖出时交易次数不变
                 dp[i][k][0] = Math.max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]);
                 dp[i][k][1] = Math.max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]);
             }
         }
-        return dp[n - 1][max_k][0];
+        return dp[n - 1][maxK][0];
     }
 }

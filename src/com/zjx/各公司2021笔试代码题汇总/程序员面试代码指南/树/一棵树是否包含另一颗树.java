@@ -20,7 +20,7 @@ public class 一棵树是否包含另一颗树 {
 
     public boolean isSubtreeHelper(TreeNode root, TreeNode subRoot) {
         if(root == null || subRoot == null) {
-            return root == subRoot ? true : false;
+            return root == subRoot;
         }
         if(root.val != subRoot.val) {
             return false;

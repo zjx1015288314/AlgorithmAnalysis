@@ -3,9 +3,9 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 import java.io.*;
 
 /**
- * 给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
- * k 是一个正整数，它的值小于或等于链表的长度。
- * 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序。
+ * 给你一个链表，每k个节点一组进行翻转，请你返回翻转后的链表。
+ * k是一个正整数，它的值小于或等于链表的长度。
+ * 如果节点总数不是k的整数倍，那么请将最后剩余的节点保持原有顺序。
  * 进阶：
  * 你可以设计一个只使用常数额外空间的算法来解决此问题吗？
  * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
@@ -96,29 +96,27 @@ public class K个一组翻转链表 {
             return head;
         }
         ListNode fPre = head;  //左区间末尾
-        ListNode start = null;  //表示翻转区间的开始
-        ListNode cur = fPre.next;  //表示翻转区间的末尾
+        ListNode end = fPre.next;  //表示翻转区间的末尾
         ListNode tPos = null;  //右区间开始  cur必不为空
         int count = 0;
-        while(cur != null){
-            tPos = cur.next;   //！！！！不要写进if中
+        while(end != null){
+            tPos = end.next;   //！！！！不要写进if中
             if(++count == k){
-                start = fPre.next;
-                reverseList(fPre,start,tPos);
+                ListNode start = fPre.next; //表示翻转区间的开始
+                reverseList(fPre, tPos);
                 fPre = start;
                 count = 0;
             }
-            cur = tPos;  //！！！！注意不是cur = cur.next; 上面调整完之后cur的位置会改变，所以每次都要保存cur.next
+            end = tPos;  //！！！！注意不是cur = cur.next; 上面调整完之后cur的位置会改变，所以每次都要保存cur.next
         }
         return head.next;
     }
 
-    private static void reverseList(ListNode fPre, ListNode start, ListNode tPos) {
+    private static void reverseList(ListNode fPre, ListNode tPos) {
         ListNode pre = tPos;
-        ListNode cur = start;
-        ListNode post = null;
+        ListNode cur = fPre.next;
         while(cur != tPos){
-            post = cur.next;
+            ListNode post = cur.next;
             cur.next = pre;
             pre = cur;
             cur = post;

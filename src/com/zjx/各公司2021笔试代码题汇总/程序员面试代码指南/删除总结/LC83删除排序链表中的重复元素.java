@@ -15,7 +15,6 @@ public class LC83删除排序链表中的重复元素 {
         ListNode cur = head.next;
         while (cur != null) {
             pre.next = null;   //写在这里也可
-
             //前后不一致时pre紧跟着cur
             if (cur.val != pre.val) {
                 pre = pre.next = cur;

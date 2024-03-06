@@ -1,9 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi]
@@ -52,7 +49,7 @@ public class 合并区间 {
         int len = intervals.length;
         int[][] res = new int[len][2];  //也可以使用List<int[]>来接收,最后返回时使用List.toArray(new int[size][])
         int idx = -1;
-        Arrays.sort(intervals,(o1,o2) -> o1[0] - o2[0]);
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
         for (int[] interval: intervals) {
             // 如果结果数组是空的，或者当前区间的起始位置 > 结果数组中最后区间的终止位置，
             // 则不合并，直接将当前区间加入结果数组。
@@ -66,4 +63,41 @@ public class 合并区间 {
         return Arrays.copyOf(res,idx + 1);
     }
 
+
+    public static void main(String[] args) {
+        int[][] arr = {{2147483646,2147483647},
+                {2147483646,2147483647},
+                {-2147483648,-2147483647},
+                {2147483646,2147483647},
+                {-2147483648,-2147483647},
+                {2147483646,2147483647},
+                {-2147483648,-2147483647},
+                {2147483646,2147483647},
+                {-2147483648,-2147483647}};
+        minmumNumberOfHost(10, arr);
+    }
+
+    public static int minmumNumberOfHost (int n, int[][] startEnd) {
+        // write code here
+        Comparator<int[]> comparator = (arr1, arr2) -> {
+            if (arr1[0] != arr2[0]) {
+                return Integer.compare(arr1[0], arr2[0]);
+            } else {
+                return Integer.compare(arr2[1], arr1[1]);
+            }
+        };
+        Arrays.sort(startEnd, comparator);
+        Stack<int[]> stack = new Stack<>();
+
+        for (int i = 0; i < startEnd.length; i++) {
+            int[] cur = startEnd[i];
+            if (stack.isEmpty() || cur[0] <= stack.peek()[1]) {
+                stack.push(cur);
+            } else {
+                stack.peek()[1] = Math.max(cur[1], stack.peek()[1]);
+            }
+            Collections.sort(stack, comparator);
+        }
+        return stack.size();
+    }
 }

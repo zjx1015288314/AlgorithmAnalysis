@@ -20,11 +20,11 @@ public class 二叉树中的最大路径和 {
 
     class ReturnData {
         int maxDistance; //根结点的树中最大路径和
-        int maxSum;   //从根结点到叶子节点的最大路径和
+        int maxDistanceFromRoot;   //从根结点到叶子节点的最大路径和
 
-        public ReturnData(int maxDistance, int maxSum) {
+        public ReturnData(int maxDistance, int maxDistanceFromRoot) {
             this.maxDistance = maxDistance;
-            this.maxSum = maxSum;
+            this.maxDistanceFromRoot = maxDistanceFromRoot;
         }
     }
 
@@ -34,21 +34,22 @@ public class 二叉树中的最大路径和 {
     }
 
     private ReturnData process(TreeNode head) {
+        // 这里不能是0，因为有可能节点的值为负数
         if (head == null) return new ReturnData(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
         ReturnData leftData = process(head.left);
         ReturnData rightData = process(head.right);
 
-        int left_gain = Math.max(leftData.maxSum, 0); //排除负数
-        int right_gain = Math.max(rightData.maxSum, 0); //排除负数
+        int leftGain = Math.max(leftData.maxDistanceFromRoot, 0); //排除负数
+        int rightGain = Math.max(rightData.maxDistanceFromRoot, 0); //排除负数
 
         //三种情况  head+left   head+right  head
-        int maxSum = Math.max(left_gain, right_gain) + head.val;
+        int maxSum = Math.max(leftGain, rightGain) + head.val;
         //int maxSum = left_gain + right_gain + head.val;
         //上面注释掉的行为错误行，maxSum只能包含从根节点开始到某一子树的路径和，而不是两条子树都包括
 
         //三种情况
-        int maxDistance = Math.max(left_gain + right_gain + head.val, Math.max(leftData.maxDistance, rightData.maxDistance));
+        int maxDistance = Math.max(leftGain + rightGain + head.val, Math.max(leftData.maxDistance, rightData.maxDistance));
         return new ReturnData(maxDistance, maxSum);
     }
 }

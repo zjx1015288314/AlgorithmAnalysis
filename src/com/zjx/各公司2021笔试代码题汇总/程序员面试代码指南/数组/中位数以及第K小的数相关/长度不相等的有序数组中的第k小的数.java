@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * @see com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组.中位数以及第K小的数相关.获取长度相等的两个有序数组的上中位数
+ */
 public class 长度不相等的有序数组中的第k小的数 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -40,7 +43,7 @@ public class 长度不相等的有序数组中的第k小的数 {
         if (K <= s) {
             return getLeftMedian3(shorts, 0, K - 1, longs, 0, K - 1);
         } else if (K > l) {
-            if (shorts[K - l - 1] >= longs[l - 1]) {
+            if (shorts[K -  l - 1] >= longs[l - 1]) {
                 return shorts[K - l - 1];
             }
             if (longs[K - s - 1] >= shorts[s - 1]) {

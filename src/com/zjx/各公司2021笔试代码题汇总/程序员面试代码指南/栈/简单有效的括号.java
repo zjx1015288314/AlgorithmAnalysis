@@ -30,7 +30,7 @@ import java.util.Stack;
 public class 简单有效的括号 {
 
     public boolean isValid(String s) {
-        Map<Character, Character> mappings = new HashMap<Character, Character>();
+        Map<Character, Character> mappings = new HashMap<>();
         mappings.put(')', '(');
         mappings.put('}', '{');
         mappings.put(']', '[');

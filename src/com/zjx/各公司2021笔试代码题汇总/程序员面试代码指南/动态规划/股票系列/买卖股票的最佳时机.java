@@ -1,7 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.动态规划.股票系列;
 
 /**
- * 给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+ * 给定一个数组 prices，它的第i个元素prices[i] 表示一支给定股票第 i 天的价格。
  * 你只能选择某一天买入这只股票，并选择在未来的某一个不同的日子卖出该股票,只允许买卖一次。
  * 设计一个算法来计算你所能获取的最大利润。
  * 返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回0
@@ -52,11 +52,12 @@ public class 买卖股票的最佳时机 {
         int maxProfit = 0;
 
         int minPrice = Integer.MAX_VALUE;
-        for(int i = 0; i < prices.length; i++) {
-            if(i > 0 && prices[i] > minPrice) {
-                maxProfit = Math.max(maxProfit, prices[i] - minPrice);
+        for (int price : prices) {
+            if (price > minPrice) {
+                maxProfit = Math.max(maxProfit, price - minPrice);
+            } else {
+                minPrice = price;
             }
-            minPrice = Math.min(minPrice, prices[i]);
         }
         return maxProfit;
     }

@@ -28,7 +28,6 @@ public class 最长递增子序列_困难 {
      * 空间复杂度：O(n)，需要额外使用长度为n的ends数组
      */
     public int[] LIS (int[] arr) {
-
         if(arr == null || arr.length == 0) return null;
         int[] ends = new int[arr.length]; //索引为i - 1的位置表示当前长度为i的LIS中，最小的末尾数字
         int[] dp = new int[arr.length]; //dp[i]表示当前以nums[i]结尾的最长递增子序列的长度

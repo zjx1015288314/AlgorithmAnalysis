@@ -68,7 +68,8 @@ public class LeetCode329矩阵中最长递增路径 {
         for(int[] direction : directions) {
             int newX = x + direction[0];
             int newY = y + direction[1];
-            if(newX >= 0 && newX < row && newY >= 0 && newY < col && !visited[newX][newY] && matrix[newX][newY] > matrix[x][y]) {
+            if(newX >= 0 && newX < row && newY >= 0 && newY < col &&
+                    !visited[newX][newY] && matrix[newX][newY] > matrix[x][y]) {
                 int len = process1(matrix, newX, newY, row, col, visited);
                 maxRemainlen = Math.max(maxRemainlen, len);
             }

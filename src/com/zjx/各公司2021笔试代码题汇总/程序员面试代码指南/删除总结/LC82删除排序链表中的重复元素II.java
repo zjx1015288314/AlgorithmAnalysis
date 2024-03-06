@@ -4,6 +4,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 /**
  * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中没有重复出现的数字。
  * 与83区别在于可能会删除头结点，所以用哑结点作了处理
+ * 思路：找到重复的节点所在的区间（左闭右开），然后去掉这一段
  */
 public class LC82删除排序链表中的重复元素II {
     public ListNode deleteDuplicates(ListNode head) {
@@ -19,12 +20,11 @@ public class LC82删除排序链表中的重复元素II {
                 while(next != null && cur.val == next.val){next = next.next;}
                 cur = next;
                 pre.next = cur;
-
                 next = cur == null ? null : cur.next;
             }else{
                 pre = cur;
                 cur = next;
-                next = next.next;
+                next = cur.next;
             }
         }
         return dummy.next;
