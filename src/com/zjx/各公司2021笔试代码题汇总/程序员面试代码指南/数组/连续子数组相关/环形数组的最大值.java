@@ -62,6 +62,7 @@ public class 环形数组的最大值 {
         }
 
         //再计算以len-1结尾的子数组的元素和的最大值
+        // 这里这样处理是因为计算后缀数组的总和时不包括当前元素
         int[] postMax = new int[len];
         int postSum = 0;
         for (int i = len - 1; i >= 0; i--){
@@ -76,8 +77,8 @@ public class 环形数组的最大值 {
 
         //遍历数组A，找到不包含首尾元素的最大子数组和
         int sum = 0;
-        for (int i = 0; i < len; i++){
-            sum = sum <= 0 ? A[i] : sum + A[i];
+        for (int j : A) {
+            sum = sum <= 0 ? j : sum + j;
             result = Math.max(sum, result);
         }
         return result;

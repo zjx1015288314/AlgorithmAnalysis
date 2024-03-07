@@ -8,7 +8,8 @@ import java.util.Map;
  * 一个缓存结构需要实现如下功能。
  * set(key, value)：将记录(key, value)插入该结构
  * get(key)：返回key对应的value值
- * 但是缓存结构中最多放K条记录，如果新的第K+1条记录要加入，就需要根据策略删掉一条记录，然后才能把新记录加入。这个策略为：在缓存结构的K条记录中，哪一个key从进入缓存结构的时刻开始，被调用set或者get的次数最少，就删掉这个key的记录；
+ * 但是缓存结构中最多放K条记录，如果新的第K+1条记录要加入，就需要根据策略删掉一条记录，然后才能把新记录加入。
+ * 这个策略为：在缓存结构的K条记录中，哪一个key从进入缓存结构的时刻开始，被调用set或者get的次数最少，就删掉这个key的记录；
  * 如果调用次数最少的key有多个，上次调用发生最早的key被删除
  * 这就是LFU缓存替换算法。实现这个结构，K作为参数给出
  * [要求]
@@ -40,8 +41,8 @@ class LFUCache{
     int capacity;
     int size;
     int minFrequency;
-    Map<Integer,ListNode> res;
-    Map<Integer,DLinkedList> frequencyMap;
+    Map<Integer,ListNode> res; //key为节点的key，value为节点
+    Map<Integer,DLinkedList> frequencyMap;  //key为频率，value为对应的链表
 
     public LFUCache(int capacity){
         if(capacity < 1){
@@ -148,7 +149,7 @@ class DLinkedList{
 class ListNode{
     Integer key; //冗余值，为了在容量达到最大值时删除frequencyMap中某个节点时能删除res中对应的node节点
     Integer value;
-    int frequency; //冗余值，在频率变化的时候能即使更新
+    int frequency; //冗余值，在频率变化的时候能及时更新
     ListNode next;
     ListNode prev;
     public ListNode(Integer key,Integer value){

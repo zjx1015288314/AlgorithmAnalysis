@@ -21,7 +21,7 @@ public class CreateThread3 {
     }
     public static void main(String[] args) {
         MyCallable callable = new MyCallable();
-        FutureTask<Integer> task = new FutureTask<Integer>(callable);
+        FutureTask<Integer> task = new FutureTask<>(callable);
         Thread thread1 = new Thread(task);
         thread1.start();
         try {

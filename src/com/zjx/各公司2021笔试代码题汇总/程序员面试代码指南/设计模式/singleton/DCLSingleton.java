@@ -14,7 +14,7 @@ public class DCLSingleton implements Serializable,Cloneable {
 
     public static DCLSingleton getInstance(){
         if(singleton == null){
-            synchronized (DCLSingleton.class){
+            synchronized (DCLSingleton.class){  //类级别的锁
                 if(singleton == null){
                     singleton = new DCLSingleton();
                 }

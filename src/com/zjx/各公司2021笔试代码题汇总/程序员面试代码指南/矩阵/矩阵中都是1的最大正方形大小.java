@@ -13,7 +13,7 @@ public class 矩阵中都是1的最大正方形大小 {
     public int solve2(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        int dp[][] = new int [m + 1][n + 1];
+        int[][] dp = new int [m + 1][n + 1];
 
         int max = 0;
         for(int i = 1; i <= m; i++){
@@ -91,8 +91,8 @@ public class 矩阵中都是1的最大正方形大小 {
     public int solve1(char[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        //dp[i][j][0]: (i,j)及左边连续1的个数
-        //dp[i][j][1]: (i,j)及上边连续1的个数
+        //dp[i][j][0]: (i,j)及上边连续1的个数
+        //dp[i][j][1]: (i,j)及左边连续1的个数
         //dp[i][j]是作为正方形的右下角来定位的
         int[][][] dp = new int[m + 1][n + 1][2];  //这样申请可以不用处理边界
         for (int i = 1; i <= m; i++) {

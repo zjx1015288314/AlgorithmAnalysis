@@ -8,14 +8,14 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
 
     public static boolean isNumeric (String str) {
         // write code here
-        if(str == null || str.length() == 0) return false;
+        if(str == null || str.isEmpty()) return false;
         str = str.trim();
 
         return isInteger(str) || isMinute(str) || isScientificCount(str);
     }
 
     public static boolean isScientificCount(String str) {
-        if(str == null || str.length() == 0) return false;
+        if(str == null || str.isEmpty()) return false;
 
         int i = 0;
         while(i < str.length() && str.charAt(i) != 'e' && str.charAt(i) != 'E') {
@@ -33,12 +33,10 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
     }
 
     public static boolean isMinute(String str) {
-        if(str == null || str.length() == 0) return false;
+        if(str == null || str.isEmpty()) return false;
 
         int i = 0;
-        boolean positive = true;
         if(str.charAt(i) ==  '-') {
-            positive = false;
             i++;
         } else if(str.charAt(i) == '+') {
             i++;
@@ -75,7 +73,7 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
     }
 
     public static boolean isInteger(String str) {
-        if(str == null || str.length() == 0) return false;
+        if(str == null || str.isEmpty()) return false;
 
         int i = 0;
         boolean positive = true;

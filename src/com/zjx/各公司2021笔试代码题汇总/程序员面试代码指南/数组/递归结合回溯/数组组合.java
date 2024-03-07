@@ -60,7 +60,7 @@ public class 数组组合 {
             return;
         }
         if (target == 0) {
-            ans.add(new ArrayList<Integer>(combine));
+            ans.add(new ArrayList<>(combine));
             return;
         }
         // 直接跳过

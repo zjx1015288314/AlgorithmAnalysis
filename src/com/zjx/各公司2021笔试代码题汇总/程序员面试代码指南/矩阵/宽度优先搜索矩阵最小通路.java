@@ -34,6 +34,8 @@ import java.util.Queue;
  * 00001
  * 输出
  * 12
+ *
+ * 注意：别用dp，因为dp是从左上角到右下角，这里的通路可能会从右边和下边的方向
  */
 public class 宽度优先搜索矩阵最小通路 {
     public static void main(String[] args) throws IOException {
@@ -50,19 +52,19 @@ public class 宽度优先搜索矩阵最小通路 {
                 }
             }
         }
-        System.out.println(find(matrix,n,m));
+        System.out.println(find(matrix));
     }
 
 
-    public static int find(int[][] arr,int n,int m){
+    public static int find(int[][] arr){
         if(arr==null||arr.length==0||arr[0].length==0)
             return -1;
         int row = arr.length;
         int col = arr[0].length;
         int[][] directions = {{-1,0},{1,0},{0,-1},{0,1}};
         Queue<int[]> queue=new LinkedList<>();
-        //map[i][j]表示从(0,0)到(i,j)的最短通路值，为了保证最短，使用宽度优先遍历
-        //如果任何方向都走不到，则map[i][j]为0；
+        //map[i][j]表示从(0,0)到(i,j)的最短通路值，同时也兼容visited数组的角色(即保证该坐标未被遍历过)。
+        // 为了保证最短，使用宽度优先遍历。如果任何方向都走不到，则map[i][j]为0；
         int[][] map = new int[row][col];
         queue.add(new int[]{0,0});
         map[0][0] = 1;

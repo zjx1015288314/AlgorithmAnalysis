@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
  *   [2,2,1]
  * ]
  * 输出: 4
- * 解释: 最长递增路径是 [3, 4, 5, 6]。注意不允许在对角线方向上移动。
+ * 解释: 最长递增路径是[3, 4, 5, 6]。注意不允许在对角线方向上移动。
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix
  * 时间复杂度：O(mn)，其中m和n分别是矩阵的行数和列数。深度优先搜索的时间复杂度是 O(V+E)，
@@ -45,7 +45,7 @@ public class LeetCode329矩阵中最长递增路径 {
      * 还需要+1才是最终结果。visited[x][y]表示matrix[x][y]在本次递归中是否遍历过，按逻辑来说没问题，但会超出时间限制
      * 所以后面优化成int[][] visited表示从matrix[x][y]开始的最长递增序列的长度，为0表示没遍历过，否则停止遍历，这样做
      * 每个matrix[x][y]之前的遍历结果就会复用，减少复杂度
-     * O(n4^n)    O(n)   其中n为矩阵中元素个数
+     * O(4^n)    O(n)   其中n为矩阵中元素个数
      */
     public static int longestIncreasingPath1(int[][] matrix) {
         int maxLen = 0;

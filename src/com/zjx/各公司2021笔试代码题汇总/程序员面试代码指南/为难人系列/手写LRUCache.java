@@ -52,7 +52,7 @@ public class 手写LRUCache {
 class LRUCache<K, V> {
     DoubleLinkedList<V> dList;
     Map<K, Node<V>> keyNodeMap;    // <key, node>
-    Map<Node<V>, K> nodeKeyMap;    // <node, key>   删除最旧节点时需要用到
+    Map<Node<V>, K> nodeKeyMap;    // <node, key>   删除最旧节点时需要用到, 如果Node节点有key，则不需要该map
     int capacity;                  // 缓存容量
 
     public LRUCache(int capacity) {
@@ -69,7 +69,7 @@ class LRUCache<K, V> {
         if (keyNodeMap.containsKey(key)) {
             Node<V> node = keyNodeMap.get(key);
             node.value = value;
-            //dList.moveNodeToTail(node);
+            dList.moveNodeToTail(node);
         } else {
             Node<V> newNode = new Node<>(value);
             keyNodeMap.put(key, newNode);

@@ -64,19 +64,12 @@ public class 合并区间 {
     }
 
 
-    public static void main(String[] args) {
-        int[][] arr = {{2147483646,2147483647},
-                {2147483646,2147483647},
-                {-2147483648,-2147483647},
-                {2147483646,2147483647},
-                {-2147483648,-2147483647},
-                {2147483646,2147483647},
-                {-2147483648,-2147483647},
-                {2147483646,2147483647},
-                {-2147483648,-2147483647}};
-        minmumNumberOfHost(10, arr);
-    }
-
+    /**
+     * 该题无关
+     * @param n
+     * @param startEnd
+     * @return
+     */
     public static int minmumNumberOfHost (int n, int[][] startEnd) {
         // write code here
         Comparator<int[]> comparator = (arr1, arr2) -> {

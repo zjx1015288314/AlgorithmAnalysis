@@ -1,5 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.字符串;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -20,7 +21,7 @@ public class 出现次数最多的k个字符串 {
                 map.put(i,map.get(i) + 1);
             }
         }
-        PriorityQueue<Integer> heap = new PriorityQueue<Integer>((o1, o2) -> map.get(o1) - map.get(o2));
+        PriorityQueue<Integer> heap = new PriorityQueue<>(Comparator.comparingInt(map::get));
         for(int n : map.keySet()){
             heap.add(n);
             if (heap.size() > k){

@@ -49,6 +49,39 @@ public class NumToABC {
         return next;
     }
 
+    /**
+     * DP 比较直观
+     * @param nums
+     * @return
+     */
+    public int solve (String nums) {
+        // write code here
+        if (nums == null || nums.length() == 0 || nums.equals("0")) {
+            return 0;
+        }
+        // 剪枝
+        //当0的前面不是1或2时，无法译码，0种
+        for (int i = 1; i < nums.length(); i++) {
+            if (nums.charAt(i) == '0')
+                if (nums.charAt(i - 1) != '1' && nums.charAt(i - 1) != '2')
+                    return 0;
+        }
+        int[] dp = new int[nums.length() + 1];
+        //辅助数组初始化为1
+        dp[0] = 1;
+        dp[1] = 1;
+        for (int i = 2; i <= nums.length(); i++) {
+            //在11-19，21-26之间的情况
+            if ((nums.charAt(i - 2) == '1' && nums.charAt(i - 1) != '0') ||
+                    (nums.charAt(i - 2) == '2' && nums.charAt(i - 1) > '0' &&
+                            nums.charAt(i - 1) < '7'))
+                dp[i] = dp[i - 1] + dp[i - 2];
+            else
+                dp[i] = dp[i - 1];
+        }
+        return dp[nums.length()];
+    }
+
     private static int solution1(String s) {
         if (s == null) {
             return 0;

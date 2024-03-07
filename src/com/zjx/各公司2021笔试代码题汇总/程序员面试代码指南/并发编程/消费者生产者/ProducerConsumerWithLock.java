@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Lock机制实现生产者消费者 {
+public class ProducerConsumerWithLock {
     private static int count = 0;  //当前的生产数量
     private static final int buffCount = 10;  //最大允许的生产数量
     private static Lock lock = new ReentrantLock();
@@ -14,7 +14,7 @@ public class Lock机制实现生产者消费者 {
     private final Condition notEmpty = lock.newCondition();
 
     public static void main(String[] args) {
-        Lock机制实现生产者消费者 pro = new Lock机制实现生产者消费者();
+        ProducerConsumerWithLock pro = new ProducerConsumerWithLock();
         for (int i = 0; i < 10; i++) {
             new Thread(new MyProducer(pro)).start();
         }
@@ -54,9 +54,9 @@ public class Lock机制实现生产者消费者 {
 }
 
 class MyConsumer implements Runnable {
-    Lock机制实现生产者消费者 pro;
+    ProducerConsumerWithLock pro;
 
-    public MyConsumer(Lock机制实现生产者消费者 pro) {
+    public MyConsumer(ProducerConsumerWithLock pro) {
         this.pro = pro;
     }
 
@@ -72,9 +72,9 @@ class MyConsumer implements Runnable {
 }
 
 class MyProducer implements Runnable {
-    Lock机制实现生产者消费者 pro;
+    ProducerConsumerWithLock pro;
 
-    public MyProducer(Lock机制实现生产者消费者 pro) {
+    public MyProducer(ProducerConsumerWithLock pro) {
         this.pro = pro;
     }
 

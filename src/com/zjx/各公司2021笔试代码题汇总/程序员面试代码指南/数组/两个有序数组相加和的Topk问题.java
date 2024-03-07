@@ -57,11 +57,13 @@ public class 两个有序数组相加和的Topk问题 {
         int[] res = new int[topK];
         int resIdx = 0;
         PriorityQueue<Node> maxHeap = new PriorityQueue<>((o1, o2) -> o2.value - o1.value);
-        Set<String> positionSet = new HashSet<>();
         int i1 = arr1.length - 1;
         int i2 = arr2.length - 1;
         maxHeap.add(new Node(i1, i2, arr1[i1] + arr2[i2]));
+
+        Set<String> positionSet = new HashSet<>();
         positionSet.add(i1 + "_" + i2);
+
         while(resIdx != topK){
             Node cur = maxHeap.poll();
             res[resIdx++] = cur.value;

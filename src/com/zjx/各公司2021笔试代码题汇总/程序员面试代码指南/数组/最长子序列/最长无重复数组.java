@@ -1,9 +1,9 @@
-package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组;
+package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组.最长子序列;
 
 import java.util.*;
 
 /**
- *  给定一个长度为n的数组arr，返回arr的最长无重复元素子数组的长度，无重复指的是所有数字都不相同。
+ *  给定一个长度为n的数组arr，返回arr的 最长无重复元素子数组(注意要连续) 的长度，无重复指的是所有数字都不相同。
  *  子数组是连续的，比如[1,3,5,7,9]的子数组有[1,3]，[3,5,7]等等，但是[1,3,7]不是子数组
  *
  *  数据范围：0≤arr.length≤10^5，0<arr[i]≤10^5
@@ -23,21 +23,21 @@ public class 最长无重复数组 {
         Map<Integer, Integer> itemToIndex = new HashMap<>();
 
         int start = 0;
-        int end = 0;
+        int cur = 0;
         int maxLen = 0;
-        while (end < arr.length) {
+        while (cur < arr.length) {
             // 如果当前元素在start和end之间出现过，那么start就要移动到这个元素的下一个位置
             // 注意这里的判断条件是itemToIndex.get(arr[end]) >= start，目的是让start不能后退，例如 [3,3,2,1,3,3,3,1]
             // 这段也可以写成, 更加简介明了
-            //if (itemToIndex.containsKey(arr[end])) {
+            //if (itemToIndex.containsKey(arr[cur])) {
             //    start = Math.max(start, itemToIndex.get(arr[end]) + 1);
             //}
-            if (itemToIndex.containsKey(arr[end]) && itemToIndex.get(arr[end]) >= start) {
-                start = itemToIndex.get(arr[end]) + 1;
+            if (itemToIndex.containsKey(arr[cur]) && itemToIndex.get(arr[cur]) >= start) {
+                start = itemToIndex.get(arr[cur]) + 1;
             }
-            itemToIndex.put(arr[end], end);
-            maxLen = Math.max(maxLen, end - start + 1);
-            end++;
+            itemToIndex.put(arr[cur], cur);
+            maxLen = Math.max(maxLen, cur - start + 1);
+            cur++;
         }
         return maxLen;
     }

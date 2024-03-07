@@ -36,12 +36,13 @@ public class 数组组合II {
         return res;
     }
 
-    public static void combinationSumHelper(int[] candidates, int target, int idx, List<Integer> path, Map<Integer, Integer> map, List<List<Integer>> res) {
+    public static void combinationSumHelper(int[] candidates, int target, int idx, List<Integer> path, Map<Integer,
+            Integer> map, List<List<Integer>> res) {
         if (target == 0) {
             res.add(new ArrayList<>(path));
             return;
         }
-
+        // candidates[i]的次数在candidates[i - 1]用完了
         for (int i = idx; i < candidates.length; i++) {
             if (i > 0 && candidates[i] == candidates[i - 1]) {
                 continue;

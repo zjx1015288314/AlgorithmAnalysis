@@ -25,8 +25,8 @@ public class 数组中出现超过一半的数字 {
             }
         }
         count = 0;
-        for(int i = 0; i < array.length; i++) {
-            if(array[i] == preMostNum) {
+        for (int j : array) {
+            if (j == preMostNum) {
                 count++;
             }
         }

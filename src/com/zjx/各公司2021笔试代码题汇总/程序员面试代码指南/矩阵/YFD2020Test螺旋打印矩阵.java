@@ -21,47 +21,47 @@ public class YFD2020Test螺旋打印矩阵 {
     }
 
     public static void process(int[][] matrix){
-        StringBuffer sb = new StringBuffer();
-        int tR = 0;
-        int tC = 0;
-        int dR = matrix.length - 1;
-        int dC = matrix[0].length - 1;
-        while(tR <= dR && tC <= dC ){
-            printRac(matrix,tR++,tC++,dR--,dC--);
+        int topRow = 0;
+        int topCol = 0;
+        int bottomRow = matrix.length - 1;
+        int bottomCol = matrix[0].length - 1;
+        while(topRow <= bottomRow && topCol <= bottomCol ){
+            printRac(matrix,topRow++,topCol++,bottomRow--,bottomCol--);
         }
     }
 
     public static void printRac(int[][] matrix, int tR, int tC, int dR, int dC){
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (tR == dR){
             for (int i = tC; i <= dC; i++) {
-                sb.append(matrix[tR][i] + " ");
+                sb.append(matrix[tR][i]).append(" ");
             }
         }else if(tC == dC){
             for (int i = tR; i <= dR; i++) {
-                sb.append(matrix[i][tC] + " ");
+                sb.append(matrix[i][tC]).append(" ");
             }
         }else{
             int curR = tR;
             int curC = tC;
 
+            // 注意这是逆时针打印
             while (curR < dR){
-                sb.append(matrix[curR][tC] + " ");
+                sb.append(matrix[curR][tC]).append(" ");
                 curR++;
             }
             while (curC < dC){
-                sb.append(matrix[dR][curC] + " ");
+                sb.append(matrix[dR][curC]).append(" ");
                 curC++;
             }
             while (curR > tR){
-                sb.append(matrix[curR][dC] + " ");
+                sb.append(matrix[curR][dC]).append(" ");
                 curR--;
             }
             while(curC > tC){
-                sb.append(matrix[tR][curC] + " ");
+                sb.append(matrix[tR][curC]).append(" ");
                 curC--;
             }
         }
-        System.out.print(sb.toString());
+        System.out.print(sb);
     }
 }
