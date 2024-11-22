@@ -6,68 +6,21 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * https://www.nowcoder.com/practice/b3b59248e61f499482eaba636305474b?tpId=196&tqId=40563&ru=/exam/oj
  *
  * 该题依赖于下面两个题型
- *  @see 获取长度相等的两个有序数组的上中位数
- *  @see 长度不相等的有序数组中的第k小的数
+ *  @see 获取长度相等的两个有序数组的上中位数难度1
+ *  @see 长度不相等的有序数组中的第k小的数难度2
  *
  */
-public class 获取长度不等的两个有序数组的中位数 {
+public class 获取长度不等的两个有序数组的中位数难度3 {
     public static void main(String[] args) {
         int[] arr1 = {-35,-29,-15,-1,27,36,42,43};
         int[] arr2 = {-39,-24,-24,-23,-14,-10,9,12,13,22,40};
-//        double res = findMedianSortedArrays(arr1, arr2);
+        // res: -1.0
         double res1 = findMedianSortedArrays2(arr1, arr2);
-        System.out.println(res1);
+        System.out.println("res: " + res1);
     }
 
     /**
-     * 方法一：
-     * 时间复杂度为O(m + n) ,但未充分利用有序数组的特性
-     * @see 获取长度相等的两个有序数组的上中位数#getLeftMedian2(int[], int[])
-     */
-    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        if ((nums1 == null || nums1.length == 0) && (nums2 == null || nums2.length == 0)) return 0;
-
-        int first = 0;
-        int second = 0;
-
-        int leftMedia = (nums1.length + nums2.length - 1) / 2;
-        int rightMedia = (nums1.length + nums2.length) / 2;
-        int leftTarget = leftMedia + 1;
-        int rightTarget = rightMedia + 1;
-
-        int idx1 = 0;
-        int idx2 = 0;
-        while (idx1 < nums1.length && idx2 < nums2.length) {
-            leftTarget--;
-            rightTarget--;
-            if (leftTarget == 0) {
-                first = nums1[idx1] <= nums2[idx2] ? nums1[idx1] : nums2[idx2];
-            }
-
-            if (rightTarget == 0) {
-                second = nums1[idx1] <= nums2[idx2] ? nums1[idx1] : nums2[idx2];
-            }
-
-            if (nums1[idx1] <= nums2[idx2]) {
-                idx1++;
-            }else{
-                idx2++;
-            }
-        }
-
-        if (leftTarget >= 1) {
-            first = idx1 < nums1.length ? nums1[idx1 + leftTarget - 1] : nums2[idx2 + leftTarget - 1];
-        }
-
-        if (rightTarget >= 1) {
-            second = idx1 < nums1.length ? nums1[idx1 + rightTarget - 1] : nums2[idx2 + rightTarget - 1];
-        }
-
-        return (first + second) / 2.0;
-    }
-
-    /**
-     * @see 长度不相等的有序数组中的第k小的数
+     * @see 长度不相等的有序数组中的第k小的数难度2
      */
     public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
         if ((nums1 == null || nums1.length == 0) && (nums2 == null || nums2.length == 0)) return 0;
@@ -75,13 +28,36 @@ public class 获取长度不等的两个有序数组的中位数 {
         int leftTarget = (nums1.length + nums2.length + 1) / 2;  //上中位数为总的数组中第leftTarget小
         int rightTarget = (nums1.length + nums2.length + 2) / 2;
 
-        int first = getKthMinNum(nums1, nums2, leftTarget);
-        int second = getKthMinNum(nums1, nums2, rightTarget);
+        int first = getKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, leftTarget);
+        int second = getKth(nums1, 0, nums1.length - 1, nums2, 0, nums2.length - 1, rightTarget);
 
         return (first + second) / 2.0;
-
     }
 
+    public static int getKth(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) {
+        int len1 = end1 - start1 + 1;
+        int len2 = end2 - start2 + 1;
+        //让 len1 的长度小于 len2，这样就能保证如果有数组空了，一定是 len1
+        if (len1 > len2) return getKth(nums2, start2, end2, nums1, start1, end1, k);
+        // 数组为空时, start = 0, end = -1, len = 0
+        if (len1 == 0) return nums2[start2 + k - 1];
+        // ！！！没有这段代码会引发50行的数组越界异常
+        if (k == 1) return Math.min(nums1[start1], nums2[start2]);
+
+        int i = start1 + Math.min(len1, k / 2) - 1;
+        int j = start2 + Math.min(len2, k / 2) - 1;
+
+        if (nums1[i] > nums2[j]) {
+            return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1));
+        }
+        else {
+            return getKth(nums1, i + 1, end1, nums2, start2, end2, k - (i - start1 + 1));
+        }
+    }
+
+
+    //因为写法复杂被抛弃
+    @Deprecated
     public static int getKthMinNum(int[] arr1, int[] arr2, int K) {
         if (arr1 == null || arr2 == null || K < 1 || K > arr1.length + arr2.length) {
             throw new RuntimeException("Input data is invalid!");
@@ -138,5 +114,52 @@ public class 获取长度不等的两个有序数组的中位数 {
             }
         }
         return Math.min(arr1[s1], arr2[s2]);
+    }
+
+    /**
+     * 方法一：
+     * 时间复杂度为O(m + n) ,但未充分利用有序数组的特性
+     * @see 获取长度相等的两个有序数组的上中位数难度1#getLeftMedian2(int[], int[])
+     */
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if ((nums1 == null || nums1.length == 0) && (nums2 == null || nums2.length == 0)) return 0;
+
+        int first = 0;
+        int second = 0;
+
+        int leftMedia = (nums1.length + nums2.length - 1) / 2;
+        int rightMedia = (nums1.length + nums2.length) / 2;
+        int leftTarget = leftMedia + 1;
+        int rightTarget = rightMedia + 1;
+
+        int idx1 = 0;
+        int idx2 = 0;
+        while (idx1 < nums1.length && idx2 < nums2.length) {
+            leftTarget--;
+            rightTarget--;
+            if (leftTarget == 0) {
+                first = nums1[idx1] <= nums2[idx2] ? nums1[idx1] : nums2[idx2];
+            }
+
+            if (rightTarget == 0) {
+                second = nums1[idx1] <= nums2[idx2] ? nums1[idx1] : nums2[idx2];
+            }
+
+            if (nums1[idx1] <= nums2[idx2]) {
+                idx1++;
+            }else{
+                idx2++;
+            }
+        }
+
+        if (leftTarget >= 1) {
+            first = idx1 < nums1.length ? nums1[idx1 + leftTarget - 1] : nums2[idx2 + leftTarget - 1];
+        }
+
+        if (rightTarget >= 1) {
+            second = idx1 < nums1.length ? nums1[idx1 + rightTarget - 1] : nums2[idx2 + rightTarget - 1];
+        }
+
+        return (first + second) / 2.0;
     }
 }

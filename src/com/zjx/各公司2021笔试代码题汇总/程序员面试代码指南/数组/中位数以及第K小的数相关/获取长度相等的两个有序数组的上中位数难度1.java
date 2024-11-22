@@ -8,13 +8,22 @@ import java.io.InputStreamReader;
  * 给定两个递增数组arr1和arr2，已知两个数组的长度都为N，求两个数组中所有数的上中位数。
  * 上中位数：假设递增序列长度为n，为第n/2个数
  *
+ * 上下中位数的思路在于二分法，每次去掉不可能的一半，最后剩下的两个数中的较大值就是上中位数
+ * 1. 如果两个数组长度是偶数:
+ *  [1, 4, 5, 7]与[2, 3, 4, 5]比较, 当中位数比较4, 3比较时, 4比3大, 那么3及3之前的数都不可能是上中位数,
+ *  4之后的数(注意4可能是中位数)都不可能是上中位数, 所以第一次比较完后, 剩下的数是[1, 4]与[4, 5]比较
+ * 2. 如果两个数组长度是奇数:
+ *  [1, 4, 5]与[2, 3, 4]比较, 当中位数比较4, 3比较时, 4比3大, 4及4之后的数都不可能是上中位数,
+ *  3(注意3可能是上中位树，不能舍弃)之前的数都不可能是上中位数,所以第一次比较完后, 剩下的数是[1, 4]与[3, 4]比较
+ * 总结一下就是，偶数长度的数组比较时, 舍弃策略更加严格, 舍弃的数更多, 奇数长度的数组比较时, 舍弃策略更加宽松, 舍弃的数更少
+ *
  * 数据范围：
  * 1≤n≤10^5，0≤arr1,arr2≤10^9
  * 要求：时间复杂度O(n)，空间复杂度O(1)
  * 进阶：时间复杂度为O(logN)，空间复杂度为O(1)
  * https://www.nowcoder.com/practice/6fbe70f3a51d44fa9395cfc49694404f?tpId=196&tqId=37141&ru=/exam/oj
  */
-public class 获取长度相等的两个有序数组的上中位数 {
+public class 获取长度相等的两个有序数组的上中位数难度1 {
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
@@ -50,6 +59,7 @@ public class 获取长度相等的两个有序数组的上中位数 {
         int end1 = arr1.length - 1;
         int start2 = 0;
         int end2 = arr2.length - 1;
+        // ！！！条件不是等于，数组只有一位时可直接找到。如果这里包括等于，可能会数组越界
         while(start1 < end1){
             int mid1 = (start1 + end1) / 2;
             int mid2 = (start2 + end2) / 2;
@@ -61,6 +71,7 @@ public class 获取长度相等的两个有序数组的上中位数 {
                 start1 = mid1 + offset;
                 end2 = mid2;
             }else{
+                //！！！ 注意这里，如果两个数组中间数相等，直接返回即可
                 return arr1[mid1];
             }
         }
