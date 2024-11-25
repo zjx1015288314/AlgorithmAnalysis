@@ -57,6 +57,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
                     list.add(num[j]);
                     list.add(num[k]);
                     result.add(list);
+                    // ！！！这里必须要移动j、k指针
                     j++;
                     k--;
                     while (j < k && num[j] == num[j - 1]) {
@@ -76,7 +77,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
     }
 
     /**
-     * 三数之和小于Target的组合总数目
+     * 三数之和小于Target的组合总数目。注此题需要元素不重复
      * LintCode: https://www.lintcode.com/problem/3sum-smaller/description
      * 题目描述：给定一个n个整数的数组和一个目标整数target，找到下标为i、j、k的
      * 数组元素0 <= i < j < k < n，满足条件nums[i] + nums[j] + nums[k] < target。
@@ -166,8 +167,10 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
                 //双指针
                 int left = j + 1;
                 int right  = numbers.length - 1;
+                long sum = (long) target - numbers[i] - numbers[j];
                 while(left < right){
-                    if(numbers[left] + numbers[right] + numbers[i] + numbers[j] == target){
+                    //！！！！数组元素值如果为-10^9 ~ 10^9时, 注意溢出, 可以这样写
+                    if(numbers[left] + numbers[right] == sum){
                         List<Integer> tmp = new ArrayList<>();
                         tmp.add(numbers[i]);
                         tmp.add(numbers[j]);

@@ -28,16 +28,20 @@ public class 快排 {
 
     public static int[] quickSort(int[] arr, int low, int high){
         if (arr == null || arr.length == 0) return arr;
+        // index这里是右区间的第一个元素下标
         int index = partition(arr, low, high);
+        // low < index - 1表示区间数组还有大于1个元素时，继续递归(1个元素就不用排序了)
         if (low < index - 1) quickSort(arr,low,index - 1);
         if (index < high) quickSort(arr,index,high);
         return arr;
     }
     public static int partition(int[] arr, int low, int high){
         int pivot = arr[(low + high) / 2];
+        // ！！这里加不加等号，主要取决于partition方法最后想返回什么,这里是想返回右区间的开始
         while (low <= high){
             while(arr[low] < pivot) low++;
             while (arr[high] > pivot) high--;
+            // ！！！同上
             if(low <= high) swap(arr,low++,high--);  //in case of low > high
         }
         return low;
