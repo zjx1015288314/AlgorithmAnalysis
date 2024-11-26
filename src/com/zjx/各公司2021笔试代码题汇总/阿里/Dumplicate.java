@@ -1,5 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.阿里;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ public class Dumplicate {
 
 
     public static int getDumplicateCourse(int[][] arr){
-        PriorityQueue<Integer> queue = new PriorityQueue<>((o1,o2) -> o1 - o2);
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(o -> o));
         queue.offer(arr[0][1]);   //queue中存放每节课的结束时间
         int ans = 1;  //重复课程数量
         for (int i = 1; i < arr.length; i++) {
