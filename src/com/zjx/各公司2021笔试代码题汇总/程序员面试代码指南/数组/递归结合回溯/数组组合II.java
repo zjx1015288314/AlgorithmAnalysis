@@ -44,7 +44,9 @@ public class 数组组合II {
         }
         // candidates[i]的次数在candidates[i - 1]用完了
         for (int i = idx; i < candidates.length; i++) {
-            if (i > 0 && candidates[i] == candidates[i - 1]) {
+            // !!! 这里应该是i > idx? 这段很重要，题目要求去重，如果不这样做会出现重复组合。
+            // [2,5,2,1,2] ,target = 7, 结果为[[1,2,2],[5]]，而不是[[1,2,2],[1,2,2],[1,2,2][5]]
+            if (i > idx && candidates[i] == candidates[i - 1]) {
                 continue;
             }
             if (candidates[i] <= target) {
@@ -57,8 +59,11 @@ public class 数组组合II {
                     map.put(candidates[i], count);
                 }
             } else {
+                // 这里做了剪枝!!!
                 break;
             }
         }
+
+
     }
 }
