@@ -2,9 +2,10 @@ package com.zjx.ClassLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 
 public class ClassLoaderTest {
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         ClassLoader myLoader = new ClassLoader() {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
@@ -21,7 +22,7 @@ public class ClassLoaderTest {
                 }
             }
         };
-        Object obj = myLoader.loadClass("com.zjx.ClassLoader.ClassLoaderTest").newInstance();
+        Object obj = myLoader.loadClass("com.zjx.ClassLoader.ClassLoaderTest").getDeclaredConstructor().newInstance();
         System.out.println(obj.getClass());
         System.out.println(obj instanceof com.zjx.ClassLoader.ClassLoaderTest);
     }

@@ -1,7 +1,5 @@
 package com.zjx.DataStructure.InheritDemo;
 
-import sun.rmi.runtime.Log;
-
 import java.util.Arrays;
 
 public class AAA {

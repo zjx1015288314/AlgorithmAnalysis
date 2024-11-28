@@ -35,7 +35,7 @@ public class 和为S的连续正整数序列 {
             preSum += num;
 
             while(preSum > sum) { //删除头部数字
-                int n = sequence.removeFirst();
+                int n = sequence.remove(0);
                 preSum -= n;
             }
             //小于则不做处理，等于加入res
