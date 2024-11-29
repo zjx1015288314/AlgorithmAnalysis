@@ -94,6 +94,7 @@ public class NumToABC {
      * @param nums
      * @return
      */
+    @Deprecated
     public int solve (String nums) {
         // write code here
         if (nums == null || nums.length() == 0 || nums.equals("0")) {
@@ -118,6 +119,41 @@ public class NumToABC {
                 dp[i] = dp[i - 1] + dp[i - 2];
             else
                 dp[i] = dp[i - 1];
+        }
+        return dp[nums.length()];
+    }
+
+    /**
+     * solve的另一种写法, 优化了一些判断条件。一次循环即可
+     * @param nums
+     * @return
+     */
+    public int solve1 (String nums) {
+        int[] dp = new int[nums.length() + 1];
+        dp[0] = 1;
+        for (int i = 0; i < nums.length(); i++) {
+            // 首位特判一下
+            if (i == 0) {
+                if (nums.charAt(i) != '0') {
+                    dp[i + 1] = dp[i];
+                    continue;
+                } else {
+                    break;
+                }
+            }
+            // 只允许10 、20，其余直接break
+            if (nums.charAt(i) == '0') {
+                if (nums.charAt(i - 1) == '1' || nums.charAt(i - 1) == '2') {
+                    dp[i + 1] = dp[i];
+                } else {
+                    break;
+                }
+            // 在11-19，21-26之间的情况
+            } else if (nums.charAt(i - 1) == '1' || (nums.charAt(i - 1) == '2' && nums.charAt(i) >= '1' && nums.charAt(i) <= '6')) {
+                dp[i + 1] = dp[i] + dp[i - 1];
+            } else {
+                dp[i + 1] = dp[i];
+            }
         }
         return dp[nums.length()];
     }
