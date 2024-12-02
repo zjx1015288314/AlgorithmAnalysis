@@ -12,6 +12,7 @@ import java.util.*;
  *  [9] 1
  *  [1,2,3,1,2,3,2,2] 3
  *  [1,2,3,1,2,3,2,2,1,2,3,4,5,6,7,8,9,10] 10
+ *  原题链接找不到了,但和这道字符串中求最长无重复子串类似，所以贴个链接: https://leetcode.cn/problems/wtcaE1/description/
  */
 public class 最长无重复数组 {
 
@@ -32,7 +33,19 @@ public class 最长无重复数组 {
             //if (itemToIndex.containsKey(arr[cur])) {
             //    start = Math.max(start, itemToIndex.get(arr[end]) + 1);
             //}
-            if (itemToIndex.containsKey(arr[cur]) && itemToIndex.get(arr[cur]) >= start) {
+            // !!!!!!第二次写觉得if判断的第二个条件太关键了，如果没有第二个条件就需要把start 到 itemToIndex.get(arr[cur])之间的元素都删除
+            // 就像这样:
+            //            if (exist.containsKey(c)) {
+            //                int end = exist.get(c);
+            //                for (int j = start; j <= end; j++) {
+            //                    exist.remove(cs[j]);
+            //                }
+            //                 start = end + 1;
+            //            } else {
+            //                num = i - start + 1;
+            //                maxNum = Math.max(maxNum, num);
+            //            }
+            if (itemToIndex.containsKey(arr[cur]) && itemToIndex.get(arr[cur]) >= start) { //!!!!!!
                 start = itemToIndex.get(arr[cur]) + 1;
             }
             itemToIndex.put(arr[cur], cur);

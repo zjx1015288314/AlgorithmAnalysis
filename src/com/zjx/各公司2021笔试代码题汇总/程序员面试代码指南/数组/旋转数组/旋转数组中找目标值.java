@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
  * 关于旋转操作：可以简单的理解为把序列从某个位置切成两段然后交换位置
  * [要求]
  * 期望复杂度为O(logn)
+ * https://leetcode.cn/problems/search-in-rotated-sorted-array/description/
  */
 public class 旋转数组中找目标值 {
     public static void main(String[] args) throws IOException {
@@ -63,6 +64,12 @@ public class 旋转数组中找目标值 {
         return arr[low] == target;
     }
 
+    /**
+     * 快速确定mid落在哪个区间里面。然后找一段容易表达的区间判断target是否在该区间内，否则使用其余区间
+     * @param arr
+     * @param target
+     * @return
+     */
     //题目与在有序数组中找到最小值中解法二对应，改动的地方有最后两个判断，将区间分为一段有序的区间和另一段，
     //有序区间由mid和start/end组成，其余部分自成另一区间
     private static boolean isContains2(int[] arr, int target){
@@ -70,7 +77,7 @@ public class 旋转数组中找目标值 {
         int start = 0, end = arr.length - 1;
         while(start <= end){  //二分法的经典循环条件
             int mid = start + (end - start)/2;
-            //思想：将数组旋转后只数组会分成左右两个有序区间，所以在nums[mid]!= target后只有三种情况：
+            //思想：将数组旋转后数组会分成左右两个有序区间，所以在nums[mid]!= target后只有三种情况：
             //nums[mid] == nums[start],这种情况可能是发生在左区间比右区间大，且某一元素有很多重复值；
             //或者右区间比左区间大，例如：12333333345 -> 34512333333
             //nums[mid] > nums[start]

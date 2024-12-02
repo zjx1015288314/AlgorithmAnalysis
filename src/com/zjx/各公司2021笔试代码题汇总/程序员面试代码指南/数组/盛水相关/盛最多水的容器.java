@@ -7,6 +7,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  *
  * 说明：你不能倾斜容器。
  * 思路：不是最高的两个点盛的水最多，还得考虑距离因素  贪心策略  选最远最高的两个
+ * https://leetcode.cn/problems/container-with-most-water/
  */
 public class 盛最多水的容器 {
     public int maxArea(int[] height) {
@@ -17,12 +18,12 @@ public class 盛最多水的容器 {
         int startIdx = 0;
         int endIdx = height.length - 1;
         while(startIdx < endIdx) {
+            int curContainer = Math.min(height[startIdx], height[endIdx]) * (endIdx - startIdx);
+            maxContainer = Math.max(maxContainer, curContainer);
             if(height[startIdx] < height[endIdx]) {
-                maxContainer = Math.max(maxContainer, height[startIdx] * (endIdx - startIdx));
                 // 这里如果endIdx往前移，无论如何也找不到比现在更大的容器了，因为宽度在减小，所以只能找更高的
                 startIdx++;
             } else {
-                maxContainer = Math.max(maxContainer, height[endIdx] * (endIdx - startIdx));
                 endIdx--;
             }
         }

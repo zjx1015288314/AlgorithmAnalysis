@@ -13,7 +13,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 public class 丑数 {
     public static void main(String[] args) {
 //        int res = GetUglyNumber_Solution1(1500);
-        int res = GetUglyNumber_Solution2(1500);
+        int res = GetUglyNumber_Solution2(7);
         System.out.println(res);
     }
 
@@ -55,6 +55,7 @@ public class 丑数 {
             int num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
             int newUglyNum = Math.min(Math.min(num2, num3), num5);
             dp[i] = newUglyNum;
+            // 这里不能用if else，因为可能存在重复的丑数。比如3*2和2*3都是6，这时p2和p3都要加1
             if(dp[i] == num2) {
                 p2++;
             }

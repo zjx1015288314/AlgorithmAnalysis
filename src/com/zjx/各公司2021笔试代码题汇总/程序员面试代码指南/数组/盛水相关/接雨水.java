@@ -11,6 +11,13 @@ import java.util.LinkedList;
  * 输出：6
  * 解释：上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。
  * <p>
+ *
+ * 思路：接雨水的本质是找某一柱子两边的大值，形成水桶。
+ * 这个大值可以从两边往中间找（即方法一和方法二，方法二为双指针，
+     * 在向中间聚拢的过程中，由外到内依次求出各个柱子上的雨水，最后求和。例子[2,1,3/5,4],以1举例，此时左指针在2上，右指针在4上，
+     * 那么1处的雨水可求，不需要右指针再向内移动，桶的短板是左边）
+ * 也可以从左往右依次找（方法三、四），[5,1,3,4]为例，找到3时，1处的部分雨水可求得，也就是凹陷处填至与3平齐，也就是数组变成[5,3,3,4]。
+ * 后面出现4时，会影响两个位置的雨水，就是5 ~ 4之间的位置（宽度是2，高度是4 -3），算完雨水后即可填平成[5,4,4,4]
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/trapping-rain-water
  */
@@ -51,6 +58,8 @@ public class 接雨水 {
         int ans = 0;
          int left = 0, right = height.length - 1;
          int leftMax = 0, rightMax = 0;
+         //!!!这里写不写等号都可以，因为left与right最终都会落到最高的柱子上，而最高的柱子一定是没有雨水的
+        // 所以考不考虑都可以
          while (left < right) {
              //注意，leftMax和rightMax要在判断之前统计
              leftMax = Math.max(leftMax, height[left]);
@@ -93,5 +102,29 @@ public class 接雨水 {
             stack.push(i); // 在对下标i处计算能接的雨水量之后,将i入栈,继续遍历后面的下标
         }
         return sumWater;
+    }
+
+    /**
+     * 官方单调栈
+     * 时间复杂度：O(n)，其中 n 是数组 height 的长度。从 0 到 n−1 的每个下标最多只会入栈和出栈各一次。
+     *
+     * 空间复杂度：O(n)，其中 n 是数组 height 的长度。空间复杂度主要取决于栈空间，栈的大小不会超过 n。
+     */
+    public int trap4(int[] height) {
+        Deque<Integer> deque = new LinkedList<>();
+        int ans = 0;
+        for (int i = 0; i < height.length; i++) {
+            int h = height[i];
+            while (!deque.isEmpty() && height[deque.peek()] < h) {
+                int top = deque.pop();
+                if (deque.isEmpty()) {
+                    break;
+                }
+                int left = deque.peek();
+                ans += (Math.min(height[left], h) - height[top]) * (i - left - 1);
+            }
+            deque.push(i);
+        }
+        return ans;
     }
 }

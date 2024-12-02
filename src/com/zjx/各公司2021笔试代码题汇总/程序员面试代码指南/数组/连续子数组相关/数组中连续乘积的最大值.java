@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
+ *
+ * 给定一个长度为N的浮点数数组a。请找出其中乘积最大的子数组。例如，给定数组{-2.5, 4, 0, 3, 0.5, 8, -1}，
+ * 则取出的最大乘积子数组为{3, 0.5, 8}。也就是说，在上述数组中，3 , 0.5和8这三个数是连续的，而且乘积是最大的。
+ *
+ * 作者：Feng:
+ * 链接：https://www.nowcoder.com/discuss/353148077525639168?sourceSSR=search
  * @author zhaojiexiong
  * @create 2020/6/27
  * @since 1.0.0

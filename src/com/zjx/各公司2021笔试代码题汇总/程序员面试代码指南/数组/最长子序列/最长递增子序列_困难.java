@@ -17,6 +17,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * 说明
  * 其最长递增子序列有3个，（1，2，8）、（1，2，6）、（1，2，4）其中第三个字典序最小，故答案为（1，2，4）
  * 备注: n≤10^5        1≤arr<=10^9
+ * 链接： https://leetcode.cn/problems/longest-increasing-subsequence/description/
  */
 public class 最长递增子序列_困难 {
 

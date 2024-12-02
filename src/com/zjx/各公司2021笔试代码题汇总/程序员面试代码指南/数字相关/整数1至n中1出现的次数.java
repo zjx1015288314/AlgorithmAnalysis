@@ -22,6 +22,7 @@ public class 整数1至n中1出现的次数 {
         int low = 0;
         int countOfOne = 0;
         int digit = 1;
+        // !!!!  while循环的条件特别重要，如果只是high != 0，则会错过cur为最高位时的统计
         while(high != 0 || cur != 0) {
             if(cur == 0) {
                 countOfOne += high * digit;

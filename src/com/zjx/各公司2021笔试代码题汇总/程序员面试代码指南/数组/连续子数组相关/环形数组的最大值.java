@@ -66,6 +66,7 @@ public class 环形数组的最大值 {
         int[] postMax = new int[len];
         int postSum = 0;
         for (int i = len - 1; i >= 0; i--){
+            //这里的postSum是从后往前计算的，并且不包括当前元素
             postMax[i] = i == len - 1 ? 0 : Math.max(postMax[i+1],postSum);
             postSum += A[i];
         }

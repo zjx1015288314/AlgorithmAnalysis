@@ -1,6 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 有n 个人，每个人都有一个 0到n-1的唯一id。
@@ -27,6 +28,7 @@ import java.util.*;
  * 链接：https://leetcode-cn.com/problems/get-watched-videos-by-your-friends
  */
 public class 获取你好友已观看的视频 {
+
     public List<String> watchedVideosByFriends(List<List<String>> watchedVideos, int[][] friends, int id, int level) {
         Queue<Integer> queue = findLevelKFriends(friends, id, level);
 
@@ -40,6 +42,7 @@ public class 获取你好友已观看的视频 {
         }
 
         //对结果进行排序
+        /**  //非流
         List<Map.Entry<String,Integer>> list = new ArrayList<>(watchedVideosFrequency.entrySet());
         list.sort((o1, o2) -> {
             if(o1.getValue().compareTo(o2.getValue()) != 0){
@@ -53,6 +56,20 @@ public class 获取你好友已观看的视频 {
         for(Map.Entry<String,Integer> entry: list){
             result.add(entry.getKey());
         }
+         **/
+        List<String> result = watchedVideosFrequency
+                .entrySet()
+                .stream()
+                .sorted()
+                .sorted((o1, o2) -> {
+                    if(o1.getValue().compareTo(o2.getValue()) != 0){
+                        return o1.getValue().compareTo(o2.getValue());
+                    }else{
+                        return o1.getKey().compareTo(o2.getKey());
+                    }
+                })
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
         return result;
     }
 

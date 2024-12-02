@@ -75,7 +75,7 @@ public class 旋转数组的最小值 {
         return array[i];
     }
 
-    public int compare (String version1, String version2) {
+    public int compare(String version1, String version2) {
         // write code here
         String[] versionArr1 = version1.split("\\.");
         String[] versionArr2 = version2.split(".");
