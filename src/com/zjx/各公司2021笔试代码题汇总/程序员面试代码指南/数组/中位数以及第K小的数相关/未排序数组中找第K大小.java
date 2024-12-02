@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 /**
  * 在未排序的数组中找到第 k大的元素。
  * 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。
- *
+ * <p>
  * https://leetcode.cn/problems/kth-largest-element-in-an-array/description/
  */
 public class 未排序数组中找第K大小 {
@@ -26,6 +26,15 @@ public class 未排序数组中找第K大小 {
         System.out.println(findKthLargest(arr, k));
     }
 
+    //-----------------------快排------------------------------
+
+    /**
+     * 时间复杂度O(n), 空间复杂度O(nlogn)
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
     public static int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length == 0 || k < 1 || k > nums.length) return 0;
         int len = nums.length;
@@ -42,6 +51,26 @@ public class 未排序数组中找第K大小 {
             }
         }
         return nums[left];
+    }
+
+    //-----------------------桶排------------------------------
+    /**
+     * nums数组元素值范围在-10000 ~ 10000之间
+     * @return
+     */
+    public static int findKthLargest1(int[] nums, int k) {
+        int[] f = new int[20001];
+        for (int num : nums) {
+            f[num + 10000]++;
+        }
+        int cnt = 0;
+        for (int i = 20000; i >= 0; i--) {
+            cnt += f[i];
+            if (cnt >= k) {
+                return i - 10000;
+            }
+        }
+        return -1;
     }
 
     private static int partition(int[] arr, int left, int right) {
