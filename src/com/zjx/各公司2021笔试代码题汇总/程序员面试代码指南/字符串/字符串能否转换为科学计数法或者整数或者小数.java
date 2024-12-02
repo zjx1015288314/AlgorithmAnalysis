@@ -2,8 +2,9 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 
 public class 字符串能否转换为科学计数法或者整数或者小数 {
     public static void main(String[] args) {
-//        isNumeric("123.45e+6");
-        isNumeric(".");
+        boolean numeric = isNumeric("123.45e+");
+//        isNumeric(".");
+        System.out.println(numeric);
     }
 
     public static boolean isNumeric (String str) {
@@ -23,7 +24,7 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
         }
         String first = str.substring(0, i);
         String second = "";
-        if(i < str.length() && (str.charAt(i) != 'e' || str.charAt(i) != 'E')) {
+        if(i < str.length() && (str.charAt(i) == 'e' || str.charAt(i) == 'E')) {
             second = str.substring(i + 1);
         }
         boolean flagFirst = isInteger(first) || isMinute(first);
@@ -76,9 +77,7 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
         if(str == null || str.isEmpty()) return false;
 
         int i = 0;
-        boolean positive = true;
         if(str.charAt(i) ==  '-') {
-            positive = false;
             i++;
         } else if(str.charAt(i) == '+') {
             i++;
@@ -86,8 +85,6 @@ public class 字符串能否转换为科学计数法或者整数或者小数 {
 
         if(i == str.length()) return false;  //至少一位数字
 
-        int sum = 0;
-        int bound = Integer.MAX_VALUE / 10;
         for(int j = i; j < str.length(); j++) {
             if(str.charAt(j) < '0' || str.charAt(j) > '9') {
                 return false;

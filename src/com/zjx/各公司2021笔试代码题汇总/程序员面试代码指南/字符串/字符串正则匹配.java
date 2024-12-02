@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
  * exp中的’*’表示’*‘的前一个字符可以有0个或者多个。请写一个函数，
  * 判断str是否能被exp匹配(注意：输入的数据不保证合法，但只含小写字母和‘.’和‘*’)。
  */
-public class 字符串匹配 {
+public class 字符串正则匹配 {
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
         String s1 = bf.readLine();
@@ -146,6 +146,12 @@ public class 字符串匹配 {
         return dp[0][0];
     }
 
+    /**
+     * @see 通配符匹配#isMatch(String, String)  两个算法很像
+     * @param s
+     * @param p
+     * @return
+     */
     public static boolean isMatchDp5(String s, String p) {
         if (s == null || p == null || p.length() == 0) {
             return false;
@@ -155,24 +161,33 @@ public class 字符串匹配 {
         dp[0][0]  = true;
         for (int i = 0; i < dp.length; i++) {
             for (int j = 1; j < dp[0].length; j++) {
-                if (i == 0) {
-                    if (j >= 2 && p.charAt(j - 1) == '*') {
-                        dp[i][j] = dp[i][j - 2];
-                    }
-                    continue;
-                }
+                //下面的初始化可以去掉，matches()的 i == 0的判断处理已经包含了这种情况
+//                if (i == 0) {
+//                    if (j >= 2 && p.charAt(j - 1) == '*') {
+//                        dp[i][j] = dp[i][j - 2];
+//                    }
+//                    continue;
+//                }
 
-                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') {
-                    dp[i][j] = dp[i - 1][j - 1];
-                } else if (p.charAt(j - 1) == '*'){
-                    // 精髓在这，*可以表示0个 所以先看dp[i][j - 2];
-                    // * 也可以复制前一个, 所以让p的前一个和s的当前字符比较, 匹配成功的话就可以
-                    // 把i往左推,因为*可以表示多个;
+//                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') {
+//                    dp[i][j] = dp[i - 1][j - 1];
+//                } else if (p.charAt(j - 1) == '*'){
+//                    // 精髓在这，*可以表示0个 所以先看dp[i][j - 2];
+//                    // * 也可以复制前一个, 所以让p的前一个和s的当前字符比较, 匹配成功的话就可以
+//                    // 把i往左推,因为*可以表示多个;
+//                    dp[i][j] = dp[i][j - 2];
+//                    if (matches(s, p, i, j - 1)) {
+//                        dp[i][j] = dp[i][j] || dp[i - 1][j];
+//                    }
+//
+//                }
+                if (j >= 2 && p.charAt(j - 1) == '*') {
                     dp[i][j] = dp[i][j - 2];
                     if (matches(s, p, i, j - 1)) {
                         dp[i][j] = dp[i][j] || dp[i - 1][j];
                     }
-
+                } else if (matches(s, p, i, j)) {
+                    dp[i][j] = dp[i - 1][j - 1];
                 }
             }
 
