@@ -22,10 +22,11 @@ public class 字符串匹配 {
         char[] s = s1.toCharArray();
         char[] e = s2.toCharArray();
 
-        //System.out.print(isValid(s,e) ? isMatch(s1,s2) ? "YES" : "NO" : "NO");   //方法一通过 (次选)
-        //System.out.print(isValid(s,e) ? process(s,e,0,0) ? "YES" : "NO" :"NO");  //方法二通过
-        //System.out.print(isValid(s,e) ? processDP(s,e) ? "YES" : "NO" : "NO"); //DP:方法三(对应于方法二)通过
-        System.out.print(isValid(s,e) ? isMatchDP(s1,s2) ? "YES" : "NO" : "NO"); //DP:对应于方法一（首选）
+//        System.out.print(isValid(s,e) ? isMatch(s1,s2) ? "YES" : "NO" : "NO");   //方法一通过 (次选)
+//        System.out.print(isValid(s,e) ? process(s,e,0,0) ? "YES" : "NO" :"NO");  //方法二通过
+//        System.out.print(isValid(s,e) ? processDP(s,e) ? "YES" : "NO" : "NO"); //DP:方法三(对应于方法二)通过
+//        System.out.print(isValid(s,e) ? isMatchDP(s1,s2) ? "YES" : "NO" : "NO"); //DP:对应于方法一
+        System.out.print(isMatchDp5(s1, s2) ? "YES" : "NO"); // （首选）, 从小到大DP
     }
     //方法一：
     //大体情况分为三种，根据p(模式串)的长度依次分为：0，1，>1；前两种情况比较好判断，最后一种情况即
@@ -121,6 +122,8 @@ public class 字符串匹配 {
         return dp[0][0];
     }
 
+    @Deprecated
+    // 从后往前可能不太适应，所以舍弃了，看方法五
     //方法四：对应于方法一  dp[i][j]表示<i, len1 -1>与<j, len2 - 1>的匹配程度
     private static boolean isMatchDP(String s, String e) {
         boolean[][] dp = new boolean[s.length() + 1][e.length() + 1];
@@ -141,5 +144,58 @@ public class 字符串匹配 {
             }
         }
         return dp[0][0];
+    }
+
+    public static boolean isMatchDp5(String s, String p) {
+        if (s == null || p == null || p.length() == 0) {
+            return false;
+        }
+
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        dp[0][0]  = true;
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 1; j < dp[0].length; j++) {
+                if (i == 0) {
+                    if (j >= 2 && p.charAt(j - 1) == '*') {
+                        dp[i][j] = dp[i][j - 2];
+                    }
+                    continue;
+                }
+
+                if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (p.charAt(j - 1) == '*'){
+                    // 精髓在这，*可以表示0个 所以先看dp[i][j - 2];
+                    // * 也可以复制前一个, 所以让p的前一个和s的当前字符比较, 匹配成功的话就可以
+                    // 把i往左推,因为*可以表示多个;
+                    dp[i][j] = dp[i][j - 2];
+                    if (matches(s, p, i, j - 1)) {
+                        dp[i][j] = dp[i][j] || dp[i - 1][j];
+                    }
+
+                }
+            }
+
+        }
+        return dp[s.length()][p.length()];
+    }
+
+    /**
+     * 对比s的第i个字符与 p的第j个字符是否一致
+     * 注意: i,j 不是单纯的下标
+     * @param s
+     * @param p
+     * @param i
+     * @param j
+     * @return
+     */
+    private static boolean matches(String s, String p, int i, int j) {
+        if (i == 0) {
+            return false;
+        }
+        if (p.charAt(j - 1) == '.') {
+            return true;
+        }
+        return s.charAt(i - 1) == p.charAt(j - 1);
     }
 }

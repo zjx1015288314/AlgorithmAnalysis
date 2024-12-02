@@ -43,6 +43,9 @@ public class StrToNum {
                 continue;
             }
             //超过MAX_ALUE/MIN_VALUE的情况只返回边界值
+            //这里比较巧妙的是 超出边界由两部分构成，第一部分是>bound. 第二部分是等于bound且 当前位>7,
+            //s如果是正数当然没问题，如果是-2147483648的话也会被赋值Integer，MIN_VALUE
+            //超过MAX_ALUE/MIN_VALUE的情况只返回边界值
             if(sum > bound || (sum == bound && str.charAt(j) > '7')){
                 sum = positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             } else {
@@ -50,7 +53,7 @@ public class StrToNum {
             }
         }
         // 不加的话下面 如果sum是最小值 -1 * sum则会溢出导致结果正常
-        if (sum == Integer.MIN_VALUE || sum == Integer.MAX_VALUE) {
+        if (sum == Integer.MIN_VALUE) {
             return sum;
         }
         return positive ? sum : -1 * sum;

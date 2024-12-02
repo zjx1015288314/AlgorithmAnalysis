@@ -12,10 +12,12 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * 输入: "+2147483647"    返回值：2147483647
  * 输入: "1a33"           返回值：0
  * 输入: "2147483648"     返回值：2147483647
- * @link https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e?tpId=13&tags=&title=&difficulty=0&judgeStatus=0&rp=0
+ * @link https://leetcode.cn/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/submissions/584418765/
+ *
+ * @see com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数字相关.StrToNum
  */
 public class StrToNum {
-    public int StrToInt(String str) {
+    public static int StrToInt(String str) {
         if(str == null || str.length() == 0) return 0;
 
         int i = 0;
@@ -39,11 +41,23 @@ public class StrToNum {
                 continue;
             }
             //超过MAX_ALUE/MIN_VALUE的情况只返回边界值
+            //这里比较巧妙的是 超出边界由两部分构成，第一部分是>bound. 第二部分是等于bound且 当前位>7,
+            // s如果是正数当然没问题，如果是-2147483648的话也会被赋值Integer，MIN_VALUE
+            //超过MAX_ALUE/MIN_VALUE的情况只返回边界值
             if(sum > bound || (sum == bound && str.charAt(j) > '7')){
                 sum = positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            } else {
+                sum = sum * 10 + (str.charAt(j) - '0');
             }
-            sum = sum * 10 + (str.charAt(j) - '0');
+        }
+        if (sum == Integer.MIN_VALUE) {
+            return sum;
         }
         return positive ? sum : -1 * sum;
+    }
+
+    public static void main(String[] args) {
+        int i = StrToInt("2147483659");
+        System.out.println(i);
     }
 }
