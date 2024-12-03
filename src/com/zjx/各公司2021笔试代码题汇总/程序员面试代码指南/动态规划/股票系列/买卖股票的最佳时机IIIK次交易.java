@@ -17,12 +17,14 @@ public class 买卖股票的最佳时机IIIK次交易 {
     public int maxProfit(int[] prices) {
         int n = prices.length;
         int maxK = 2;
+        // 第二个维度是关于交易次数的, 表示完成了几次交易
         int[][][] dp = new int[n][maxK + 1][2];
         for (int i = 0; i < n; i++) {
             for (int k = maxK; k >= 1; k--) {
                 if (i == 0) {
                     /* 处理 base case */
                     dp[i][k][0] = 0;
+                    // 这里不管k是多少(即不管第几次买入, 可以是第一次买入，或者第一次卖出第二次买入), dp的值都是-prices[i]
                     dp[i][k][1] = -prices[i];
                     continue;
                 }

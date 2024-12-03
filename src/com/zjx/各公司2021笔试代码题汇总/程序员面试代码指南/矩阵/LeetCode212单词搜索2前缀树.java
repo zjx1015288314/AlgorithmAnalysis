@@ -16,7 +16,7 @@ public class LeetCode212单词搜索2前缀树 {
         public TrieNode() {
             path = 0;
             end = 0;
-            children = new HashMap<Character, TrieNode>();
+            children = new HashMap<>();
         }
     }
     static int[][] tmp = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};

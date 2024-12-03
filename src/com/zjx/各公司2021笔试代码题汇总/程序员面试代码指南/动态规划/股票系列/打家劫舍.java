@@ -12,12 +12,10 @@ public class 打家劫舍 {
 
     public int rob (int[] nums) {
         // write code here
-        int maxWealth = 0;
         int[] dp = new int[nums.length + 1];
         dp[1] = nums[0];
         for (int i = 2; i <= nums.length; i++) {
             dp[i] = Math.max(dp[i - 1], nums[i - 1] + dp[i - 2]);
-            maxWealth = Math.max(maxWealth, dp[i]);
         }
         return dp[nums.length];
     }

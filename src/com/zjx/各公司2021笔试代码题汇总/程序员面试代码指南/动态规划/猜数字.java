@@ -22,6 +22,7 @@ public class 猜数字 {
      * 时间复杂度：O(n!)我们选择一个数作为第一次尝试，然后递归中再选一个数，这样重复n次的时间代价为 O(n!)
      * 空间复杂度：O(n) n层递归的开销。
      */
+    @Deprecated
     public int process(int left,int right){
         if(left >= right){
             return 0;
@@ -51,4 +52,29 @@ public class 猜数字 {
         }
         return dp[1][n];
     }
+
+    /**
+     * 简化了dp数组的初始化, 更易理解
+     * @param n
+     * @return
+     */
+    public int getMoneyAmount2(int n) {
+        int[][] dp = new int[n + 1][n + 1];
+
+        for (int i = n - 1; i >= 1; i--) {
+            for (int j = i + 1; j <= n; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+                for (int k = i; k <= j; k++) {
+                    //这里很重要 dp[i][j]存的是 i ~ j必胜的最小金额, 那么当k把i ~ j 分割成两个区间时,
+                    // 为了保证i~j必胜，则要取两个区间最小金额的较大值,这样就保证了必胜
+                    int leftRes = k > i ? dp[i][k - 1] : 0;
+                    int rightRes = k < j ?dp[k + 1][j] : 0;
+                    int res = k + Math.max(leftRes, rightRes);
+                    dp[i][j] = Math.min(dp[i][j], res);
+                }
+            }
+        }
+        return dp[1][n];
+    }
+
 }

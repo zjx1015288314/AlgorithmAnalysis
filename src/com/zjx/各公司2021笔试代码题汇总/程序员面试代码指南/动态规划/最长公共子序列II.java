@@ -55,6 +55,43 @@ public class 最长公共子序列II {
         return res.isEmpty() ? "-1" : res;
     }
 
+    /**
+     * 迭代组建返回值 从右下角往左上走
+     * @param text1
+     * @param text2
+     * @return
+     */
+    private String longestCommonSubsequence(String text1, String text2) {
+        int[][] dp = new int[text1.length() + 1][text2.length() + 1];
+        for (int i = 1; i <= text1.length(); i++) {
+            for (int j = 1; j <= text2.length(); j++) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int i = text1.length();
+        int j = text2.length();
+        while (i >= 1 && j >= 1) {  // or dp[i][j] != 0
+            if (dp[i][j] == dp[i - 1][j]) {
+                i--;
+            } else if (dp[i][j] == dp[i][j - 1]){
+                j--;
+            } else {
+                // or else if (dp[i][j] == dp[i - 1][j - 1] + 1)
+                // 但这个条件放到最开始就会有用例过不去，不知道为啥？？？？
+                sb.append(text1.charAt(i - 1));
+                i--;
+                j--;
+            }
+        }
+        return sb.length() == 0 ? "-1" : sb.reverse().toString();
+    }
+
     private String x;
     private String ans(int i, int j, int[][] b) {
         String res = "";

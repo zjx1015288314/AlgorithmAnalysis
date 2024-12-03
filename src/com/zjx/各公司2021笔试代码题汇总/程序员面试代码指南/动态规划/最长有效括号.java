@@ -23,12 +23,13 @@ public class 最长有效括号 {
 
         int maxLen = 0;
         int[] dp = new int[s.length() + 1];
-
+        // dp数组只记录')'位置的最长有效括号即可，因为'('一定没办法组成有效括号可以不考虑
         for(int i = 2; i <= s.length(); i++) {
             if(s.charAt(i - 1) == ')') {
-                if(s.charAt(i - 2) == '(') {
+                if(s.charAt(i - 2) == '(') { //()
                     dp[i] = dp[i - 2] + 2;
-                }else if(i - dp[i - 1] - 2 >= 0 && s.charAt(i - dp[i - 1] - 2) == '('){
+                //!!!注意数组越界判断
+                }else if(i - dp[i - 1] - 2 >= 0 && s.charAt(i - dp[i - 1] - 2) == '('){//(...())
                     dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2;
                 }
                 maxLen = Math.max(maxLen, dp[i]);

@@ -60,9 +60,10 @@ public class 丑数 {
     public static int GetUglyNumber_Solution2(int index) {
         if(index == 0) return 0;
         int[] dp = new int[index + 1];
+        // 初始化很重要
         dp[1] = 1;
         int p2 = 1, p3 = 1, p5 = 1;
-
+        // i从2开始
         for(int i = 2; i <= index; i++) {
             int num2 = dp[p2] * 2, num3 = dp[p3] * 3, num5 = dp[p5] * 5;
             int newUglyNum = Math.min(Math.min(num2, num3), num5);

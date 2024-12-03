@@ -38,6 +38,7 @@ public class 最长公共子序列 {
         for(int i = 1; i <= len1; i++) {
             for(int j = 1; j <= len2; j++) {
                 if(text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    // 与编辑距离算法有相同的疑问： 为什么相等的情况下不考虑dp[i - 1][j]与dp[i][j - 1]
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);

@@ -36,17 +36,47 @@ public class LeetCode329矩阵中最长递增路径 {
                 matrix[i][j] = Integer.parseInt(str[j]);
             }
         }
-        longestIncreasingPath1(matrix);
+        int maxLen = longestIncreasingPath(matrix);
         System.out.println(maxLen);
     }
 
     /**
-     * process的含义需要搞清，即从matrix[x][y]开始的最长递增序列的长度，所以在用maxRemainlen获得各个方向的最长长度后
-     * 还需要+1才是最终结果。visited[x][y]表示matrix[x][y]在本次递归中是否遍历过，按逻辑来说没问题，但会超出时间限制
-     * 所以后面优化成int[][] visited表示从matrix[x][y]开始的最长递增序列的长度，为0表示没遍历过，否则停止遍历，这样做
-     * 每个matrix[x][y]之前的遍历结果就会复用，减少复杂度
-     * O(n4^n)    O(n)   其中n为矩阵中元素个数
+     * DFS+缓存    选用！！！！！！！！！
      */
+    public static int longestIncreasingPath(int[][] matrix) {
+        if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int[][] memo = new int[row][col];  //将memory改为int  0代表未遍历 >=1表示长度,这样保证每个点只遍历一次
+        int maxLen = Integer.MIN_VALUE;
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < col; j++){
+                int res = process(matrix,memo,i,j, row, col);
+                maxLen = Math.max(maxLen,res);
+            }
+        }
+        return maxLen;
+    }
+
+    private static int process(int[][] matrix, int[][] memo, int i, int j, int row, int col){
+        if(memo[i][j] != 0){
+            return memo[i][j];
+        }
+        memo[i][j]++;  //至少为1
+        int[][] directs = {{0,-1},{0,1},{-1,0},{1,0}};
+        for(int[] direct : directs){
+            int x = i + direct[0];
+            int y = j + direct[1];  //不要写错j
+            if(x >= 0 && x < row && y >= 0 && y < col && matrix[x][y] > matrix[i][j]){
+                // 不要忘记 process() + 1
+                memo[i][j] = Math.max(memo[i][j],process(matrix, memo, x, y, row, col) + 1);
+            }
+        }
+        return memo[i][j];
+    }
+
+    //由于时间复杂度是指数级，所以弃用
+    @Deprecated
     public static int longestIncreasingPath1(int[][] matrix) {
         int maxLen = 0;
         int row = matrix.length;
@@ -61,6 +91,14 @@ public class LeetCode329矩阵中最长递增路径 {
         return maxLen;
     }
 
+    /**
+     * process的含义需要搞清，即从matrix[x][y]开始的最长递增序列的长度，所以在用maxRemainlen获得各个方向的最长长度后
+     * 还需要+1才是最终结果。visited[x][y]表示matrix[x][y]在本次递归中是否遍历过，按逻辑来说没问题，但会超出时间限制
+     * 所以后面优化成int[][] visited表示从matrix[x][y]开始的最长递增序列的长度，为0表示没遍历过，否则停止遍历，这样做
+     * 每个matrix[x][y]之前的遍历结果就会复用，减少复杂度
+     * O(n4^n)    O(n)   其中n为矩阵中元素个数
+     */
+    @Deprecated
     public static int process1(int[][] matrix, int x, int y, int row, int col, boolean[][] visited) {
         visited[x][y] = true;
         int maxRemainlen = 0;
@@ -77,71 +115,4 @@ public class LeetCode329矩阵中最长递增路径 {
         return maxRemainlen + 1;
     }
 
-    /**
-     * DFS+缓存    选用！！！！！！！！！
-     */
-    public int longestIncreasingPath(int[][] matrix) {
-        if(matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[][] visited = new int[row][col];  //将memory改为int  0代表未遍历 >=1表示长度,这样保证每个点只遍历一次
-        int maxLen = Integer.MIN_VALUE;
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                int res = process(matrix,visited,i,j, row, col);
-                maxLen = Math.max(maxLen,res);
-            }
-        }
-        return maxLen;
-    }
-
-    public int process(int[][] matrix, int[][] visited, int i, int j, int row, int col){
-        if(visited[i][j] != 0){
-            return visited[i][j];
-        }
-        visited[i][j]++;  //至少为1
-        int[][] tmp = {{0,-1},{0,1},{-1,0},{1,0}};
-        for(int k = 0; k < 4; k++){
-            int x = i + tmp[k][0];
-            int y = j + tmp[k][1];  //不要写错j
-            if(x >= 0 && x < row && y >= 0 && y < col && matrix[x][y] > matrix[i][j]){
-                visited[i][j] = Math.max(visited[i][j],process(matrix, visited, x, y, row, col) + 1);
-            }
-        }
-        return visited[i][j];
-    }
-
-
-    /**
-     * 与方法一一样有着时间限制，本质上还是属于DFS
-     */
-    static int maxLen = Integer.MIN_VALUE;
-    public static int longestIncreasingPath3(int[][] matrix) {
-        int row = matrix.length;
-        int col = matrix[0].length;
-        boolean[][] visited = new boolean[row][col];
-
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                process3(matrix,visited,i,j,1);
-            }
-        }
-        return maxLen;
-    }
-
-    public static void process3(int[][] matrix, boolean[][] visited,int i, int j, int len){
-        maxLen = Math.max(maxLen,len);
-        int row = matrix.length;
-        int col = matrix[0].length;
-        int[][] tmp = {{0,-1},{0,1},{-1,0},{1,0}};
-        visited[i][j] = true;
-        for(int k = 0; k < 4; k++){
-            int x = i + tmp[k][0];
-            int y = j + tmp[k][1];   //不要写错j
-            if(x >= 0 && x < row && y >= 0 && y < col && !visited[x][y] && matrix[x][y] > matrix[i][j]){
-                process3(matrix,visited,x,y,len + 1);
-            }
-        }
-        visited[i][j] = false;
-    }
 }

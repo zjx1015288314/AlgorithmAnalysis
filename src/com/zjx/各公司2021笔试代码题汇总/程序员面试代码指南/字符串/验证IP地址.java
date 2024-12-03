@@ -24,7 +24,12 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  */
 public class 验证IP地址 {
 
-    public String solve (String IP) {
+    public static void main(String[] args) {
+        String solve = solve("2001:0db8:85a3:0000:0:8A2E:0370:7334");
+        System.out.println(solve);
+    }
+
+    public static String solve (String IP) {
         // write code here
         String res = null;
         if (IP == null || IP.length() == 0) {
@@ -38,7 +43,7 @@ public class 验证IP地址 {
         return res;
     }
 
-    private boolean ipv4(String IP) {
+    private static boolean ipv4(String IP) {
         String[] addrs = IP.split("\\.");
         if (addrs.length != 4) {
             return false;
@@ -60,7 +65,7 @@ public class 验证IP地址 {
         return true;
     }
 
-    private boolean ipv6(String IP) {
+    private static boolean ipv6(String IP) {
         // 如果 n > 0，则模式将被最多应用 n - 1 次，数组的长度将不会大于 n，而且数组的最后一项将包含所有超出最后匹配的定界符的输入。
         // 如果 n < 0，那么模式将被应用尽可能多的次数，而且数组可以是任何长度。
         // 如果 n = 0，那么模式将被应用尽可能多的次数，数组可以是任何长度，并且结尾空字符串将被丢弃。
@@ -72,7 +77,10 @@ public class 验证IP地址 {
         }
 
         for (String addr : addrs) {
-            if (addr.isEmpty() || addr.length() > 4) {
+            if (addr.length() != 1 && addr.length() != 4) {
+                return false;
+            }
+            if ("0000".equals(addr)) {
                 return false;
             }
             for (int j = 0; j < addr.length(); j++) {
@@ -88,7 +96,7 @@ public class 验证IP地址 {
         return true;
     }
 
-    private boolean isDigit(String str) {
+    private static boolean isDigit(String str) {
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) < '0' || str.charAt(i) > '9') {
                 return false;
