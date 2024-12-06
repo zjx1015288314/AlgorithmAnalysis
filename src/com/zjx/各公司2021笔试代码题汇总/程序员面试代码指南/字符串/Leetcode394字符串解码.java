@@ -95,7 +95,8 @@ public class Leetcode394字符串解码 {
 
 
     /**
-     * 解法二：数字一个栈  字母一个栈   考虑的情况比较多
+     * 解法二：数字一个栈  字母一个栈
+     * 轮询到'['时 当前数字和字母一起进栈并初始化；轮询到']'时，字母栈弹出来并拼接上 k * alpha
      */
     public static String decodeString1(String s) {
         StringBuffer ans = new StringBuffer();

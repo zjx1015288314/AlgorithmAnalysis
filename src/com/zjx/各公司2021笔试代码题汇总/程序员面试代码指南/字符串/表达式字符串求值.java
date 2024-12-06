@@ -99,7 +99,7 @@ public class 表达式字符串求值 {
         char[] chs = exp.toCharArray();
         Stack<String> stack1 = new Stack<>();
         int pre = 0;
-        Stack<String> stack2 = new Stack<>();
+
         for (char ch : chs) {
             if (ch >= '0' && ch <= '9') {
                 pre = pre * 10 + ch - '0';
@@ -111,12 +111,15 @@ public class 表达式字符串求值 {
                 while (!"(".equals(stack1.peek())) {
                     tmp.push(stack1.pop());
                 }
+                //弹出'('
+                stack1.pop();
+
+                Stack<String> stack2 = new Stack<>();
                 while (!tmp.isEmpty()) {
                     stack2.push(tmp.pop());
                 }
 
                 computeNum(stack2, pre);
-                stack1.pop();   //弹出'('
                 pre = getResNum(stack2);
             } else {
                 //+ - * / 运算符
@@ -149,8 +152,8 @@ public class 表达式字符串求值 {
         }
         int res = 0;
         boolean add = true;
-        String cur = null;
-        int num = 0;
+        String cur;
+        int num;
         while(!tmp.isEmpty()){
             cur = tmp.pop();
             if(cur.equals("+")){
@@ -158,8 +161,81 @@ public class 表达式字符串求值 {
             }else if(cur.equals("-")){
                 add = false;
             }else {
-                num = Integer.valueOf(cur);
+                num = Integer.parseInt(cur);
                 res += add ? num : (-num);
+            }
+        }
+        return res;
+    }
+
+    /**
+     * 方法二基于栈的写法有点繁琐，方法三改成双端队列。
+     * 基本思路不变： 遇到+ - * / ) 时，数字都会入队, 并且如果是* 、/的话还会顺便计算
+     * 当遇到')'时，会把'('之前的都放入新的队列，并试图计算乘除，再计算加减
+     */
+    public int solve (String s) {
+        // write code here
+        Deque<String> deque = new LinkedList<>();
+        int num = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                deque.offer(String.valueOf(c));
+            } else if (c >= '0' && c <= '9') {
+                num = num * 10 + c - '0';
+            } else if (c == ')') {
+                Deque<String> tmp = new LinkedList<>();
+                while (!"(".equals(deque.peekLast())) {
+                    tmp.offerFirst(deque.pollLast());
+                }
+                deque.pollLast();
+                comomputeAndInsertPartialRes(tmp, num);
+                num = getResNum(tmp);
+            } else {
+                // + - * /
+                comomputeAndInsertPartialRes(deque, num);
+                deque.offer(String.valueOf(c));
+                num = 0;
+            }
+        }
+        comomputeAndInsertPartialRes(deque, num);
+        return getResNum(deque);
+    }
+
+    /**
+     * 遇到乘除号计算，其他情况只是插入num
+     * @param deque
+     * @param num
+     */
+    private void comomputeAndInsertPartialRes(Deque<String> deque, int num) {
+        if (!deque.isEmpty()) {
+            String str = deque.pollLast();
+            if (str.equals("+") || str.equals("-") || str.equals("(")) {
+                deque.offer(str);
+            } else {
+                Integer preNum = Integer.parseInt(deque.pollLast());
+                num = str.equals("*") ? (preNum * num) : (preNum / num);
+            }
+        }
+        deque.offer(String.valueOf(num));
+    }
+
+    /**
+     * deque中只包含+ - 两种简单符号和数字
+     * @param deque
+     * @return
+     */
+    private int getResNum(Deque<String> deque) {
+        int res = 0;
+        boolean add = true;
+        while (!deque.isEmpty()) {
+            String str = deque.pollFirst();
+            if (str.equals("+")) {
+                add = true;
+            } else if (str.equals("-")) {
+                add = false;
+            } else {
+                int num = Integer.parseInt(str);
+                res += add ? num : -num;
             }
         }
         return res;

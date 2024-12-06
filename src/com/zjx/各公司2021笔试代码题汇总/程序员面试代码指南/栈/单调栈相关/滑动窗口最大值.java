@@ -24,24 +24,24 @@ import java.util.LinkedList;
  *
  */
 public class 滑动窗口最大值 {
-    public ArrayList<Integer> maxInWindows(int [] num, int size) {
+    public ArrayList<Integer> maxInWindows(int [] nums, int k) {
         ArrayList<Integer> res = new ArrayList<>();
-        if(num == null || num.length == 0 || size == 0) return res;
+        if(nums == null || nums.length == 0 || k == 0) return res;
 
         Deque<Integer> deque = new LinkedList<>();  //这里的队列用来存索引如果存元素的话也可以
 
-        for(int end = 0; end < num.length; end++) {
-            while(!deque.isEmpty() && num[deque.peekLast()] <= num[end]) {
+        for(int end = 0; end < nums.length; end++) {
+            while(!deque.isEmpty() && nums[deque.peekLast()] <= nums[end]) {
                 deque.pollLast();
             }
             deque.addLast(end);
 
-            if(end - size == deque.peekFirst()) {   //出队时机
+            if(end - k == deque.peekFirst()) {   //出队时机
                 deque.pollFirst();
             }
 
-            if(end >= size - 1) {   //入队时机
-                res.add(num[deque.peekFirst()]);
+            if(end >= k - 1) {   //入队时机
+                res.add(nums[deque.peekFirst()]);
             }
         }
         return res;
