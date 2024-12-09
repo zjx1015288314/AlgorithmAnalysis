@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * @see LeetCode212单词搜索2
+ * 链接： https://leetcode.cn/problems/word-search-ii/description/
+ */
 public class LeetCode212单词搜索2前缀树 {
     static class TrieNode {
         int path;   //表示多少个单词共用这个节点
@@ -18,13 +22,22 @@ public class LeetCode212单词搜索2前缀树 {
             end = 0;
             children = new HashMap<>();
         }
+
+        public void insert(String word) {
+            TrieNode cur = this;
+            for (char c : word.toCharArray()) {
+                if (!cur.children.containsKey(c)) {
+                    cur.children.put(c, new TrieNode());
+                }
+                cur = cur.children.get(c);
+            }
+            cur.word = word;
+        }
     }
-    static int[][] tmp = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
+    static int[][] directs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     static int row = 0;
     static int col = 0;
-
-    static char[][] Myboard = null;
-    static ArrayList<String> list = new ArrayList<String>();
+    static ArrayList<String> list = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -43,36 +56,35 @@ public class LeetCode212单词搜索2前缀树 {
         System.out.println(findWords(matrix, str));
     }
 
+    /**
+     * 时间复杂度 O(m*n*3^(l - 1)), l为words中最长单词的长度
+     * 空间复杂度：O(k×l) k 是 words 的长度
+     * @param board
+     * @param words
+     * @return
+     */
     public static List<String> findWords(char[][] board, String[] words){
         // Step 1). Construct the Trie
         TrieNode root = new TrieNode();
         for (String word : words) {
-            TrieNode node = root;
-            for (Character letter : word.toCharArray()) {
-                if(!node.children.containsKey(letter)){
-                    TrieNode newNode = new TrieNode();
-                    node.children.put(letter, newNode);
-                }
-                node = node.children.get(letter);
-            }
-            node.word = word;  // store words in Trie
+            root.insert(word);
         }
-//        Myboard = board;
         // Step 2). Backtracking starting for each cell in the board
         for (int row = 0; row < board.length; ++row) {
             for (int col = 0; col < board[row].length; ++col) {
-                if (root.children.containsKey(board[row][col])) {
-                    backtracking(board, row, col, root);
-                }
+                backtracking(board, row, col, root);
             }
         }
         return list;
     }
 
-    private static void backtracking(char[][] board,int row, int col, TrieNode parent) {
-        Character letter = board[row][col];
-        TrieNode currNode = parent.children.get(letter);
+    private static void backtracking(char[][] board,int i, int j, TrieNode parent) {
+        if (!parent.children.containsKey(board[i][j])) {
+            return;
+        }
 
+        Character letter = board[i][j];
+        TrieNode currNode = parent.children.get(letter);
         // check if there is any match
         if (currNode.word != null) {
             list.add(currNode.word);
@@ -80,23 +92,21 @@ public class LeetCode212单词搜索2前缀树 {
         }
 
         // mark the current letter before the EXPLORATION
-        board[row][col] = '#';
+        board[i][j] = '#';
 
         // explore neighbor cells in around-clock directions: up, right, down, left
-        for (int i = 0; i < 4; ++i) {
-            int newRow = row + tmp[i][0];
-            int newCol = col + tmp[i][1];
+        for (int[] direct : directs) {
+            int newRow = i + direct[0];
+            int newCol = j + direct[1];
             if (newRow < 0 || newRow >= board.length || newCol < 0
                     || newCol >= board[0].length) {
                 continue;
             }
-            if (currNode.children.containsKey(board[newRow][newCol])) {
-                backtracking(board,newRow, newCol, currNode);
-            }
+            backtracking(board,newRow, newCol, currNode);
         }
 
         // End of EXPLORATION, restore the original letter in the board.
-        board[row][col] = letter;
+        board[i][j] = letter;
 
         // Optimization: incrementally remove the leaf nodes
         if (currNode.children.isEmpty()) {

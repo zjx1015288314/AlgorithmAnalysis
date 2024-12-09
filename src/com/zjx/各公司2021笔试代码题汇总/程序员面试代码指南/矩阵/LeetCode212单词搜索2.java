@@ -7,12 +7,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 给定一个 m x n 二维字符网格 board 和一个单词（字符串）列表 words， 返回所有二维网格上的单词 。
+ * 单词必须按照字母顺序，通过 相邻的单元格 内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。
+ * 同一个单元格内的字母在一个单词中不允许被重复使用。
  * 4 4
  * oaan
  * etae
  * ihkr
  * iflv
  * oath pea eat rain
+ *
+ * 提示：
+ * m == board.length
+ * n == board[i].length
+ * 1 <= m, n <= 12
+ * board[i][j] 是一个小写英文字母
+ * 1 <= words.length <= 3 * 10^4
+ * 1 <= words[i].length <= 10
+ * words[i] 由小写英文字母组成
+ * words 中的所有字符串互不相同
+ * 链接： https://leetcode.cn/problems/word-search-ii/description/
  */
 public class LeetCode212单词搜索2 {
 
@@ -38,6 +52,14 @@ public class LeetCode212单词搜索2 {
         System.out.println(findWords(matrix, str));
     }
 
+    /**
+     * ！！！！时间复杂度O(k*m*n*3^(l - 1)), l为单词的最长长度 k为 words.length, 这题可以看出k很大，所以导致
+     * 整体复杂度超出限制。所以办法是用前缀树把words数组的字符串存进去，这样可以在board数组遍历的时候顺便遍历前缀树
+     * @see LeetCode212单词搜索2前缀树 ！！！！！！
+     * @param board
+     * @param words
+     * @return
+     */
     public static List<String> findWords(char[][] board, String[] words) {
         List<String> list = new ArrayList<>();
         if (board == null || board.length == 0 || board[0].length == 0 || words == null || words.length == 0) {

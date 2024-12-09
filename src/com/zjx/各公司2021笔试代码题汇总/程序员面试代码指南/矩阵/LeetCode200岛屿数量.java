@@ -18,7 +18,11 @@ import java.util.LinkedList;
  * ['1','1','0','0','0'],
  * ['0','0','0','0','0']
  * ]
- * 输出: 1
+ * 输出:1
+ *
+ * 思路: 之前想用经典的矩阵回溯，但是这题虽然是矩阵，但可能不用回溯，一旦某个节点陆地遍历过后，就把它置为 非1。
+ * 岛屿数量的累加在外层的方法中，即一旦grid[i][j] = '1'，即代表一块陆地，只是不知道陆地有多大，需要
+ * dfs/bfs把相连的陆地找到置为非1（0 或者 2都行，具体处理看情景）
  */
 public class LeetCode200岛屿数量 {
     public int numIslands(char[][] grid) {
@@ -29,7 +33,7 @@ public class LeetCode200岛屿数量 {
             for(int j = 0; j < grid[0].length; j++){
                 if(grid[i][j] == '1'){
                     //dfs(grid,i,j);
-                    bfs(grid,i,j,new LinkedList<Integer>());
+                    bfs(grid,i,j, new LinkedList<>());
                     count++;
                 }
             }
