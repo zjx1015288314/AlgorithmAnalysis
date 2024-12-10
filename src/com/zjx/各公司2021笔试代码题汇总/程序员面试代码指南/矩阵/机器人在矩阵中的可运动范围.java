@@ -9,7 +9,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
  * 和{矩阵中是否存在与字符串匹配的路径}有点像，但又不完全一样，最大的区别在于此题路径不必连续，四个方向求总和即可
  * @link https://www.nowcoder.com/practice/6e5207314b5241fb83f2329e89fdecc8?tpId=13&tags=&title=&difficulty=0&judgeStatus=0&rp=0
  */
-public class 机器人在矩阵中的可运动范围 {
+public class  机器人在矩阵中的可运动范围 {
     int[][] coordinates = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
     public int movingCount(int threshold, int rows, int cols) {
