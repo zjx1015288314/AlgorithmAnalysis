@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,7 +52,15 @@ public class 深度优先搜索和回溯解决子集 {
     public static List<List<Integer>> subsets(int[] S) {
         List<List<Integer>> res = new ArrayList<>();
         if(S == null || S.length == 0) return res;
+        Arrays.sort(S); // 保证S升序
         dfs(S,0, new ArrayList<>(), res);
+        //如果结果需要升序排列, 则需要加入以下排序代码
+        res.sort((o1, o2) -> {
+            if (o1.size() != o2.size()) {
+                return o1.size() - o2.size();
+            }
+            return 0;
+        });
         return res;
     }
 

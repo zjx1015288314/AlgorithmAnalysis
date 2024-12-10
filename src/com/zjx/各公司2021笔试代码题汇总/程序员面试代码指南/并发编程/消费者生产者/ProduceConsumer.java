@@ -5,84 +5,60 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class ProduceConsumer {
-    private final List<Object> list;
-    Semaphore mutex = new Semaphore(1);
-    Semaphore notEmpty = new Semaphore(0);
-    Semaphore notFull = null;
-
+    private static final List<Object> list = new LinkedList<>();
+    private static final Semaphore mutex = new Semaphore(1);
+    private static final Semaphore notEmpty = new Semaphore(0);
+    private static Semaphore notFull;
 
     public ProduceConsumer(int count) {
-        list = new LinkedList<Object>();
         notFull = new Semaphore(count);
     }
 
     public static void main(String[] args) {
         ProduceConsumer pro = new ProduceConsumer(4);
-        for (int i = 0; i < 14; i++) {
-            new Thread(new Consumer(pro)).start();
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Consumer()).start();
         }
-        for (int i = 0; i < 14; i++) {
-            new Thread(new Producer(pro)).start();
-        }
-    }
-
-    public void produce() throws InterruptedException{
-        try {
-            notFull.acquire();
-            mutex.acquire();
-            list.add(new Object());
-            System.out.println("【生产者" + Thread.currentThread().getName() + "】生产一个产品，现库存" + list.size());
-        } finally {
-            mutex.release();
-            notEmpty.release();
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Producer()).start();
         }
     }
 
-    public void consume() throws InterruptedException{
-        try {
-            notEmpty.acquire();
-            mutex.acquire();
-            list.remove(0);
-            System.out.println("【消费者" + Thread.currentThread().getName() + "】消费一个产品，现库存" + list.size());
-        } finally {
-            mutex.release();
-            notFull.release();
+    static class Producer implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                notFull.acquire();
+                // 互斥锁保证list.add是单线程执行
+                mutex.acquire();
+                list.add(new Object());
+                System.out.println("【生产者" + Thread.currentThread().getName() + "】生产一个产品，现库存" + list.size());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                mutex.release();
+                notEmpty.release();
+            }
         }
     }
-}
 
-class Consumer implements Runnable {
-    ProduceConsumer pro;
-
-    public Consumer(ProduceConsumer pro) {
-        this.pro = pro;
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(1000);
-            pro.consume();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    static class Consumer implements Runnable {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                notEmpty.acquire();
+                mutex.acquire();
+                list.remove(0);
+                System.out.println("【消费者" + Thread.currentThread().getName() + "】消费一个产品，现库存" + list.size());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                mutex.release();
+                notFull.release();
+            }
         }
     }
 }
 
-class Producer implements Runnable {
-    ProduceConsumer pro;
-
-    public Producer(ProduceConsumer pro) {
-        this.pro = pro;
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(1000);
-            pro.produce();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}

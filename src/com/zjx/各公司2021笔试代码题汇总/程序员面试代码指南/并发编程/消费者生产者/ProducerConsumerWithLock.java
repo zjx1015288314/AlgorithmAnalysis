@@ -7,84 +7,58 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ProducerConsumerWithLock {
     private static int count = 0;  //当前的生产数量
     private static final int buffCount = 10;  //最大允许的生产数量
-    private static Lock lock = new ReentrantLock();
-
+    private static final ReentrantLock lock = new ReentrantLock();
     //创建两个条件变量，一个为缓冲区非满，一个为缓冲区非空
-    private final Condition notFull = lock.newCondition();
-    private final Condition notEmpty = lock.newCondition();
+    private static final Condition notFull = lock.newCondition();
+    private static final Condition notEmpty = lock.newCondition();
 
     public static void main(String[] args) {
-        ProducerConsumerWithLock pro = new ProducerConsumerWithLock();
         for (int i = 0; i < 10; i++) {
-            new Thread(new MyProducer(pro)).start();
+            new Thread(new MyConsumer()).start();
         }
         for (int i = 0; i < 10; i++) {
-            new Thread(new MyConsumer(pro)).start();
+            new Thread(new MyProducer()).start();
         }
-
     }
 
-    public void produce() throws InterruptedException {
-        lock.lock();
-        try {
-            while (count == buffCount) {
-                notFull.await();
+    static class MyConsumer implements Runnable {
+        @Override
+        public void run() {
+            lock.lock();
+            try {
+                while (count == 0) {
+                    notEmpty.await();
+                }
+                count--;
+                System.out.println("【消费者" + Thread.currentThread().getName() + "】消费一个产品，现库存" + count);
+                notFull.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-            count++;
-            System.out.println("【生产者" + Thread.currentThread().getName() + "】生产一个产品，现库存" + count);
-            notEmpty.signalAll();
-        } finally {
-            lock.unlock();
         }
     }
-
-    public void consume() throws InterruptedException {
-        lock.lock();
-        try {
-            while (count == 0) {
-                notEmpty.await();
+    static class MyProducer implements Runnable {
+        @Override
+        public void run() {
+            lock.lock();
+            try {
+                while (count == buffCount) {
+                    // 降低生产者对锁的竞争频率
+                    Thread.sleep(1000);
+                    notFull.await();
+                }
+                count++;
+                System.out.println("【生产者" + Thread.currentThread().getName() + "】生产一个产品，现库存" + count);
+                notEmpty.signalAll();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
             }
-            count--;
-            System.out.println("【消费者" + Thread.currentThread().getName() + "】消费一个产品，现库存" + count);
-            notFull.signalAll();
-        } finally {
-            lock.unlock();
         }
     }
 }
 
-class MyConsumer implements Runnable {
-    ProducerConsumerWithLock pro;
 
-    public MyConsumer(ProducerConsumerWithLock pro) {
-        this.pro = pro;
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(1000);
-            pro.consume();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
-class MyProducer implements Runnable {
-    ProducerConsumerWithLock pro;
-
-    public MyProducer(ProducerConsumerWithLock pro) {
-        this.pro = pro;
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(1000);
-            pro.produce();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}

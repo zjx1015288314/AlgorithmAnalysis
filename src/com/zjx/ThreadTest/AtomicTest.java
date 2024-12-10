@@ -2,6 +2,7 @@ package com.zjx.ThreadTest;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicStampedReference;
+import java.util.concurrent.atomic.LongAdder;
 
 public class AtomicTest {
 
@@ -16,6 +17,8 @@ public class AtomicTest {
 
     static class MyRunnable implements Runnable {
         private AtomicInteger atomicInteger = new AtomicInteger(0);
+        AtomicStampedReference<Integer> re = new AtomicStampedReference<>(1, 1);
+        LongAdder longAdder = new LongAdder();
         @Override
         public void run() {
             synchronized (atomicInteger) {
@@ -23,6 +26,8 @@ public class AtomicTest {
                     return;
                 }
                 atomicInteger.incrementAndGet();
+                longAdder.add(1);
+                re.compareAndSet(1, 2, 1, 2);
                 System.out.println(Thread.currentThread().getName() + ": **" + atomicInteger + "**");
             }
 

@@ -15,8 +15,7 @@ public class CreateThread3 {
     static class MyCallable implements Callable<Integer>{
         @Override
         public Integer call() throws Exception {
-            Integer res = 111;
-            return res;
+            return 111;
         }
     }
     public static void main(String[] args) {

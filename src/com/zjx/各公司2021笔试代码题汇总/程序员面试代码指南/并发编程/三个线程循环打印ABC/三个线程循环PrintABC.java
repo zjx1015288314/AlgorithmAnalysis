@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.并发编程.三个线程循环打印ABC;
 
+import java.util.Objects;
+
 public class 三个线程循环PrintABC {
     final Object monitor = new Object();
     volatile int count = 0;  //当前在第几次打印
@@ -13,7 +15,7 @@ public class 三个线程循环PrintABC {
     public void printA() throws InterruptedException {
         while (count < printCount) {
             synchronized (monitor) {
-                while (id != "A") {
+                while (!Objects.equals(id, "A")) {
                     monitor.wait();
                 }
                 if (count >= printCount) {
@@ -29,7 +31,7 @@ public class 三个线程循环PrintABC {
     public void printB() throws InterruptedException {
         while (count < printCount) {
             synchronized (monitor) {
-                while (id != "B") {
+                while (!Objects.equals(id, "B")) {
                     monitor.wait();
                 }
                 if (count >= printCount) {
