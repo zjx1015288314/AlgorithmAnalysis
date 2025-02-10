@@ -2,9 +2,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 //正确单例演示
 public enum SingletonEnum {
     INSTANCE;
-    public SingletonEnum getInstance(){
-        return INSTANCE;
-    }
+
 
 }
 //错误单例演示   无法限制反射和 序列化
