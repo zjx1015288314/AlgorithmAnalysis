@@ -8,6 +8,9 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * https://www.nowcoder.com/practice/8a19cbe657394eeaac2f6ea9b0f6fcf6?tpId=13&tqId=11157&ru=/exam/oj
+ */
 public class 前序和中序重建二叉树以及后序数组 {
 
     public static void main(String[] args) throws IOException {

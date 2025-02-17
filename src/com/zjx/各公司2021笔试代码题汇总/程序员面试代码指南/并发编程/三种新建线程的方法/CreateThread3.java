@@ -26,9 +26,7 @@ public class CreateThread3 {
         try {
             int res = task.get();
             System.out.println(res);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }

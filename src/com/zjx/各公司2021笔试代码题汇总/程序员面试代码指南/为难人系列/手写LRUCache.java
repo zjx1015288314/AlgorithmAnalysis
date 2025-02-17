@@ -75,7 +75,7 @@ class LRUCache<K, V> {
             keyNodeMap.put(key, newNode);
             nodeKeyMap.put(newNode, key);
             dList.addNodeToTail(newNode);
-            if (keyNodeMap.size() == this.capacity + 1) {    // 超出容量，移除最久未使用的节点
+            if (keyNodeMap.size() > this.capacity) {    // 超出容量，移除最久未使用的节点
                 Node<V> rmNode = dList.removeHead();
                 K rmKey = nodeKeyMap.get(rmNode);
                 keyNodeMap.remove(rmKey);
@@ -113,9 +113,8 @@ class DoubleLinkedList<V> {
         if (head == null) {
             head = tail = node;
         } else {
-            tail.next = node;
             node.prev = tail;
-            tail = tail.next;
+            tail = tail.next = node;
         }
     }
 
@@ -131,10 +130,9 @@ class DoubleLinkedList<V> {
             node.prev.next = node.next;
             node.next.prev = node.prev;
         }
-        tail.next = node;
         node.prev = tail;
         node.next = null;
-        tail = node;
+        tail = tail.next = node;
     }
 
     public Node<V> removeHead() {

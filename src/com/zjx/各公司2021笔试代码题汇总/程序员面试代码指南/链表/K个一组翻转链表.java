@@ -59,11 +59,9 @@ public class K个一组翻转链表 {
             ListNode post = cur.next;
             cur.next = null;
             cur = pre.next;
-            pre.next = null;
-
             pre.next = reverse(cur);
 
-            //后置处理
+            //后置处理 这里可以写为 cur.next = post;  pre = cur;  cur = post;
             while(pre.next != null) {
                 pre = pre.next;
             }

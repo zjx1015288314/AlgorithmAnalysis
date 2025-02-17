@@ -75,12 +75,6 @@ public class 有序链表转换为二叉树 {
         int mid = (left + right) / 2;
         //与中序遍历不同,这里直接可以获得mid处节点
         TreeNode node = new TreeNode(this.values.get(mid));
-
-        //中序遍历方法没有这步,为了使head节点后移,即使是一个节点，也要执行一次方法使head节点后移
-        if (left == right) {
-            return node;
-        }
-
         node.left = convertListToBST(left, mid - 1);
         node.right = convertListToBST(mid + 1, right);
         return node;

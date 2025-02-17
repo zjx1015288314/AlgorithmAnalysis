@@ -37,7 +37,7 @@ public class 链表中环的入口节点 {
                 break;
             }
         }
-        if(fast == null || fast.next == null) {
+        if(fast.next == null || fast.next.next == null) {
             return null;
         }
         slow = pHead;

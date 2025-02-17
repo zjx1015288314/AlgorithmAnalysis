@@ -74,7 +74,6 @@ public class 填充二叉树每个节点的下一个右侧节点指针II {
                 cur = cur.next;
             }
             cur = dummy.next;
-//            dummy.next = null;
         }
         return root;
     }

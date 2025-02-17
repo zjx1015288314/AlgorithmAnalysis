@@ -2,10 +2,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 
 import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 给定一个二叉树，返回它的 后序 遍历。

@@ -58,4 +58,27 @@ public class 填充完全二叉树每个节点的下一个右侧节点指针 {
         }
         return root;
     }
+
+    /**
+     * 方法三：
+     * @see com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树.层序遍历.填充二叉树每个节点的下一个右侧节点指针II
+     */
+    public Node connect3(Node root) {
+        Node cur = root;
+        while(cur != null){
+            Node dummy = new Node();
+            Node tail = dummy;
+            while(cur != null){
+                if(cur.left != null){
+                    tail = tail.next = cur.left;
+                }
+                if(cur.right != null){
+                    tail = tail.next = cur.right;
+                }
+                cur = cur.next;
+            }
+            cur = dummy.next;
+        }
+        return root;
+    }
 }

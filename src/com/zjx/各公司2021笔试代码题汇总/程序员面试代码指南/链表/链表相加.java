@@ -23,7 +23,7 @@ public class 链表相加 {
     //链表求和
     private static ListNode sumList(ListNode head1, ListNode head2) {
         int carry = 0;
-        ListNode pre = null;
+        ListNode post = null;
         ListNode curr = null;
         int x = 0;
         int y = 0;
@@ -34,12 +34,12 @@ public class 链表相加 {
             sum = x + y + carry;
             carry = sum / 10;
             curr = new ListNode(sum % 10);
-            curr.next = pre;
-            pre = curr;
+            curr.next = post;
+            post = curr;
             head1 = head1 != null ? head1.next : null;
             head2 = head2 != null ? head2.next : null;
         }
-        return pre;
+        return post;
     }
 
     //反转链表
@@ -49,9 +49,8 @@ public class 链表相加 {
         }
         ListNode curr = head;
         ListNode prev = null;
-        ListNode next = null;
         while (curr != null) {
-            next = curr.next;
+            ListNode next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;

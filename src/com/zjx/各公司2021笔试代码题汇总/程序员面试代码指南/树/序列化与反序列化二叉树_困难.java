@@ -117,7 +117,7 @@ public class  序列化与反序列化二叉树_困难 {
             return sb.toString();
         }
 
-        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         while(!queue.isEmpty()){
             root = queue.poll();

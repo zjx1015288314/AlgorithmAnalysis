@@ -53,7 +53,7 @@ public class 两个可能有环链表可能相交求交点问题_困难 {
                 break;
             }
         }
-        if (fast == null || fast.next == null) {
+        if (fast.next == null || fast.next.next == null) {
             return null;
         }
         slow = pHead;

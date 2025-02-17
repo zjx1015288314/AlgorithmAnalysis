@@ -3,7 +3,7 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 public class 三个线程循环打印123orABCSynchronized {
 
     private static final Object LOCK = new Object();
-    private static volatile int count = 0;
+    private static int count = 0;
     private static final int MAX_PRINT_COUNT = 100;
 
     public static void main(String[] args) {

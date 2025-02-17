@@ -19,7 +19,7 @@ import java.util.Stack;
  * / \
  * 1   3
  * 输出: true
- * 示例 2:
+ * 示例2:
  * 输入:
  * 5
  * / \
@@ -28,7 +28,7 @@ import java.util.Stack;
  *    3   6
  * 输出: false
  * 解释: 输入为: [5,1,4,null,null,3,6]。
- *      根节点的值为 5 ，但是其右子节点值为 4 。
+ * 根节点的值为 5 ，但是其右子节点值为 4 。
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/validate-binary-search-tree
  */

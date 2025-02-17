@@ -4,6 +4,10 @@ import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 
 import java.util.*;
 
+/**
+ * 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+ * https://leetcode.cn/problems/binary-tree-right-side-view/
+ */
 public class 二叉树右视图 {
     /**
      * 双栈+DFS

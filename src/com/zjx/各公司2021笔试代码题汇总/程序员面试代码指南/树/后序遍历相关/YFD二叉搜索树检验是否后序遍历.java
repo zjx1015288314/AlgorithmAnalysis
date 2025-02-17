@@ -31,7 +31,7 @@ public class YFD二叉搜索树检验是否后序遍历 {
     public static boolean check(int[] arr,int low, int high){
         //low = high + 1在区间为空的时候也认为true,此时根节点只有左子树或者右子树
         if (low == high || low == high + 1) return true;
-        int idx = 0;
+        int idx = low;
         for (;idx < high; idx++){
             if (arr[idx] > arr[high]) break;
         }

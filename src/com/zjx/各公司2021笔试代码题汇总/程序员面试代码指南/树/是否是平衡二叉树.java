@@ -1,5 +1,11 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.树;
 
+/**
+ * 给定一个二叉树，判断它是否是
+ * 平衡二叉树
+ *
+ * https://leetcode.cn/problems/balanced-binary-tree/
+ */
 public class 是否是平衡二叉树 {
     class ReturnData{
         int maxSize;
@@ -14,7 +20,7 @@ public class 是否是平衡二叉树 {
         return helper(root).isBanlanced;
     }
 
-    public ReturnData helper(TreeNode root){
+    private ReturnData helper(TreeNode root){
         if(root == null) return new ReturnData(0,true);
 
         ReturnData leftData = helper(root.left);

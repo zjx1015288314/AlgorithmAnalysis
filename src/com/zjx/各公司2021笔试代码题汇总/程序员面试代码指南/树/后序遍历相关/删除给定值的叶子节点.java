@@ -31,10 +31,10 @@ public class 删除给定值的叶子节点 {
                 stack.push(cur.right);
             } else {
                 /*******************修改的地方*********************/
-                if(cur.left != null && isTargetLeafNode(cur.left, target)) {
+                if(isTargetLeafNode(cur.left, target)) {
                     cur.left = null;
                 }
-                if(cur.right != null && isTargetLeafNode(cur.right, target)) {
+                if(isTargetLeafNode(cur.right, target)) {
                     cur.right = null;
                 }
                 /**************************************************/

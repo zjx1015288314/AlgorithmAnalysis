@@ -7,6 +7,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * 将一个 二叉搜索树 就地转化为一个 已排序的双向循环链表 。
+ *
+ * 对于双向循环列表，你可以将左右孩子指针作为双向循环链表的前驱和后继指针，
+ * 第一个节点的前驱是最后一个节点，最后一个节点的后继是第一个节点。(可暂不实现)
+ *
+ * 特别地，我们希望可以 就地 完成转换操作。当转化完成以后，树中节点的左指针需要指向前驱，树中节点的右指针需要指向后继。还需要返回链表中最小元素的指针。
+ * https://leetcode.cn/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/description/
+ */
 public class 剑指Offer36二叉搜索树转双向链表 {
     //定义Node节点
     public static class Node{
@@ -52,6 +61,43 @@ public class 剑指Offer36二叉搜索树转双向链表 {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * Morrios遍历 就地转换
+     */
+    private static Node convert(Node head){
+        if (head == null) {
+            return null;
+        }
+        Node dummy = new Node(-1);
+        Node pre = dummy;
+        Node cur = head;
+        while (cur != null) {
+            if (cur.left == null) {
+                pre.right = cur;
+                cur.left = pre;
+                pre = cur;
+                cur = cur.right;
+            } else {
+                Node child = cur.left;
+                while (child.right != null && child.right != cur) {
+                    child = child.right;
+                }
+                if (child.right != cur) {
+                    child.right = cur;
+                    cur = cur.left;
+                } else {
+                    cur.left = pre;
+                    pre = cur;
+                    cur = cur.right;
+                }
+            }
+        }
+        //头尾相连
+        pre.right = dummy.right;
+        dummy.right.left = pre;
+        return dummy.right;
     }
 
     /**
