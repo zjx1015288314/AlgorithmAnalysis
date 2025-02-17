@@ -56,6 +56,11 @@ public class 宽度优先搜索矩阵最小通路 {
     }
 
 
+    /**
+     * 矩阵最短路径的题天然不适合DFS，因为DFS会使用memo[][]记录是否走过,但最先走到的路径可能是最长路径,导致后面的路径无法走到
+     * @param arr
+     * @return
+     */
     public static int find(int[][] arr){
         if(arr==null||arr.length==0||arr[0].length==0)
             return -1;
