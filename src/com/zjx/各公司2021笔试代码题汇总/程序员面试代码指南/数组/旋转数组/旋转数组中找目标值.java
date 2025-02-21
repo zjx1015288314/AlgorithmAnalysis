@@ -73,7 +73,7 @@ public class 旋转数组中找目标值 {
     //题目与在有序数组中找到最小值中解法二对应，改动的地方有最后两个判断，将区间分为一段有序的区间和另一段，
     //有序区间由mid和start/end组成，其余部分自成另一区间
     private static boolean isContains2(int[] arr, int target){
-        if(arr == null || arr.length == 0 || target < 1) return false;
+        if(arr == null || arr.length == 0) return false;
         int start = 0, end = arr.length - 1;
         while(start <= end){  //二分法的经典循环条件
             int mid = start + (end - start)/2;
@@ -86,21 +86,25 @@ public class 旋转数组中找目标值 {
                 return true;
             }
 
-            if(arr[mid] == arr[start]){
+            if(arr[mid] == arr[start] && arr[mid] == arr[end]){
+                // [2,2,6,0,2,2,2,2,2,2]  0 如果条件仅仅是arr[mid] == arr[start]，
+                // 那么遍历的次数要多一点，因为这个条件把[2,2,2,2,2,2,2,6,0,2]这种情况(mid和start在同一区间)给包含了,
+                // 没有使用二分法的优势
                 start++;  //这里的意思是 target != (nums[mid]/nums[start])
-            }else if(arr[mid] > arr[start]){ //说明mid在左边连续区间
+                end--;
+            }else if(arr[mid] >= arr[start]){ //说明mid在左边连续区间
                 // 边界值需要细推，这里target可能在三个区间，从左往右为：[start, mid), (mid, 分界点), (分界点, end]
                 // 由于第一段区间最好确定(分界点不好找), 所以先处理第一段,其余放到else里
                 if(target >= arr[start] && target < arr[mid]){
-                    end = mid-1;
+                    end = mid - 1;
                 }else{
                     start = mid + 1;
                 }
             }else{
                 if(target > arr[mid] && target <= arr[end]){
-                    start = mid+1;
+                    start = mid + 1;
                 }else{
-                    end = mid-1;
+                    end = mid - 1;
                 }
             }
         }

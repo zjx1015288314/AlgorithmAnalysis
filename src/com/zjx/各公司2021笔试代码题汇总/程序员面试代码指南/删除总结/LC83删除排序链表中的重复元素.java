@@ -23,6 +23,23 @@ public class LC83删除排序链表中的重复元素 {
         }
         return head;
     }
+
+    public ListNode deleteDuplicates1(ListNode head) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+
+        ListNode pre = dummy;
+        ListNode cur = head;
+        while (cur != null) {
+            // cur到达尾部或者cur与cur.next不相等时，pre.next = cur
+            if (cur.next == null || cur.val != cur.next.val) {
+                pre = pre.next = cur;
+            }
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+
     class ListNode {
         int val;
         ListNode next;

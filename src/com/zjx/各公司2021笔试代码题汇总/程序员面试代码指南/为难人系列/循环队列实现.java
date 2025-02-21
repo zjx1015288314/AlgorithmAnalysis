@@ -22,7 +22,7 @@ public class 循环队列实现 {
 //                return false;
 //            }
             //第二种方法：通过rear == front 和size来控制
-            if (rear == front && size == capacity) {
+            if (size == capacity) {
                 System.out.println("队列已满, 不可再新增数据");
                 return false;
             }
@@ -40,7 +40,7 @@ public class 循环队列实现 {
          */
         public Integer poll() {
             // 校验队列是否为空，为空则不允许删除
-            if (rear == front && size == 0) {
+            if (size == 0) {
                 System.out.println("队列为空，不允许删除");
                 return null;
             }
@@ -68,16 +68,16 @@ public class 循环队列实现 {
         System.out.println(queue.rear);
 
 
-        LinkedCircularQueue<Integer> queue1 = new LinkedCircularQueue<>(5);
-        queue1.offer(21);
-        queue1.offer(22);
-        queue1.offer(23);
-        queue1.offer(24);
-        queue1.offer(25);
-        queue1.offer(26);
-        System.out.println(queue1.poll());
-        System.out.println(queue1.poll());
-        System.out.println(queue1.size);
+//        LinkedCircularQueue<Integer> queue1 = new LinkedCircularQueue<>(5);
+//        queue1.offer(21);
+//        queue1.offer(22);
+//        queue1.offer(23);
+//        queue1.offer(24);
+//        queue1.offer(25);
+//        queue1.offer(26);
+//        System.out.println(queue1.poll());
+//        System.out.println(queue1.poll());
+//        System.out.println(queue1.size);
     }
 
 

@@ -58,9 +58,7 @@ public class K个一组翻转链表 {
             //预处理
             ListNode post = cur.next;
             cur.next = null;
-            cur = pre.next;
-            pre.next = reverse(cur);
-
+            pre.next = reverse(pre.next);
             //后置处理 这里可以写为 cur.next = post;  pre = cur;  cur = post;
             while(pre.next != null) {
                 pre = pre.next;
@@ -95,7 +93,7 @@ public class K个一组翻转链表 {
         }
         ListNode fPre = head;  //左区间末尾
         ListNode end = fPre.next;  //表示翻转区间的末尾
-        ListNode tPos = null;  //右区间开始  cur必不为空
+        ListNode tPos;  //右区间开始  cur必不为空
         int count = 0;
         while(end != null){
             tPos = end.next;   //！！！！不要写进if中

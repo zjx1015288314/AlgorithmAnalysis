@@ -56,6 +56,8 @@ public class 最长回文子串 {
      * 方法二的本质即为：我们枚举所有的「回文中心」并尝试「扩展」，直到无法扩展为止，此时的回文串长度即为此
      * 「回文中心」下的最长回文串长度。我们对所有的长度求出最大值，即可得到最终的答案。
      *
+     * 时间复杂度：O(n^2)，其中n是字符串的长度。长度为1和2的回文中心分别有n和n−1个，每个回文中心最多会向外扩展O(n)次。
+     * 空间复杂度：O(1)。
      * 链接：https://leetcode-cn.com/problems/longest-palindromic-substring/solution/zui-chang-hui-wen-zi-chuan-by-leetcode-solution/
      * 来源：力扣（LeetCode）
      */

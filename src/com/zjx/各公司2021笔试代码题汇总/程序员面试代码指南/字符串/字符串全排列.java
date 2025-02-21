@@ -1,8 +1,6 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.字符串;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * 输入一个长度为 n 字符串，打印出该字符串中字符的所有排列，你可以以任意顺序返回这个字符串数组。
@@ -59,6 +57,40 @@ public class 字符串全排列 {
                 visited[i] = false;
                 path.deleteCharAt(path.length() - 1);
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Permutation1("aab"));
+    }
+
+    public static ArrayList<String> Permutation1(String str) {
+        if (str == null || str.isEmpty()) {
+            return new ArrayList<>();
+        }
+        // set去重 可解决包含重复字母的字符串全排列
+        Set<String> set = new HashSet<>();
+        List<Character> chs = new ArrayList<>();
+        for (char c : str.toCharArray()) {
+            chs.add(c);
+        }
+        doPermute(chs, 0, set);
+        return new ArrayList<>(set);
+    }
+
+    private static void doPermute(List<Character> output, int first, Set<String> res) {
+        if (first == output.size()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (Character ch : output) {
+                stringBuilder.append(ch);
+            }
+            res.add(stringBuilder.toString());
+        }
+        for (int i = first; i < output.size(); i++) {
+            //交换first 和 i 位置的元素
+            Collections.swap(output, first, i);
+            doPermute(output, first + 1, res);
+            Collections.swap(output, first, i);
         }
     }
 }

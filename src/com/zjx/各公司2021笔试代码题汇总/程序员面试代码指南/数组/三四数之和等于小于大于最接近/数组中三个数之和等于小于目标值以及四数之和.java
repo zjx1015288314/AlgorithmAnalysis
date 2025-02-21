@@ -52,7 +52,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
             int k = num.length - 1;
             while (j < k) {
                 if (num[i] + num[j] + num[k] == 0) {
-                    ArrayList<Integer> list = new ArrayList< >();
+                    ArrayList<Integer> list = new ArrayList<>();
                     list.add(num[i]);
                     list.add(num[j]);
                     list.add(num[k]);
@@ -86,7 +86,7 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
      * @param target
      * @return
      */
-    public static int threeSum(int[] num,int target) {
+    public static int threeSum(int[] num, int target) {
         Arrays.sort(num);
         //统计重复数字
         int[] dump = getDumpArr(num);
@@ -123,12 +123,8 @@ public class 数组中三个数之和等于小于目标值以及四数之和 {
         if(num == null || num.length == 0)  return new int[]{};
         Map<Integer,Integer> map = new HashMap<>();
         int[] res = new int[num.length];
-        for (int i = 0; i < num.length; i++) {
-            if (!map.containsKey(num[i])){
-                map.put(num[i],1);
-            }else{
-                map.put(num[i],map.get(num[i]) + 1);
-            }
+        for (int j : num) {
+            map.put(j, map.getOrDefault(j, 0) + 1);
         }
         for (int i = 0; i < num.length; i++) {
             res[i] = map.get(num[i]);

@@ -50,11 +50,9 @@ public class 二叉树找到两个节点的最近公共祖先 {
      * @return
      */
     public int helper2 (TreeNode root, int o1, int o2) {
-        // write code here
-        // return helper(root, o1, o2).val;
         Map<Integer, Integer> parent = new HashMap<>();
         Queue<TreeNode> queue = new LinkedList<>();
-        parent.put(root.val, Integer.MIN_VALUE);//根节点没有父节点，给他默认一个值
+        parent.put(root.val, Integer.MIN_VALUE);//根节点没有父节点，给他默认一个值;该步骤必不可少
         queue.add(root);
         //直到两个节点都找到为止。
         while (!parent.containsKey(o1) || !parent.containsKey(o2)) {
