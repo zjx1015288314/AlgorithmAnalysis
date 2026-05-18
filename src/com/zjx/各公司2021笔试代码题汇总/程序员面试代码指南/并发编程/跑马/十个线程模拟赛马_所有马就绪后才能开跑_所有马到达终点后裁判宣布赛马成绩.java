@@ -44,7 +44,7 @@ public class 十个线程模拟赛马_所有马就绪后才能开跑_所有马�
         @Override
         public void run() {
             try {
-                countDownLatch.countDown();
+                countDownLatch.await();
                 long workTime = (long) (Math.random() * 10000);
                 Thread.sleep(workTime);
                 results.add(name + " spend " + workTime + "ms 到达终点");
