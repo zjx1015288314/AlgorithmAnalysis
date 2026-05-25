@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.删除总结;
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.链表.ListNode;
+
 /**
  * 示例 1:
  * 输入: 1->1->2
@@ -40,13 +42,7 @@ public class LC83删除排序链表中的重复元素 {
         return dummy.next;
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) {
-            val = x;
-        }
-    }
+
 }
 
 
