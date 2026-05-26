@@ -44,9 +44,11 @@ public class 获取长度不等的两个有序数组的中位数难度3 {
         // ！！！没有这段代码会引发50行的数组越界异常
         if (k == 1) return Math.min(nums1[start1], nums2[start2]);
 
+        // 这里一定是Math.min(len1, k / 2)  而不是Math.min(len1, k)/2 ,否则会有数组越界异常
         int i = start1 + Math.min(len1, k / 2) - 1;
         int j = start2 + Math.min(len2, k / 2) - 1;
 
+        // 下面j + 1和 i + 1是因为不管奇偶，中间的数都不可能是第k小的数了，所以直接排除掉，排除掉的数的个数就是j - start2 + 1 或 i - start1 + 1
         if (nums1[i] > nums2[j]) {
             return getKth(nums1, start1, end1, nums2, j + 1, end2, k - (j - start2 + 1));
         }
