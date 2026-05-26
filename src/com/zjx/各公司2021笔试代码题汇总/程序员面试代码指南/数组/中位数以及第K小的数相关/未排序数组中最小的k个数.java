@@ -9,6 +9,7 @@ import java.util.Arrays;
  * @since 1.0.0
  *
  * @link https://www.nowcoder.com/practice/6a296eb82cf844ca8539b57c23e6e9bf?tpId=13&tags=&title=&difficulty=0&judgeStatus=0&rp=0
+ * https://leetcode.cn/problems/smallest-k-lcci/
  */
 public class 未排序数组中最小的k个数 {
 
