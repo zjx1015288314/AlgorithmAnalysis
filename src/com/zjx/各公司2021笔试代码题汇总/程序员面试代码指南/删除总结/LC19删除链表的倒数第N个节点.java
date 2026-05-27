@@ -29,4 +29,36 @@ public class LC19删除链表的倒数第N个节点 {
         prev.next = prev.next.next;
         return dummy.next;
     }
+
+    /**
+     * 通用的解法
+     * @param head
+     * @param n
+     * @return
+     */
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
+
+        int i = 1;
+        while (head != null) {
+            if (i == n) {
+                break;
+            }
+            head = head.next;
+            i++;
+        }
+        if (head == null) {
+            return dummy.next;
+        }
+        while (head.next != null) {
+            head = head.next;
+            pre = pre.next;
+        }
+        ListNode post = pre.next;
+        pre.next = post.next;
+        post.next = null;
+        return dummy.next;
+    }
 }

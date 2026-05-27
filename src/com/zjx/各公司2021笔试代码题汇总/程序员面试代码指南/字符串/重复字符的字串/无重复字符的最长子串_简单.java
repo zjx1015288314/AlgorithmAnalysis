@@ -1,5 +1,8 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.字符串.重复字符的字串;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *  给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串的长度。
  *
@@ -40,5 +43,26 @@ public class 无重复字符的最长子串_简单 {
             right++;
         }
         return res;
+    }
+
+    /**
+     * 推荐!!!
+     * @param s
+     * @return
+     */
+    public int lengthOfLongestSubstring1(String s) {
+        int maxLen = 0;
+        int start = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (map.containsKey(c)) {
+                start = Math.max(start, map.get(c) + 1);
+            }
+            // 不要放到else里
+            map.put(c, i);
+            maxLen = Math.max(maxLen, i - start + 1);
+        }
+        return maxLen;
     }
 }

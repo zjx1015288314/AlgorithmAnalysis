@@ -8,6 +8,7 @@ import java.io.Serializable;
  * @since 1.0.0
  */
 public class DCLSingleton implements Serializable,Cloneable {
+    //volatile 防止指令重排序导致“半初始化对象”
     private static volatile DCLSingleton singleton = null;
 
     private DCLSingleton(){}

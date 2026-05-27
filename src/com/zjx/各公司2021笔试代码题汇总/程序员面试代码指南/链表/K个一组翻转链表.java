@@ -85,7 +85,8 @@ public class K个一组翻转链表 {
 
 
     /**
-     * 指针比较多   容易混乱
+     * 其他做法指针比较多   容易混乱
+     * 推荐这个做法
      */
     public static ListNode reverseKNode(ListNode head, int n, int k){  //head为哑节点
         if(head.next == null || head.next.next == null || k < 2 || k > n){

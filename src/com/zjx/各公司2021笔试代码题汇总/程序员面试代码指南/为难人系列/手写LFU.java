@@ -39,9 +39,8 @@ public class 手写LFU {
 }
 class LFUCache{
     int capacity;
-    int size;
     int minFrequency;
-    Map<Integer,ListNode> res; //key为节点的key，value为节点
+    Map<Integer,ListNode> keyMap; //key为节点的key，value为节点
     Map<Integer,DLinkedList> frequencyMap;  //key为频率，value为对应的链表
 
     public LFUCache(int capacity){
@@ -50,14 +49,14 @@ class LFUCache{
         }
         this.capacity = capacity;
         minFrequency = 1;
-        res = new HashMap<>();
+        keyMap = new HashMap<>();
         frequencyMap = new HashMap<>();
     }
 
 
     public Integer get(Integer key){
-        if(res.containsKey(key)){
-            ListNode node = res.get(key);
+        if(keyMap.containsKey(key)){
+            ListNode node = keyMap.get(key);
             freIcr(node);
             return node.value;
         }
@@ -67,25 +66,24 @@ class LFUCache{
     public void set(Integer key,Integer value){
         //题目中K>=1,且我们已经在初始化时作了限制，所以这里不用判断capacity为0，如果题目没有明确表明K，则需要
         //if(capacity == 0) return;
-        if(res.containsKey(key)){
-            ListNode node = res.get(key);
+        if(keyMap.containsKey(key)){
+            ListNode node = keyMap.get(key);
             node.value = value; //覆盖
             freIcr(node);
         }else{
             //与LRU不同，先判断再插入，因为先把值插入的话，如果此时该节点频率就是最小的且只有一个，那么后面马上会删除该节点
-            if(size == capacity){
+            if(keyMap.size() == capacity){
                 DLinkedList list = frequencyMap.get(minFrequency);
                 ListNode deleteNode = list.head.next;
                 list.deleteNode(deleteNode);
-                res.remove(deleteNode.key);
-                size--;
+                keyMap.remove(deleteNode.key);
                 //我们对于为空的列表不做删除
                 //if(list.head == list.tail){
                 //frequencyMap.remove(minFrequency);
                 //}
             }
             ListNode node = new ListNode(key,value);
-            res.put(key,node);
+            keyMap.put(key,node);
             DLinkedList list = frequencyMap.get(node.frequency);
             if(list == null){
                 list = new DLinkedList();
@@ -93,7 +91,6 @@ class LFUCache{
             }
             list.addNodeToTail(node);
             minFrequency = node.frequency;  //每次新增都会变
-            size++;
         }
     }
 
