@@ -1,6 +1,8 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.删除总结;
 
 
+import com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.链表.ListNode;
+
 /**
  * 给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中没有重复出现的数字。
  * 与83区别在于可能会删除头结点，所以用哑结点作了处理
@@ -60,11 +62,4 @@ public class LC82删除排序链表中的重复元素II {
         return dummyNode.next;
     }
 
-    class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }

@@ -79,9 +79,40 @@ public class LC1209删除字符串中的所有相邻重复项II {
     }
 
     /**
-     * 和removeDuplicates2想法类似，不过借助了StringBuilder.delete(),本质上还是System.arrayCopy
+     * 利用双栈原理  比removeDuplicates2 好理解一点 但是空间使用比2多
      */
     public String removeDuplicates3(String s, int k) {
+        Stack<Character> stack = new Stack<>();
+        Stack<Integer> countStack = new Stack<>();
+        for (char c: s.toCharArray()) {
+            int count = !countStack.isEmpty()? countStack.peek() : 0; //!!!注意这里一定得先从栈取
+            if (!stack.isEmpty() && stack.peek() == c) {
+                count++;
+            } else {
+                count = 1;
+            }
+            if (count == k) {
+                for (int j = k; j > 1; j--) {
+                    stack.pop();
+                    countStack.pop();
+                }
+            } else {
+                stack.push(c);
+                countStack.push(count);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
+        return sb.reverse().toString();
+    }
+
+    /**
+     * 和removeDuplicates2想法类似，不过借助了StringBuilder.delete(),本质上还是System.arrayCopy
+     */
+    public String removeDuplicates4(String s, int k) {
         StringBuilder sb = new StringBuilder(s);
         int count[] = new int[sb.length()];  //辅助数组
         for (int i = 0; i < sb.length(); ++i) {

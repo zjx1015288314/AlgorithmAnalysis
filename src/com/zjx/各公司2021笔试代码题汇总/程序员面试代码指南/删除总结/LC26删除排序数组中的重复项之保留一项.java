@@ -38,4 +38,21 @@ public class LC26删除排序数组中的重复项之保留一项 {
         }
         return i + 1;
     }
+
+    /**
+     * @see LC83删除排序链表中的重复元素  解法一致，可以使用这种解法
+     */
+    public int removeDuplicates2(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return nums.length;
+        }
+        int i = -1;
+        for (int j = 0; j < nums.length; j++) {
+            if (j == nums.length - 1 || nums[j] != nums[j + 1]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
 }

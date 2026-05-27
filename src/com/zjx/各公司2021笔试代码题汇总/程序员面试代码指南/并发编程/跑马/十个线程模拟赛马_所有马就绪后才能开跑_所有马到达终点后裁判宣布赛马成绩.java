@@ -1,6 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.并发编程.跑马;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -44,7 +45,7 @@ public class 十个线程模拟赛马_所有马就绪后才能开跑_所有马�
         @Override
         public void run() {
             try {
-                countDownLatch.countDown();
+                countDownLatch.await();
                 long workTime = (long) (Math.random() * 10000);
                 Thread.sleep(workTime);
                 results.add(name + " spend " + workTime + "ms 到达终点");
