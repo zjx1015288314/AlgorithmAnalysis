@@ -36,6 +36,9 @@ public class 压栈出栈顺序 {
         return stack.isEmpty();
     }
 
+    /**
+     * 这个方法比较容易理解一点
+     */
     public boolean IsPopOrder1(int [] pushA,int [] popA) {
         if (pushA.length == 0 || popA.length == 0 || popA.length != pushA.length)
             return false;

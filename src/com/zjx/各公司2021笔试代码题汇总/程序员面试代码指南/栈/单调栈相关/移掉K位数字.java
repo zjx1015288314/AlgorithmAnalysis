@@ -38,7 +38,7 @@ public class 移掉K位数字 {
         }
         Deque<Character> deque = new LinkedList<Character>();
         for(char digit : num.toCharArray()) {
-            while(deque.size() > 0 && k > 0 && deque.peekLast() > digit) {
+            while(!deque.isEmpty() && k > 0 && deque.peekLast() > digit) {
                 deque.removeLast();
                 k -= 1;
             }
