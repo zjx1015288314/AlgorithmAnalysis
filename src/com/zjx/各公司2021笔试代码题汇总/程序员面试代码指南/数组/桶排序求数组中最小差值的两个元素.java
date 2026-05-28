@@ -1,6 +1,5 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组;
 
-import java.util.Arrays;
 
 /**
  * 有一个包含N个整数的数组，请编写一个算法，找到其中的两个元素，使它们之差最小。时间复杂度必须为O(n)。
@@ -9,7 +8,7 @@ public class 桶排序求数组中最小差值的两个元素 {
 
     public static void main(String[] args) {
         int[] arr = {1, 4, 5, 9};
-        int minDiff = findMinDiff(arr);
+        int minDiff = minDiff(arr);
         System.out.println("最小差为：" + minDiff);
     }
 
@@ -67,6 +66,34 @@ public class 桶排序求数组中最小差值的两个元素 {
         }
 
         return minDiff;
+    }
+
+    public static int minDiff(int[] nums) {
+
+        int max = 100000;
+
+        boolean[] bucket = new boolean[max + 1];
+
+        for (int num : nums) {
+            bucket[num] = true;
+        }
+
+        int prev = -1;
+        int min = Integer.MAX_VALUE;
+
+        for (int i = 0; i <= max; i++) {
+
+            if (bucket[i]) {
+
+                if (prev != -1) {
+                    min = Math.min(min, i - prev);
+                }
+
+                prev = i;
+            }
+        }
+
+        return min;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.数组;
 
+import java.util.Arrays;
+
 /**
  * @ref {二分查找有序数组中某个数的出现次数} 与这个类似
  *
@@ -11,11 +13,9 @@ package com.zjx.各公司2021笔试代码题汇总.程序员面试代码指南.�
 public class 数组中某元素第一次出现和最后一次出现的位置 {
 
     public static void main(String[] args) {
-        int[] res = searchRange(new int[]{5,7,7,8,8,10},7);
-//        int[] res = searchRange1(new int[]{5,7,7,8,8,10},8);
-        for(int i : res) {
-            System.out.println(i);
-        }
+//        int[] res = searchRange(new int[]{5,7,7,8,8,10},7);
+        int[] res = searchRange1(new int[]{5,7,7,8,8,10},8);
+        System.out.println(Arrays.toString(res));
     }
 
     public static int[] searchRange(int[] nums, int target) {
@@ -70,12 +70,12 @@ public class 数组中某元素第一次出现和最后一次出现的位置 {
         if(nums == null || nums.length == 0) return -1;
 
         int left = 0;
-        int right = nums.length - 1;
+        int right = nums.length;
         //找到大于或者等于target的最左边的位置
-        while(left <= right) {
+        while(left < right) {
             int mid = (left + right) / 2;
             if(nums[mid] >= target) {
-                right = mid - 1;
+                right = mid;
             } else {
                 left = mid + 1;
             }

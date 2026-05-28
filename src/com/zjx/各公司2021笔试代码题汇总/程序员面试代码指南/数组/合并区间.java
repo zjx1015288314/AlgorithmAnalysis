@@ -47,7 +47,7 @@ public class 合并区间 {
     public int[][] merge2(int[][] intervals) {
         if(intervals == null || intervals.length < 2) return intervals;
         int len = intervals.length;
-        int[][] res = new int[len][2];  //也可以使用List<int[]>来接收,最后返回时使用List.toArray(new int[size][])
+        int[][] res = new int[len][2];  //也可以使用List<int[]>来接收,最后返回时使用List.toArray(new int[size])
         int idx = -1;
         Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
         for (int[] interval: intervals) {

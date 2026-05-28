@@ -35,4 +35,24 @@ public class 二分查找有序数组中某个数的出现次数 {
         }
         return l;
     }
+
+    /**
+     * while条件为<
+     * @param nums
+     * @param k
+     * @return
+     */
+    public static int binarySearh1(int[] nums, int k){
+        int l = 0;
+        int r = nums.length;
+        while(l < r){
+            int m = l + (r - l) / 2;
+            if(nums[m] >= k){
+                r = m;
+            }else{
+                l = m + 1;
+            }
+        }
+        return l;
+    }
 }

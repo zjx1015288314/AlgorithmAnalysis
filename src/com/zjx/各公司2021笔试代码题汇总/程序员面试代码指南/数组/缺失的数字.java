@@ -53,7 +53,7 @@ public class 缺失的数字 {
         if(nums == null || nums.length == 0) return 0;
         int n = nums.length - 1; //理想情况是0-n
         for(int i = 0; i < nums.length; i++){
-            while(nums[i] != i && nums[i] < nums.length){
+            while(nums[i] < nums.length && nums[nums[i]] != nums[i]){
                 swap(nums,i,nums[i]);
             }
         }

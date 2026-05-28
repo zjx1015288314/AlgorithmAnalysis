@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
  * @author zhaojiexiong
  * @create 2020/7/11
  * @since 1.0.0
+ * https://leetcode.cn/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/description/
  */
 public class 根据后序数组判断是不是二叉搜索树 {
     public static void main(String[] args) throws Exception{
@@ -53,5 +54,26 @@ public class 根据后序数组判断是不是二叉搜索树 {
         }
         //类似快排，将区间分为两个子区间继续
         return process(l,less,arr) && process(more,r - 1,arr);
+    }
+
+    /**
+     * 更简单的写法
+     */
+    private boolean verifyTreeOrder(int[] postorder, int left, int right) {
+        if (left >= right) {
+            return true;
+        }
+
+        int p = left;
+        while (postorder[p] < postorder[right]) {
+            p++;
+        }
+
+        int m = p;
+        while (postorder[p] > postorder[right]) {
+            p++;
+        }
+
+        return p == right && verifyTreeOrder(postorder, left, m - 1) && verifyTreeOrder(postorder, m, right - 1);
     }
 }

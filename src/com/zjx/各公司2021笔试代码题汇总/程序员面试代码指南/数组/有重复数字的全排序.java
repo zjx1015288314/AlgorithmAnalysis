@@ -9,6 +9,7 @@ import java.util.*;
  *
  * 输入：[1,1,2]   返回值：[[1,1,2],[1,2,1],[2,1,1]]
  * 输入：[0,1]     返回值：[[0,1],[1,0]]
+ * https://leetcode.cn/problems/7p8L0Z/description/
  */
 public class 有重复数字的全排序 {
 
@@ -24,13 +25,31 @@ public class 有重复数字的全排序 {
         LinkedList<Integer> path = new LinkedList<>();
         visited = new boolean[num.length];
         // 可以先将数据排序， 再全排序 这样就不需要res.sort((o1,o2) -> toStr(o1).compareTo(toStr(o2)));
-        // Arrays.sort(num);
+         Arrays.sort(num);
         backTrack(num, path);
-        res.sort((o1,o2) -> toStr(o1).compareTo(toStr(o2)));
+//        res.sort((o1,o2) -> toStr(o1).compareTo(toStr(o2)));
         return res;
     }
-
     private void backTrack(int[] num, LinkedList<Integer> path) {
+        if (path.size() == num.length) {
+            res.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = 0; i < num.length; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                path.add(num[i]);
+
+                backTrack(num, path);
+                visited[i] = false;
+                path.removeLast();
+            }
+        }
+    }
+
+
+    private void backTrack1(int[] num, LinkedList<Integer> path) {
         if (path.size() == num.length) {
             String pathStr = toStr(path);
             if (!pathSet.contains(pathStr)) {

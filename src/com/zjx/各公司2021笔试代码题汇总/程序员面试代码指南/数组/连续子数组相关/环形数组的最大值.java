@@ -49,6 +49,29 @@ public class 环形数组的最大值 {
     }
 
     /**
+     * maxSubarraySumCircular的优化  只遍历一次
+     */
+    public int maxSubarraySumCircular1(int[] nums) {
+        int sum = 0;
+        int maxSum = 0;
+        int maxRes = nums[0]; //这里一定得设置 不然[-3,-2]这样的情况就没法覆盖
+        int minSum = 0;
+        int minRes = 0;  //这里不能设置为Integer.MAX_VALUE 因为中间数只有在负数的情况下才考虑计算，如果是正数那么一定会包含在结果中
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            sum += num;
+            maxSum = Math.max(maxSum, 0) + num;
+            maxRes = Math.max(maxRes, maxSum);
+            if (i > 0 && i < nums.length - 1) {
+                minSum = Math.min(minSum, 0) + num;
+                minRes = Math.min(minRes, minSum);
+            }
+            System.out.println(sum + " " + maxRes + " " + minRes);
+        }
+        return Math.max(maxRes, sum - minRes);
+    }
+
+    /**
      * 结果只有两种可能，一种包含数组首尾元素并由首尾两部分拼接而成，一种处于数组中间。
      * 先计算以0开头的子数组的元素和的最大值[0，i],再计算以len-1结尾的子数组的元素和的最大值（i,len-1]
      */

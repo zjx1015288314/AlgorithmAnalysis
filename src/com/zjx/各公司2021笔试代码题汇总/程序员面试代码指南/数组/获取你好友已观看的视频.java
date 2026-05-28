@@ -60,7 +60,6 @@ public class 获取你好友已观看的视频 {
         List<String> result = watchedVideosFrequency
                 .entrySet()
                 .stream()
-                .sorted()
                 .sorted((o1, o2) -> {
                     if(o1.getValue().compareTo(o2.getValue()) != 0){
                         return o1.getValue().compareTo(o2.getValue());
@@ -81,19 +80,15 @@ public class 获取你好友已观看的视频 {
 
         for(int i = level; i > 0; i--) {
             int size = queue.size();
-            Set<Integer> set = new HashSet<>();
             for(int j = 0; j < size; j++) {
                 int identity = queue.poll();
                 int[] friend = friends[identity];
-                for(int k = 0; k < friend.length; k++) {
-                    if(!visited.contains(friend[k])) {
-                        set.add(friend[k]);
-                        visited.add(friend[k]);
+                for (int value : friend) {
+                    if (!visited.contains(value)) {
+                        queue.offer(value);
+                        visited.add(value);
                     }
                 }
-            }
-            for(int item : set) {
-                queue.offer(item);
             }
         }
         return queue;
