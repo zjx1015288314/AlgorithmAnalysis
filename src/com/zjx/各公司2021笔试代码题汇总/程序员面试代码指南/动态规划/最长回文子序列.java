@@ -34,7 +34,7 @@ public class 最长回文子序列 {
             for (int j = i + 1; j < n; j++) {   //这里如果j==i的话 下面dp[i + 1][j - 1]是否加2就要分情况讨论
                 char c2 = s.charAt(j);
                 if (c1 == c2) {
-                    dp[i][j] = dp[i + 1][j - 1] + 2;  //不用强调i+1>=j-1，这种情况在dp[][]中为0
+                    dp[i][j] = dp[i + 1][j - 1] + 2;  //不用强调i+1<=j-1，这种情况在dp[][]中为0
                 } else {
                     dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
                 }

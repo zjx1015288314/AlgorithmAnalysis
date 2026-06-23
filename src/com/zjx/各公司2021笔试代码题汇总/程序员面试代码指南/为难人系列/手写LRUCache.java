@@ -50,9 +50,9 @@ public class 手写LRUCache {
 
 // 双端队列 + 哈希表 实现LRU缓存结构
 class LRUCache<K, V> {
-    DoubleLinkedList<V> dList;
-    Map<K, Node<V>> keyNodeMap;    // <key, node>
-    Map<Node<V>, K> nodeKeyMap;    // <node, key>   删除最旧节点时需要用到, 如果Node节点有key，则不需要该map
+    DoubleLinkedList<K, V> dList;
+    Map<K, Node<K, V>> keyNodeMap;    // <key, node>
+//    Map<Node<K, V>, K> nodeKeyMap;    // <node, key>   删除最旧节点时需要用到, 如果Node节点有key，则不需要该map
     int capacity;                  // 缓存容量
 
     public LRUCache(int capacity) {
@@ -61,32 +61,32 @@ class LRUCache<K, V> {
         }
         this.dList = new DoubleLinkedList<>();
         this.keyNodeMap = new HashMap<>();
-        this.nodeKeyMap = new HashMap<>();
+//        this.nodeKeyMap = new HashMap<>();
         this.capacity = capacity;
     }
 
     public void put(K key, V value) {
         if (keyNodeMap.containsKey(key)) {
-            Node<V> node = keyNodeMap.get(key);
+            Node<K, V> node = keyNodeMap.get(key);
             node.value = value;
             dList.moveNodeToTail(node);
         } else {
-            Node<V> newNode = new Node<>(value);
+            Node<K, V> newNode = new Node<>(key, value);
             keyNodeMap.put(key, newNode);
-            nodeKeyMap.put(newNode, key);
+//            nodeKeyMap.put(newNode, key);
             dList.addNodeToTail(newNode);
             if (keyNodeMap.size() > this.capacity) {    // 超出容量，移除最久未使用的节点
-                Node<V> rmNode = dList.removeHead();
-                K rmKey = nodeKeyMap.get(rmNode);
-                keyNodeMap.remove(rmKey);
-                nodeKeyMap.remove(rmNode);
+                Node<K, V> rmNode = dList.removeHead();
+//                K rmKey = nodeKeyMap.get(rmNode);
+                keyNodeMap.remove(rmNode.key);
+//                nodeKeyMap.remove(rmNode);
             }
         }
     }
 
     public V get(K key) {
         if (keyNodeMap.containsKey(key)) {
-            Node<V> node = keyNodeMap.get(key);
+            Node<K, V> node = keyNodeMap.get(key);
             dList.moveNodeToTail(node);
             return node.value;
         }
@@ -97,16 +97,16 @@ class LRUCache<K, V> {
 
 
 // 双端链表，头部优先级最低，尾部优先级最高
-class DoubleLinkedList<V> {
-    Node<V> head;
-    Node<V> tail;
+class DoubleLinkedList<K, V> {
+    Node<K,V> head;
+    Node<K,V> tail;
 
     public DoubleLinkedList() {
         head = null;
         tail = null;
     }
 
-    public void addNodeToTail(Node<V> node) {
+    public void addNodeToTail(Node<K, V> node) {
         if (node == null) {
             return;
         }
@@ -118,7 +118,7 @@ class DoubleLinkedList<V> {
         }
     }
 
-    public void moveNodeToTail(Node<V> node) {
+    public void moveNodeToTail(Node<K, V> node) {
         if (node == null || node == tail) {
             return;
         }
@@ -135,12 +135,12 @@ class DoubleLinkedList<V> {
         tail = tail.next = node;
     }
 
-    public Node<V> removeHead() {
+    public Node<K, V> removeHead() {
         //一般情况下是不会出现出现这种情况
         if (head == null) {
             return null;
         }
-        Node<V> rmNode = head;
+        Node<K, V> rmNode = head;
         //一般情况下是不会出现出现这种情况，因为设置了容量>=1,但这里方法为public，考虑最坏情况
         if (head == tail) {
             head = null;
@@ -154,11 +154,13 @@ class DoubleLinkedList<V> {
     }
 }
 
-class Node<V> {
+class Node<K, V> {
+    K key;
     V value;
-    Node<V> next;
-    Node<V> prev;
-    public Node(V value) {
+    Node<K,V> next;
+    Node<K, V> prev;
+    public Node(K key, V value) {
+        this.key = key;
         this.value = value;
     }
 }

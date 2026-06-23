@@ -31,16 +31,16 @@ public class 马在棋盘上的概率 {
      */
     static final int[][] directs = {{-2, 1}, {-2, -1}, {-1, 2}, {-1, -2}, {1, 2}, {1, -2}, {2, 1}, {2, -1}};
     public static double knightProbability1(int n, int k, int row, int column) {
-        Double[][][] cache = new Double[n][n][k + 1];  //缓存计算过的值，降低复杂度,否则会超时
+        double[][][] cache = new double[n][n][k + 1];  //缓存计算过的值，降低复杂度,否则会超时 int或者long可能会不够用
         double res = process(n, k, row, column, cache);
         double totalSum = Math.pow(8, k);
         return res / totalSum;
     }
 
-    public static double process(int n, int k, int row, int column, Double[][][] cache) {
+    public static double process(int n, int k, int row, int column, double[][][] cache) {
         if(k == 0) return 1.0;
 
-        if (cache[row][column][k] != null) {
+        if (cache[row][column][k] != 0) {
             return cache[row][column][k];
         }
 
